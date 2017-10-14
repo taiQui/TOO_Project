@@ -92,57 +92,58 @@ public class FXMLController implements Initializable {
 
     private void CompleteText() {
         if(text_LastName.getText().isEmpty())
-            text_LastName.setStyle("-fx-background-color: red");
+            text_LastName.setStyle("-fx-border-color: red");
         else
-            text_LastName.setStyle("-fx-background-color: Background.Empty");
+            text_LastName.setStyle("-fx-background: Background.Empty");
         
         if(text_FirstName.getText().isEmpty())
-            text_FirstName.setStyle("-fx-background-color: red");
+            text_FirstName.setStyle("-fx-border-color: red");
         else
             text_FirstName.setStyle("-fx-background-color: Background.Empty");
         
         if(text_Birthday.getText().isEmpty())
-            text_Birthday.setStyle("-fx-background-color: red");
+            text_Birthday.setStyle("-fx-border-color: red");
         else
             text_Birthday.setStyle("-fx-background-color: Background.Empty");
         
         if(text_Birthplace.getText().isEmpty())
-            text_Birthplace.setStyle("-fx-background-color: red");
+            text_Birthplace.setStyle("-fx-border-color: red");
         else
             text_Birthplace.setStyle("-fx-background-color: Background.Empty");
         
         if(text_CaseNumber.getText().isEmpty())
-            text_CaseNumber.setStyle("-fx-background-color: red");
+            text_CaseNumber.setStyle("-fx-border-color: red");
         else
             text_CaseNumber.setStyle("-fx-background-color: Background.Empty");
         
         if(text_NameOrigin.getText().isEmpty())
-            text_NameOrigin.setStyle("-fx-background-color: red");
+            text_NameOrigin.setStyle("-fx-border-color: red");
         else
             text_NameOrigin.setStyle("-fx-background-color: Background.Empty");
         
         if(text_ExactName.getText().isEmpty())
-            text_ExactName.setStyle("-fx-background-color: red");
+            text_ExactName.setStyle("-fx-border-color: red");
         else
             text_ExactName.setStyle("-fx-background-color: Background.Empty");
         
         if(text_DayOfImprisonment.getText().isEmpty())
-            text_DayOfImprisonment.setStyle("-fx-background-color: red");
+            text_DayOfImprisonment.setStyle("-fx-border-color: red");
         else
             text_DayOfImprisonment.setStyle("-fx-background-color: Background.Empty");
         
         if(text_Reason.getText().isEmpty())
-            text_Reason.setStyle("-fx-background-color: red");
+            text_Reason.setStyle("-fx-border-color: red");
         else
             text_Reason.setStyle("-fx-background-color: Background.Empty");
         
         if(text_DayOfFact.getText().isEmpty())
-            text_DayOfFact.setStyle("-fx-background-color: red");
+            text_DayOfFact.setStyle("-fx-border-color: red");
         else
             text_DayOfFact.setStyle("-fx-background-color: Background.Empty");
     }
     @FXML
     private void onClickBtnPoint(MouseEvent event) {
+        text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + '.';
         text_area.setText(aux);
         
@@ -150,66 +151,80 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void onClickBtn3(MouseEvent event) {
+        text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "3";
         text_area.setText(aux);
     }
 
     @FXML
     private void onClickBtn0(MouseEvent event) {
+        text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "0";
         text_area.setText(aux);
     }
 
     @FXML
     private void onClickBtn5(MouseEvent event) {
+        text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "5";
         text_area.setText(aux);
     }
 
     @FXML
     private void onClickBtn2(MouseEvent event) {
+        text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "2";
         text_area.setText(aux);
     }
 
     @FXML
     private void onClickBtn1(MouseEvent event) {
+        text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "1";
         text_area.setText(aux);
     }
 
     @FXML
     private void onClickBtn4(MouseEvent event) {
+        text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "4";
         text_area.setText(aux);
     }
 
     @FXML
     private void onClickBtn6(MouseEvent event) {
+        text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "6";
         text_area.setText(aux);
     }
 
     @FXML
     private void onClickBtnDel(MouseEvent event) {
-        String aux = text_area.getText().substring(0,text_area.getText().length() -1);
+        String aux;
+        if(text_area.getText().toLowerCase().contains("error"))
+            aux = "";
+        else
+            aux = text_area.getText().substring(0,text_area.getText().length() -1);
         text_area.setText(aux);
     }
 
     @FXML
     private void onClickBtn9(MouseEvent event) {
+        text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "9";
         text_area.setText(aux);
     }
 
     @FXML
     private void onClickBtn8(MouseEvent event) {
+        text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "8";
         text_area.setText(aux);
     }
 
     @FXML
     private void onClickBtn7(MouseEvent event) {
+        text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "7";
         text_area.setText(aux);
     }
@@ -224,8 +239,11 @@ public class FXMLController implements Initializable {
         else
             LoadingBar.setStyle("-fx-accent: green;");
         
-        if(text_area.getText().isEmpty())
+        if(text_area.getText().isEmpty()) {
+            text_area.setStyle("-fx-text-fill: red;");
             text_area.setText(text_area.getText()+'\n'+"Error Erase All and try again");
+        }
+            
         
         CompleteText();
         if(data.TestVoid()){
