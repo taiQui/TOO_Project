@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="708.0" prefWidth="1630.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prison_project.FXMLController">
+<AnchorPane id="AnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="708.0" prefWidth="1630.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="prison_project.FXMLController">
   <children>
-    <SplitPane dividerPositions="0.6461916461916462" focusTraversable="true" layoutX="0.0" layoutY="-1.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="709.0" prefWidth="1630.0">
+    <SplitPane id="anchor" dividerPositions="0.6461916461916462" focusTraversable="true" layoutX="0.0" layoutY="-1.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" onMouseMoved="#onmousemoove" prefHeight="709.0" prefWidth="1630.0">
       <items>
         <AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="646.0" prefWidth="963.0">
           <children>
@@ -48,7 +48,7 @@
                 <Font name="Broadway" size="25.0" fx:id="x4" />
               </font>
             </Label>
-            <Button layoutX="662.0" layoutY="354.0" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="144.0" prefWidth="246.0" text="Update">
+            <Button id="Btn" fx:id="Btn_update" layoutX="662.0" layoutY="354.0" maxHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#onClickBtnUpdate" prefHeight="144.0" prefWidth="246.0" text="Update">
               <font>
                 <Font name="Broadway" size="30.0" fx:id="x3" />
               </font>

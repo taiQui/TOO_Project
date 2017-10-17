@@ -14,9 +14,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 
 /**
@@ -93,6 +95,10 @@ public class FXMLController implements Initializable {
     
     @FXML
     private Button btnRead;
+    @FXML
+    private Button Btn_update;
+    @FXML
+    private SplitPane anchor;
     
     /**
      * Initializes the controller class.
@@ -100,11 +106,11 @@ public class FXMLController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            _database = new bank_database();
-        } catch (java.sql.SQLException sql1) {
+        //try {
+       //     _database = new bank_database();
+       // } catch (java.sql.SQLException sql1) {
             
-        }
+       // }
         
     }    
 
@@ -286,16 +292,33 @@ public class FXMLController implements Initializable {
 
         alert.showAndWait();
     }
-
+    
+    public void newW(){
+        Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("BITE");
+            alert.setHeaderText("BITE");
+            alert.setContentText("BITE");
+            alert.showAndWait();
+            newW();
+        
+    }
+    
     @FXML
     private void onClickBtnRead(MouseEvent event)throws java.sql.SQLException  {
-        Data dataRead = new Data();
-        dataRead = _database.readDatabase();
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText(dataRead.getFirstName());
-
-        alert.showAndWait();
+       // Data dataRead = new Data();
+        // = _database.readDatabase();
+        newW();
+        
     }
+
+    @FXML
+    private void onClickBtnUpdate(MouseEvent event) {
+    }
+
+    @FXML
+    private void onmousemoove(MouseEvent event) {
+        newW();
+    }
+
+    
 }
