@@ -7,8 +7,11 @@ package prison_project;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
@@ -23,6 +26,8 @@ import javafx.scene.text.Font;
  */
 public class FXMLController implements Initializable {
 
+    @FXML
+    private Button btnDelete;
     @FXML
     private Button btn_point;
     @FXML
@@ -81,10 +86,16 @@ public class FXMLController implements Initializable {
     private TextField text_DayOfFact;
     @FXML
     private ProgressBar LoadingBar;
-
+    
+    
+    private bank_database _database;
+    @FXML
+    private Button btnRead;
+    
     /**
      * Initializes the controller class.
      */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -247,9 +258,32 @@ public class FXMLController implements Initializable {
         
         CompleteText();
         if(data.TestVoid()){
-            
+            _database.addDatabase(data.getLastName(), data.getFirstName, data.getBithday, data.getBirthPlace, data.getCaseNumber, data.getNameOfOrigin, data.getExactName, data.getDayOfImprisonment, data.getReason, data.getDayOfFact);
               
         }
     }
-    
+
+    @FXML
+    private void onClickBtnDelete(MouseEvent event) {
+        System.out.println("user pressed delete !");
+        
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Look, an Information Dialog");
+        alert.setContentText("I have a great message for you!");
+
+        alert.showAndWait();
+    }
+
+    @FXML
+    private void onClickBtnRead(MouseEvent event) {
+        Data dataRead = new Data();
+        dataRead = _database.readDatabase();
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Look, an Information Dialog");
+        alert.setContentText(dataRead.getFirstName());
+
+        alert.showAndWait();
+    }
 }
