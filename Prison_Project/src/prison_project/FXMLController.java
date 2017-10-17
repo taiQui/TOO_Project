@@ -88,7 +88,9 @@ public class FXMLController implements Initializable {
     private ProgressBar LoadingBar;
     
     
-    private bank_database _database;
+    private bank_database _database = null;
+   
+    
     @FXML
     private Button btnRead;
     
@@ -98,6 +100,11 @@ public class FXMLController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            _database = new bank_database();
+        } catch (java.sql.SQLException sql1) {
+            
+        }
         
     }    
 
@@ -157,6 +164,7 @@ public class FXMLController implements Initializable {
         text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + '.';
         text_area.setText(aux);
+        
         
     }
 
@@ -243,6 +251,7 @@ public class FXMLController implements Initializable {
     @FXML
     private void onClickBtnCreate(MouseEvent event)throws java.sql.SQLException  {
         Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_ExactName.getText(),text_DayOfImprisonment.getText(),text_Reason.getText(),text_DayOfFact.getText());
+        
         LoadingBar.setProgress(data.TestError());
         System.out.println(data.TestError());
         if(data.TestError() < 1.0)
@@ -260,8 +269,8 @@ public class FXMLController implements Initializable {
 
         
             
-
-        if(data.TestVoid()){
+        System.out.println(!data.TestVoid());
+        if(!data.TestVoid()){
             _database.addDatabase(data.getLastName(), data.getFirstName(), data.getBirthday(), data.getBirthplace(), data.getCaseNumber(), data.getNameOfOrigin(), data.getExactName(), data.getDayOfImprisonment(), data.getReason(), data.getDayOfFact());
         }
     }

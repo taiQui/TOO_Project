@@ -49,8 +49,11 @@ public class bank_database {
     
    private java.sql.Connection _connection;
    
-   public bank_database() throws java.sql.SQLException{
+    public bank_database() throws java.sql.SQLException{
+       
        _connection = java.sql.DriverManager.getConnection("jdbc:derby:bank_database");
+       _connection.setAutoCommit(false);
+
        
    }
    
