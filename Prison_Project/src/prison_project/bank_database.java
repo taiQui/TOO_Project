@@ -15,21 +15,75 @@ public class bank_database {
             java.sql.DriverManager.registerDriver(new org.apache.derby.jdbc.EmbeddedDriver());
             java.sql.Statement statement = java.sql.DriverManager.getConnection("jdbc:derby:bank_database;create=true").createStatement();
             // Create table 
-            statement.execute("create table Prisoner(\n"
-                    + "PrisonRegisterNumber int(5),\n"
-                    + "FirstName varchar(20),\n"
-                    + "LastName varchar(20),\n"
-                    + "Birthday DATE(),\n"
-                    + "Birthplace varchar(20),\n"
-                    + "CaseNumber int(10),\n"
-                    + "NameOfOriginCourt varchar(20),\n"
-                    + "ExactNameOfJuridiction varchar(20),\n"
-                    + "DayOfImprisonment DATE(),\n"
-                    + "Reason varchar(50),\n"
-                    + "DayOfFact DATE(),\n"
-                    + "constraint Prisoner_Key primary key(PrisonRegisterNumber))");
+            statement.execute("create table Detenu(\n"
+                    + "n_ecrou varchar(10),\n"
+                    + "prenom varchar(30),\n"
+                    + "nom varchar(30),\n"
+                    + "date_naissance Date,\n"
+                    + "lieu_naissance varchar(30),\n"
+                    + "constraint Detenu_key primary key(n_ecrou));\n"
+            );
                     
            
+            statement.execute("create table Affaire(\n"
+                    + "n_affaire varchar(10),\n"
+                    + "nom_juridiction varchar(30),\n"
+                    + "date_faits Date,\n"
+                    + "constraint Affaire_key primary key(n_affaire,nom_juridiction));\n"
+            );
+            
+            statement.execute("create table Detenu_Affaire(\n"
+                    + "n_ecrou varchar(10),\n"
+                    + "n_affaire varchar(10),\n"
+                    + "nom_juridiction varchar(30),\n"
+                    + "constraint Detenu_Affaire_key primary key(n_ecrou,n_affaire,nom_juridiction),\n"
+                    + "constraint Detenu_Affaire_foreign_key foreign key(n_ecrou) references Detenu(n_ecrou),\n"
+                    + "constraint Detenu_Affaire_foreign_key2 foreign key(n_affaire,nom_juridiction) references Affaire(n_affaire,nom_juridiction);"
+            );
+            
+            statement.execute("create table Motif(\n"
+                    + "n_motif varchar(10),\n"
+                    + "libelle_motif varchar(50) not null,\n"
+                    + "constraint Motif_key primary key(n_motif),\n"
+                    + "constraint Motif_unique unique(libelle_motif));\n"
+            );
+            
+            statement.execute("create table Incarceration("
+                    + "n_ecrou varchar(10),\n"
+                    + "n_affaire varchar(10) not null,\n"
+                    + "nom_juridiction varchar(30) not null,\n"
+                    + "date_incarceration Date,\n"
+                    + "n_motif varchar(10) not null,\n"
+                    + "constraint Incarceration_key primary key(n_ecrou),"
+                    + "constraint Incarceration_foreign_key foreign key(n_ecrou,n_affaire,nom_juridiction) references Detenu_Affaire(n_ecrou,n_affaire,nom_juridiction),\n"
+                    + "constraint Incarceration_foreign_key2 foreign key(n_motif) references Motif(n_motif));"
+            );
+            
+            statement.execute("create table Decision("
+                    + "n_type_decision varchar(1),\n"
+                    + "n_ecrou varchar(10),\n"
+                    + "date_decision Date,\n"
+                    + "constraint Decision_key primary key(n_type_decision,n_ecrou,date_decision),\n"
+                    + "constraint Decision_fk foreign key(n_ecrou) references Detenu(n_ecrou));"
+            );
+            
+            statement.execute("create table Condamnation("
+                    + "n_type_decision varchar(1),\n"
+                    + "n_ecrou varchar(10),\n"
+                    + "date_decision Date,\n"
+                    + "duree Integer,\n"
+                    + "constraint Reduction_peine_key primary key(n_type_decision,n_ecrou,date_decision),"
+                    + "constraint Reduction_peine_fk foreign key(n_type_decision,n_ecrou,date_decision) references Decision(n_type_decision,n_ecrou,date_decision) on delete cascade);"
+            );
+            
+            statement.execute("create table Liberation_definitive("
+                    + "n_type_decision varchar(1),\n"
+                    + "n_ecrou varchar(10),\n"
+                    + "date_decision Date,\n"
+                    + "date_liberation Date,\n"
+                    + "constraint Liberation_definitive_key primary key(n_type_decision,n_ecrou,date_decision),"
+                    + "constraint Liberation_definitive_fk foreign key(n_type_decision,n_ecrou,date_decision) references Decision(n_type_decision,n_ecrou,date_decision) on delete cascade);"
+            );
         } catch (java.sql.SQLException sqle1) {
             System.err.println("'bank_database' probably already exists? " + sqle1.getMessage());
             java.sql.Connection connection;
