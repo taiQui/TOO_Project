@@ -241,7 +241,7 @@ public class FXMLController implements Initializable {
     }
 
     @FXML
-    private void onClickBtnCreate(MouseEvent event) {
+    private void onClickBtnCreate(MouseEvent event)throws java.sql.SQLException  {
         Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_ExactName.getText(),text_DayOfImprisonment.getText(),text_Reason.getText(),text_DayOfFact.getText());
         LoadingBar.setProgress(data.TestError());
         System.out.println(data.TestError());
@@ -262,7 +262,7 @@ public class FXMLController implements Initializable {
             
 
         if(data.TestVoid()){
-            _database.addDatabase(data.getLastName(), data.getFirstName, data.getBithday, data.getBirthPlace, data.getCaseNumber, data.getNameOfOrigin, data.getExactName, data.getDayOfImprisonment, data.getReason, data.getDayOfFact);
+            _database.addDatabase(data.getLastName(), data.getFirstName(), data.getBirthday(), data.getBirthplace(), data.getCaseNumber(), data.getNameOfOrigin(), data.getExactName(), data.getDayOfImprisonment(), data.getReason(), data.getDayOfFact());
         }
     }
 
@@ -279,7 +279,7 @@ public class FXMLController implements Initializable {
     }
 
     @FXML
-    private void onClickBtnRead(MouseEvent event) {
+    private void onClickBtnRead(MouseEvent event)throws java.sql.SQLException  {
         Data dataRead = new Data();
         dataRead = _database.readDatabase();
         Alert alert = new Alert(AlertType.INFORMATION);
