@@ -31,19 +31,15 @@ public class bank_database {
                     
            
         } catch (java.sql.SQLException sqle1) {
-            System.err.println("'Banking_system_database' probably already exists? " + sqle1.getMessage());
+            System.err.println("'bank_database' probably already exists? " + sqle1.getMessage());
             java.sql.Connection connection;
             java.sql.Statement clean_up;
             try {
-                connection = java.sql.DriverManager.getConnection("jdbc:derby:Banking_system_database");
+                connection = java.sql.DriverManager.getConnection("jdbc:derby:bank_database");
                 clean_up = connection.createStatement();
-                clean_up.execute("delete from GoCO");
-                clean_up.execute("delete from GonyPO");
-                clean_up.execute("delete from GoaVA");
-                clean_up.execute("delete from GonyVA");
                 connection.commit();
             } catch (java.sql.SQLException sqle2) {
-                System.err.println("'Banking_system_database' persistent error: " + sqle2.getMessage());
+                System.err.println("'bank_database' persistent error: " + sqle2.getMessage());
                 System.exit(-1);
             }
         }
@@ -57,4 +53,16 @@ public class bank_database {
        _connection = java.sql.DriverManager.getConnection("jdbc:derby:bank_database");
        
    }
+   
+   public void addDatabase(String lastName, String firstName, String birthday, String birthplace, String caseNumber, String nameOfOrigin, String exactName, String dayOfImprisonment, String reason, String dayOfFact) throws java.sql.SQLException{
+       _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("insert into Prisoner values("+lastName+","+firstName+","+birthday+","+birthplace+","+nameOfOrigin+","+exactName+","+dayOfImprisonment+","+reason+","+dayOfFact+")");
+   }
+   
+   public Data readDatabase() throws java.sql.SQLException {
+       Data data = new Data();
+       data.setLastName(_connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select LastName from Prisoner ").getString("LastName"));
+       data.setFirstName(_connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select FirstName from Prisoner ").getString("FirstName"));
+       return(data);
+   }
 }
+   

@@ -35,9 +35,104 @@ public class Data {
         this._Reason = t9;
         this._DayOfFact = t10;
     }
-    
+         Data(){
+        //System.out.println("test2");
+        this._LastName = "";
+        this._FirstName = "";
+        this._Birthday = "";
+        this._Birthplace = "";
+        this._CaseNumber = "";
+        this._NameOfOriginCourt = "";
+        this._ExactNameJuridiction = "";
+        this._DayOfImprisonment = "";
+        this._Reason = "";
+        this._DayOfFact = "";
+    }
+         
+         
+         public void setLastName(String lastname) {
+             this._LastName = lastname;
+         }
+         
+         public void setFirstName(String firstname) {
+             this._FirstName = firstname;
+         }
+         
+         public void setBirthday(String birthday) {
+             this._Birthday = birthday;
+         }
+         
+         public void setBirthplace (String birthplace) {
+             this._Birthplace = birthplace;
+         }
+         
+         public void setCaseNumber ( String casenumber ) {
+             this._CaseNumber = casenumber;
+         }
+         
+         public void setNameOfOrigin( String nameoforigin) {
+             this._NameOfOriginCourt = nameoforigin;
+         }
+         
+         public void setExactName( String exactname ){
+             this._ExactNameJuridiction = exactname;
+         }
+         
+         public void setDayofImprisonment(String dayofimprisonment ){
+             this._DayOfImprisonment = dayofimprisonment;
+         }
+         
+         public void setReason( String reason ) {
+             this._Reason = reason;
+         }
+         
+         public void setDayOfFact(String dayoffact) {
+             this._DayOfFact = dayoffact;
+         }
+         
+         public String getLastName() {
+             return(this._LastName);
+         }
+         
+         public String getFirstName(){
+             return(this._FirstName);
+         }
+         
+         public String getBirthday(){
+             return(this._Birthday);
+         }
+         
+         public String getBirthplace(){
+             return(this._Birthplace);
+         }
+         
+         public String getCaseNumber(){
+             return(this._CaseNumber);
+         }
+         
+         public String getNameOfOrigin(){
+             return(this._NameOfOriginCourt);
+         }
+         
+         public String getExactName(){
+             return(this._ExactNameJuridiction);
+         }
+         
+         public String getDayOfImprisonment(){
+             return(this._DayOfImprisonment);
+         }
+         
+         public String getReason(){
+             return(this._Reason);
+         }
+         
+         public String getDayOfFact(){
+             return(this._DayOfFact);
+         }
+         
+         
     public boolean TestVoid(){
-        return(this._LastName == "" && this._FirstName == "" && this._Birthday == "" && this._Birthplace == "" && this._CaseNumber == "" && this._NameOfOriginCourt == "" && this._ExactNameJuridiction == "" && this._DayOfImprisonment == "" && this._Reason == "" && this._DayOfFact == "");
+        return(this._LastName.isEmpty() && this._FirstName.isEmpty() && this._Birthday.isEmpty() && this._Birthplace.isEmpty() && this._CaseNumber.isEmpty() && this._NameOfOriginCourt.isEmpty() && this._ExactNameJuridiction.isEmpty() && this._DayOfImprisonment.isEmpty() && this._Reason.isEmpty() && this._DayOfFact.isEmpty());
     }
     
     public double TestError(){

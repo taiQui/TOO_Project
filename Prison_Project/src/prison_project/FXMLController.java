@@ -246,9 +246,8 @@ public class FXMLController implements Initializable {
             
         
         CompleteText();
-        if(data.TestVoid()){
+        if(!data.TestVoid()){
             
-              
         }
     }
     
