@@ -9,9 +9,9 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="708.0" prefWidth="1630.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="prison_project.FXMLController">
   <children>
-    <SplitPane id="anchor" dividerPositions="0.6461916461916462" focusTraversable="true" layoutX="0.0" layoutY="-1.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" onMouseMoved="#onmousemoove" prefHeight="709.0" prefWidth="1630.0">
+    <SplitPane id="anchor" dividerPositions="0.6461916461916462" focusTraversable="true" layoutX="0.0" layoutY="-1.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="709.0" prefWidth="1630.0">
       <items>
-        <AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="646.0" prefWidth="963.0">
+        <AnchorPane id="AnchorPane" disable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="646.0" prefWidth="963.0">
           <children>
             <Button fx:id="btn_point" layoutX="14.0" layoutY="579.0" mnemonicParsing="false" onMouseClicked="#onClickBtnPoint" prefHeight="73.0" prefWidth="116.0" text=".">
               <font>
@@ -63,7 +63,7 @@
         </AnchorPane>
         <AnchorPane minHeight="-1.0" minWidth="-1.0" prefHeight="707.0" prefWidth="564.0">
           <children>
-            <TextArea layoutX="0.0" layoutY="0.0" prefHeight="707.0" prefWidth="275.0" text="Create :&#10;To create a new prison register sheet, enter the prison register number with pin code and all information required then push the button Create.&#10;&#10;Read : &#10;To read/search a prisoner, enter this prison register number and push the button Read.&#10;This register sheet appear in collumn Data.&#10;&#10;Update : &#10;To update a prison register sheet, enter the prison register number with pin code, push the button Read, modify the specified field on Data and push the button Update.&#10;&#10;Delete : &#10;To delete un prisoner, enter this prison register number, push the button Read and just push the button Delete." wrapText="true" />
+            <TextArea editable="false" layoutX="0.0" layoutY="0.0" prefHeight="707.0" prefWidth="275.0" text="Create :&#10;To create a new prison register sheet, enter the prison register number with pin code and all information required then push the button Create.&#10;&#10;Read : &#10;To read/search a prisoner, enter this prison register number and push the button Read.&#10;This register sheet appear in collumn Data.&#10;&#10;Update : &#10;To update a prison register sheet, enter the prison register number with pin code, push the button Read, modify the specified field on Data and push the button Update.&#10;&#10;Delete : &#10;To delete un prisoner, enter this prison register number, push the button Read and just push the button Delete." wrapText="true" />
           </children>
         </AnchorPane>
       </items>

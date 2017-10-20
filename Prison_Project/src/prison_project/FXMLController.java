@@ -5,6 +5,7 @@
  */
 package prison_project;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -89,16 +90,15 @@ public class FXMLController implements Initializable {
     @FXML
     private ProgressBar LoadingBar;
     
+    private bank_database _database;
     
-    private bank_database _database = null;
    
     
     @FXML
     private Button btnRead;
     @FXML
     private Button Btn_update;
-    @FXML
-    private SplitPane anchor;
+ 
     
     /**
      * Initializes the controller class.
@@ -106,14 +106,39 @@ public class FXMLController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //try {
-       //     _database = new bank_database();
-       // } catch (java.sql.SQLException sql1) {
+        SuppRep rep = new SuppRep();
+        File file = new File("C:\\Users\\greg1\\Documents\\TOO_Project\\Prison_Project\\bank_database");
+        if(file.exists()){
+            rep.deleteAll(file);
+            System.out.println("Repertoire supprimer");
+        }
+        if(file.exists())
+            System.out.println("Le fichier n'as pas ete supprimer");
+       // try {
+            //_database = new bank_database();
+          //  System.out.println(_database.toString );
             
-       // }
+        try {
+            createDatabase();
+        } catch (Exception s1){
+            System.out.println("intryconst");
+            System.err.println(s1.getMessage());
+        }
+            
+           
+       // } catch (java.sql.SQLException sql1) {
+           
+       // } catch (Exception e1){
+            
+        //}
         
     }    
-
+    
+    public void createDatabase() throws Exception {
+        _database = new bank_database();
+    }
+    
+    
     private void CompleteText() {
         if(text_LastName.getText().isEmpty())
             text_LastName.setStyle("-fx-border-color: red");
@@ -256,7 +281,7 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void onClickBtnCreate(MouseEvent event)throws java.sql.SQLException  {
-        Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_ExactName.getText(),text_DayOfImprisonment.getText(),text_Reason.getText(),text_DayOfFact.getText());
+        Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_ExactName.getText(),text_DayOfImprisonment.getText(),text_Reason.getText(),text_DayOfFact.getText(),text_area.getText());
         
         LoadingBar.setProgress(data.TestError());
         System.out.println(data.TestError());
@@ -277,7 +302,7 @@ public class FXMLController implements Initializable {
             
         System.out.println(!data.TestVoid());
         if(!data.TestVoid()){
-            _database.addDatabase(data.getLastName(), data.getFirstName(), data.getBirthday(), data.getBirthplace(), data.getCaseNumber(), data.getNameOfOrigin(), data.getExactName(), data.getDayOfImprisonment(), data.getReason(), data.getDayOfFact());
+            _database.addDatabase(data);
         }
     }
 
@@ -305,9 +330,10 @@ public class FXMLController implements Initializable {
     
     @FXML
     private void onClickBtnRead(MouseEvent event)throws java.sql.SQLException  {
-       // Data dataRead = new Data();
-        // = _database.readDatabase();
-        newW();
+        Data dataRead = new Data();
+       dataRead =  _database.readDatabase();
+       text_LastName.setText(dataRead.getLastName());
+        
         
     }
 
@@ -315,10 +341,7 @@ public class FXMLController implements Initializable {
     private void onClickBtnUpdate(MouseEvent event) {
     }
 
-    @FXML
-    private void onmousemoove(MouseEvent event) {
-        newW();
-    }
+    
 
     
 }

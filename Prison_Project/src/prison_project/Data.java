@@ -21,8 +21,9 @@ public class Data {
     private String _DayOfImprisonment;
     private String _Reason;
     private String _DayOfFact;
+    private String _Necrou;
     
-     Data(String t1,String t2, String t3,String t4,String t5,String t6,String t7,String t8,String t9,String t10){
+     Data(String t1,String t2, String t3,String t4,String t5,String t6,String t7,String t8,String t9,String t10,String t11){
         //System.out.println("test2");
         this._LastName = t1;
         this._FirstName = t2;
@@ -34,6 +35,7 @@ public class Data {
         this._DayOfImprisonment = t8;
         this._Reason = t9;
         this._DayOfFact = t10;
+        this._Necrou = t11;
     }
          Data(){
         //System.out.println("test2");
@@ -47,6 +49,7 @@ public class Data {
         this._DayOfImprisonment = "";
         this._Reason = "";
         this._DayOfFact = "";
+        this._Necrou = "";
     }
          
          
@@ -90,6 +93,10 @@ public class Data {
              this._DayOfFact = dayoffact;
          }
          
+         public void setNecrou ( String ecrou ){
+             this._Necrou = ecrou;
+         }
+         
          public String getLastName() {
              return(this._LastName);
          }
@@ -130,9 +137,12 @@ public class Data {
              return(this._DayOfFact);
          }
          
+         public String getNecrou(){
+             return(this._Necrou);
+         }
          
     public boolean TestVoid(){
-        return(this._LastName.isEmpty() && this._FirstName.isEmpty() && this._Birthday.isEmpty() && this._Birthplace.isEmpty() && this._CaseNumber.isEmpty() && this._NameOfOriginCourt.isEmpty() && this._ExactNameJuridiction.isEmpty() && this._DayOfImprisonment.isEmpty() && this._Reason.isEmpty() && this._DayOfFact.isEmpty());
+        return(this._LastName.isEmpty() && this._FirstName.isEmpty() && this._Birthday.isEmpty() && this._Birthplace.isEmpty() && this._CaseNumber.isEmpty() && this._NameOfOriginCourt.isEmpty() && this._ExactNameJuridiction.isEmpty() && this._DayOfImprisonment.isEmpty() && this._Reason.isEmpty() && this._DayOfFact.isEmpty() && this._Necrou.isEmpty());
     }
     
     public double TestError(){

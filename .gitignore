@@ -29,3 +29,5 @@ hs_err_pid*
 /Prison_Project/src/Banking_system_Swing/build/
 /Prison_Project/build/
 /Prison_Project/dist/
+/testDB/nbproject/private/
+/testDB/build/
