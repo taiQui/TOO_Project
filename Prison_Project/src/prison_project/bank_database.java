@@ -143,7 +143,11 @@ public class bank_database {
 
        ResultSet rs = _connection.createStatement().executeQuery("select * from Detenu ");
        if(rs.next()){
-         data.setLastName(rs.getString(2));
+            for(int i = 1 ; i < 6 ; i++ ) {
+                System.out.println("i = " + i + " : "+rs.getString(i));
+            }
+           
+         
          System.out.println("test4");
        }
 
