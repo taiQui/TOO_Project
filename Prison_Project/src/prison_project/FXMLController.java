@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -98,6 +99,8 @@ public class FXMLController implements Initializable {
     private Button btnRead;
     @FXML
     private Button Btn_update;
+    @FXML
+    private Button btnMenu;
  
     
     /**
@@ -339,6 +342,12 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void onClickBtnUpdate(MouseEvent event) {
+    }
+
+    @FXML
+    private void onClickBtnMenu(MouseEvent event) {
+        Stage stage = (Stage) btnMenu.getScene().getWindow();
+        stage.close();
     }
 
     

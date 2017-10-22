@@ -7,7 +7,11 @@ package prison_project;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -19,6 +23,9 @@ import javafx.fxml.Initializable;
 
 public class Prisionnier_PreventifController implements Initializable {
 
+    @FXML
+    private Button btnMenu;
+
     /**
      * Initializes the controller class.
      */
@@ -26,5 +33,11 @@ public class Prisionnier_PreventifController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void onClickBtnMenu(MouseEvent event) {
+        Stage stage = (Stage) btnMenu.getScene().getWindow();
+        stage.close();
+    }
     
 }
