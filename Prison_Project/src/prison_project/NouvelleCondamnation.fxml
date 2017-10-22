@@ -6,6 +6,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prison_project.NouvelleComdanmationController">
-    
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prison_project.NouvelleComdanmationController">
+   <children>
+      <Button fx:id="btnMenu" layoutX="262.0" layoutY="168.0" mnemonicParsing="false" onMouseClicked="#onClickBtnMenu" text="Back to Menu" />
+   </children>
 </AnchorPane>

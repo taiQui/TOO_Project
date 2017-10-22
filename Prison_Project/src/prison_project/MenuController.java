@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import java.util.ResourceBundle;
+import javafx.application.Application;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +31,7 @@ import javafx.stage.Stage;
  *
  * @author greg1
  */
-public class MenuController implements Initializable {
+public class MenuController /*extends Application*/ implements Initializable {
 
     @FXML
     private Button btn_newIncar;
@@ -49,7 +50,17 @@ public class MenuController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
     }
-
+    /*
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void stop(){
+        System.err.println("Stage is closing");
+    }*/
+    
 
     public void switchScene(String name){
         try {
@@ -95,5 +106,8 @@ public class MenuController implements Initializable {
         String name = "Prisonnier_Preventif.fxml";
         switchScene(name);
     }
+
+
+    
 
 }
