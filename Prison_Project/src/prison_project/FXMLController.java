@@ -314,7 +314,7 @@ public class FXMLController implements Initializable {
         System.out.println(!data.TestVoid());
         if(!data.TestVoid()){
         //Detenu
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         Date dateobj = sdf.parse(text_Birthday.getText());
         java.util.Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateobj);

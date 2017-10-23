@@ -36,21 +36,24 @@ public class Prisionnier_PreventifController implements Initializable {
     @FXML
     private Button btnMenu;
     @FXML
-    private TableView<Detenu> tableview;
+    private TableView<Detenu> tableview= new TableView<Detenu>();
     @FXML
     private Button btn_voir;
 
     private bank_database _database;
-    
-    private ObservableList<Detenu> ajoutable;
+    final java.util.Calendar cal = Calendar.getInstance();
+    private ObservableList<Detenu> ajoutable = FXCollections.observableArrayList(
+                        new Detenu ("159","greg","bite",cal,"sexe"));
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        tableview.setEditable(true);
         TableColumn colonneDateNaiss = new TableColumn("Date de naissance");
         TableColumn colonneLieuxNaiss = new TableColumn("Lieu de naissance");
         TableColumn colonneEcrou = new TableColumn("Ecrou");
+        tableview.setItems(ajoutable);
         tableview.getColumns().addAll(colonneDateNaiss,colonneLieuxNaiss,colonneEcrou);
         
         try {
@@ -77,7 +80,9 @@ public class Prisionnier_PreventifController implements Initializable {
         String ecrou;
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         java.util.Calendar calendar = Calendar.getInstance();
-
+        
+        ajoutable = tableview.getItems();
+        tableview.setItems(ajoutable);
         rs.beforeFirst();
         while(rs.next()){
             prenom = rs.getString("prenom");
@@ -87,15 +92,18 @@ public class Prisionnier_PreventifController implements Initializable {
             calendar.setTime(dateobj);
             datenaiss = calendar;
             lieunaiss = rs.getString("lieu_naissance");
-            System.out.println(prenom+nom+ecrou+datenaiss+ lieunaiss );
-            ajoutable = FXCollections.observableArrayList(
-                        new Detenu (ecrou,prenom,nom,datenaiss,lieunaiss),
-                        new Detenu (ecrou,prenom,nom,datenaiss,lieunaiss));
+            System.out.println(prenom+nom+ecrou+sdf.format(datenaiss.getTime())+ lieunaiss );
+            //ajoutable = FXCollections.observableArrayList(
+                       // new Detenu (ecrou,prenom,nom,datenaiss,lieunaiss));
+                        //new Detenu (ecrou,prenom,nom,datenaiss,lieunaiss));
             ajoutable.add(new Detenu (ecrou,prenom,nom,datenaiss,lieunaiss));
-            
-            
+           // tableview.setItems(ajoutable);
+            //tableview.refresh();
+           
         }
-        tableview.setItems(ajoutable);
+       
+        // tableview.setItems(ajoutable);
+        //tableview.refresh();
         
     }
     

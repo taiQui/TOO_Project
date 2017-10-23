@@ -11,7 +11,7 @@
   <children>
     <Button fx:id="btnMenu" layoutX="1122.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#onClickBtnMenu" prefHeight="75.0" prefWidth="170.0" text="Back to Menu" />
     <Text layoutX="349.0" layoutY="44.0" scaleX="7.414681489324157" scaleY="3.1302006852667645" strokeType="OUTSIDE" strokeWidth="0.0" text="Tous les prisonniers" underline="true" />
-    <TableView fx:id="tableview" disable="false" layoutX="14.0" layoutY="89.0" prefHeight="578.0" prefWidth="773.5888061523438" tableMenuButtonVisible="false">
+    <TableView fx:id="tableview" disable="false" editable="false" layoutX="14.0" layoutY="89.0" prefHeight="578.0" prefWidth="773.5888061523438" tableMenuButtonVisible="true">
       <columns>
         <TableColumn prefWidth="75.0" text="Prenom" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="92.0" text="nom" />

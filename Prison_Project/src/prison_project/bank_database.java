@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -25,9 +26,9 @@ public class bank_database {
                     +"date_naissance Date,\n"
                     +"lieu_naissance varchar(30),\n"
                     +"constraint Detenu_key primary key(n_ecrou))");
-            statement.execute("create table Affaire("
+            statement.execute("create table Affaire(\n"
                     +"n_affaire varchar(10),"
-                    +"nom_juridiction varchar(30),"
+                    //+"nom_juridiction varchar(30),"
                     +"date_faits Date,"
                     +"constraint Affaire_key primary key(n_affaire,nom_juridiction))");
             statement.execute("create table Detenu_Affaire("
@@ -37,12 +38,12 @@ public class bank_database {
                     +"constraint Detenu_Affaire_key primary key(n_ecrou,n_affaire,nom_juridiction),"
                     +"constraint Detenu_Affaire_foreign_key foreign key(n_ecrou) references Detenu(n_ecrou),"
                     +"constraint Detenu_Affaire_foreign_key2 foreign key(n_affaire,nom_juridiction) references Affaire(n_affaire,nom_juridiction))");
-            statement.execute("create table Motif("
+            statement.execute("create table Motif(\n"
                     +"n_motif varchar(10),"
                     +"libelle_motif varchar(50) not null,"
                     +"constraint Motif_key primary key(n_motif),"
                     +"constraint Motif_unique unique(libelle_motif))");
-            statement.execute("create table Incarceration("
+            statement.execute("create table Incarceration(\n"
                     +"n_ecrou varchar(10),"
                     +"n_affaire varchar(10) not null,"
                     +"nom_juridiction varchar(30) not null,"
@@ -51,13 +52,13 @@ public class bank_database {
                     +"constraint Incarceration_key primary key(n_ecrou),"
                     +"constraint Incarceration_foreign_key foreign key(n_ecrou,n_affaire,nom_juridiction) references Detenu_Affaire(n_ecrou,n_affaire,nom_juridiction),"
                     +"constraint Incarceration_foreign_key2 foreign key(n_motif) references Motif(n_motif))");
-            statement.execute("create table Decision("
+            statement.execute("create table Decision(\n"
                     +"n_type_decision varchar(1),"
                     +"n_ecrou varchar(10),"
                     +"date_decision Date,"
                     +"constraint Decision_key primary key(n_type_decision,n_ecrou,date_decision),"
                     +"constraint Decision_fk foreign key(n_ecrou) references Detenu(n_ecrou))");
-            statement.execute("create table Condamnation("
+            statement.execute("create table Condamnation(\n"
                     +"n_type_decision varchar(1),"
                     +"n_ecrou varchar(10),"
                     +"date_decision Date,"
@@ -65,14 +66,14 @@ public class bank_database {
                     +"constraint Condamnation_key primary key(n_type_decision,n_ecrou,date_decision),"
                     +"constraint Condamnation_fk foreign key(n_type_decision,n_ecrou,date_decision) references Decision(n_type_decision,n_ecrou,date_decision) on delete cascade)");
 
-            statement.execute("create table Reduction_peine("
+            statement.execute("create table Reduction_peine(\n"
                     +"n_type_decision varchar(1),"
                     +"n_ecrou varchar(10),"
                     +"date_decision Date,"
                     +"duree Integer,"
                     +"constraint Reduction_peine_key primary key(n_type_decision,n_ecrou,date_decision),"
                     +"constraint Reduction_peine_fk foreign key(n_type_decision,n_ecrou,date_decision) references Decision(n_type_decision,n_ecrou,date_decision) on delete cascade)");
-            statement.execute("create table Liberation_definitive("
+            statement.execute("create table Liberation_definitive(\n"
                     +"n_type_decision varchar(1),"
                     +"n_ecrou varchar(10),"
                     +"date_decision Date,"
@@ -132,12 +133,23 @@ public class bank_database {
     }
 
    public void addPrisionnierToDatabase(Detenu detenu,Affaire affaire,Juridiction juridiction,Incarceration incarceration,Motif motif) throws java.sql.SQLException{
-       _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("insert into Detenu values("+detenu.getEcrou()+","+detenu.getPrenom()+","+detenu.getNom()+","+detenu.getDNaiss()+","+detenu.getLieuNaiss()+")");
-       _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("insert into Affaire values("+affaire.getAffaire()+","+affaire.getDate()+")");
-       _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("insert into Juridiction values("+juridiction.getNom()+")");
-       _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("insert into Incarceration values("+incarceration.getDate()+")");
-       _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("insert into Motif values("+motif.getMotif()+", test )");
+       //Calendar cal = Calendar.getInstance();
+      // cal.add(Calendar.DATE, 1);
+      
+       SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+       System.out.println(format1.format(detenu.getDNaiss().getTime()));
+       System.out.println(format1.format(affaire.getDate().getTime()));
+       _connection.createStatement().execute("insert into Detenu values('"+detenu.getEcrou()+"','"+detenu.getPrenom()+"','"+detenu.getNom()+"',DATE('"+format1.format(detenu.getDNaiss().getTime())+"'),'"+detenu.getLieuNaiss()+"')");
+       System.out.println("reussis1");
+       _connection.createStatement().execute("insert into Affaire values('"+affaire.getAffaire()+"',DATE('"+format1.format(affaire.getDate().getTime())+"'))");
+       System.out.println("reussis2");
+       _connection.createStatement().execute("insert into Juridiction values('"+juridiction.getNom()+"')");
+       System.out.println("reussis3");
+       _connection.createStatement().execute("insert into Incarceration values(DATE('"+format1.format(incarceration.getDate().getTime())+"'))");
+       System.out.println("reussis4");
+       _connection.createStatement().execute("insert into Motif values('"+motif.getMotif()+"', 'test' )");
       // _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("insert into Affaire values("+data.getN()+","+data.getFirstName()+","+data.getLastName()+","+data.getBirthday()+","+data.getBirthplace()+")");
+      System.out.println("reussis5");
    }
 
    public ResultSet readPrisonnierToDatabase() throws java.sql.SQLException {
