@@ -7,6 +7,10 @@ package prison_project;
 
 import java.io.File;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -283,8 +287,12 @@ public class FXMLController implements Initializable {
     }
 
     @FXML
-    private void onClickBtnCreate(MouseEvent event)throws java.sql.SQLException  {
+    private void onClickBtnCreate(MouseEvent event)throws java.sql.SQLException, ParseException  {
         Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_ExactName.getText(),text_DayOfImprisonment.getText(),text_Reason.getText(),text_DayOfFact.getText(),text_area.getText());
+        
+
+        
+        
         
         LoadingBar.setProgress(data.TestError());
         System.out.println(data.TestError());
@@ -305,7 +313,32 @@ public class FXMLController implements Initializable {
             
         System.out.println(!data.TestVoid());
         if(!data.TestVoid()){
-            _database.addDatabase(data);
+        //Detenu
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date dateobj = sdf.parse(text_Birthday.getText());
+        java.util.Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateobj);
+        Detenu detenu = new Detenu(text_area.getText(),text_FirstName.getText(),text_LastName.getText(),calendar,text_Birthplace.getText());
+        
+        //Affaire
+        dateobj = sdf.parse(text_DayOfFact.getText());
+        calendar.setTime(dateobj);
+        Affaire affaire = new Affaire(text_CaseNumber.getText(),calendar);
+        
+        //Juridiction
+        Juridiction juridiction = new Juridiction(text_NameOrigin.getText());
+        
+        //Incarceration
+        dateobj = sdf.parse(text_DayOfImprisonment.getText());
+        calendar.setTime(dateobj);
+        Incarceration incarceration = new Incarceration(calendar);
+        
+        //Motif
+        Motif motif = new Motif(text_Reason.getText());
+        
+        
+        _database.addPrisionnierToDatabase(detenu,affaire,juridiction,incarceration,motif);
+        
         }
     }
 
@@ -333,8 +366,8 @@ public class FXMLController implements Initializable {
     
     @FXML
     private void onClickBtnRead(MouseEvent event)throws java.sql.SQLException  {
-        Data dataRead = new Data();
-       dataRead =  _database.readDatabase();
+       Data dataRead = new Data();
+      // dataRead =  _database.readPrisonnierToDatabase();
        text_LastName.setText(dataRead.getLastName());
         
         

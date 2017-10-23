@@ -14,6 +14,9 @@ public class Juridiction {
     private
             String _nom_juridiction;
     
+    Juridiction(String juri){
+        this._nom_juridiction = juri;
+    }
     public String getNom(){
         return(this._nom_juridiction);
     }

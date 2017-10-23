@@ -14,6 +14,10 @@ public class Incarceration {
     private
             java.util.Calendar _date_incarceration ;
    
+    Incarceration (java.util.Calendar date){
+        this._date_incarceration = date;
+    }
+    
     public java.util.Calendar getDate(){
         return(this._date_incarceration);
     }

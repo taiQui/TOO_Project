@@ -15,6 +15,12 @@ public class Affaire {
             String _n_affaire;
             java.util.Calendar _date_faits;
         
+            
+    Affaire(String affaire, java.util.Calendar date){
+        this._n_affaire = affaire;
+        this._date_faits = date;
+    }
+            
     public String getAffaire(){
         return(this._n_affaire);
     }

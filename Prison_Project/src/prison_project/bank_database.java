@@ -131,27 +131,35 @@ public class bank_database {
         return _connection;
     }
 
-   public void addDatabase(Data data) throws java.sql.SQLException{
-       resultset = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("insert into Detenu values("+data.getNecrou()+","+data.getFirstName()+","+data.getLastName()+","+data.getBirthday()+","+data.getBirthplace()+")");
+   public void addPrisionnierToDatabase(Detenu detenu,Affaire affaire,Juridiction juridiction,Incarceration incarceration,Motif motif) throws java.sql.SQLException{
+       _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("insert into Detenu values("+detenu.getEcrou()+","+detenu.getPrenom()+","+detenu.getNom()+","+detenu.getDNaiss()+","+detenu.getLieuNaiss()+")");
+       _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("insert into Affaire values("+affaire.getAffaire()+","+affaire.getDate()+")");
+       _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("insert into Juridiction values("+juridiction.getNom()+")");
+       _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("insert into Incarceration values("+incarceration.getDate()+")");
+       _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("insert into Motif values("+motif.getMotif()+", test )");
       // _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("insert into Affaire values("+data.getN()+","+data.getFirstName()+","+data.getLastName()+","+data.getBirthday()+","+data.getBirthplace()+")");
    }
 
-   public Data readDatabase() throws java.sql.SQLException {
-       Data data = new Data();
+   public ResultSet readPrisonnierToDatabase() throws java.sql.SQLException {
+      // Data data = new Data();
       // data.setLastName((_connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select prenom from Detenu ")).getString("prenom"));
        //data.setFirstName((_connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select FirstName from Prisoner ")).getString("FirstName"));
 
-       ResultSet rs = _connection.createStatement().executeQuery("select * from Detenu ");
-       if(rs.next()){
-            for(int i = 1 ; i < 6 ; i++ ) {
-                System.out.println("i = " + i + " : "+rs.getString(i));
-            }
+       ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu ");
+       rs.beforeFirst();
+      //int i = 0;
+       
+      //while(rs.next()){
+        //   i++;     
+          // System.out.println("i = " + i + " : "+rs.getString(i));
+                
+            //}
            
          
-         System.out.println("test4");
-       }
-
-
-       return(data);
+         //System.out.println("test4");
+       
+         
+         
+       return(rs);
    }
 }

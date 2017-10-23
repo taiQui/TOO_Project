@@ -16,9 +16,17 @@ public class Detenu {
             String _prenom;
             String _nom;
             java.util.Calendar _date_naissance;
-            java.util.Calendar _lieu_naissance;
+            String _lieu_naissance;
             
             
+    Detenu(String ecrou,String prenom,String nom, java.util.Calendar date_naiss,String lieu_naiss){
+        this._n_ecrou = ecrou;
+        this._prenom = prenom;
+        this._nom = nom;
+        this._date_naissance = date_naiss;
+        this._lieu_naissance = lieu_naiss;
+        
+    }        
     //All getter
     public String getEcrou() {
         return(this._n_ecrou);
@@ -36,7 +44,7 @@ public class Detenu {
         return(this._date_naissance);
     }
             
-    public java.util.Calendar getLieuNaiss(){
+    public String getLieuNaiss(){
         return(this._lieu_naissance);
     }
     
@@ -57,7 +65,7 @@ public class Detenu {
         this._date_naissance = date;
     }
     
-    public void setLieuNaiss(java.util.Calendar date ){
+    public void setLieuNaiss(String date ){
         this._lieu_naissance = date;
     }
 }

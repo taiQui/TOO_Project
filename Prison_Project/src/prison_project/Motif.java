@@ -15,6 +15,11 @@ public class Motif {
             String _n_motif;
             String _libelle_motif;
      
+    Motif(String motif){
+        this._n_motif = motif;
+        
+    }
+            
     public String getMotif(){
         return(this._n_motif);
     }
