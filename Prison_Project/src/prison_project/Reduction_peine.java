@@ -5,6 +5,8 @@
  */
 package prison_project;
 
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author greg1
@@ -13,6 +15,7 @@ public class Reduction_peine extends Decision {
     
     private
             int _duree;
+            StringProperty _dureeSP;
     
     public int getDuree(){
         return(this._duree);
