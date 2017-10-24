@@ -182,6 +182,36 @@ public class bank_database {
        return liste;
    }
    
+   public ArrayList<Detenu> searchOnDatabase(String ecrou) throws SQLException, ParseException {
+       ArrayList<Detenu> liste = new ArrayList();
+       liste = this.getArray();
+       int i = 0;
+       
+       for(i = 0 ; i< liste.size() -1 ; i++){
+           System.out.println("ecrou : "+ liste.get(i).getEcrou());
+           if(!liste.get(i).getEcrou().equals(ecrou)){
+               System.out.println("je vais remove le detenu avec le numero : "+liste.get(i).getEcrou());
+               liste.remove(liste.remove(i));
+           }
+       }
+       System.out.println("size : "+liste.size());
+       if(liste.size() == 0) {
+           System.out.println("Le numero d'ecrou est : "+liste.get(0).getEcrou());
+           return liste;
+       } else {
+           Detenu det = new Detenu();
+           liste.add(det);
+           return(liste);
+       }
+   }
+   
+   
+   public void reductionPeine(String ecrou,int duree) throws SQLException{
+       SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+       _connection.createStatement().execute("insert into Detenu values(2,'"+ecrou+"',DATE('"+format1.format(java.util.Calendar.getInstance().getTime())+"'),'"+duree+"')");
+       _connection.commit();
+   }
+   
    public ResultSet readPrisonnierToDatabase() throws java.sql.SQLException {
       // Data data = new Data();
       // data.setLastName((_connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select prenom from Detenu ")).getString("prenom"));

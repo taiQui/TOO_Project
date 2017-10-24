@@ -5,10 +5,20 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="prison_project.Reduction_peineController">
-   <children>
-      <Button fx:id="btnMenu" layoutX="263.0" layoutY="175.0" mnemonicParsing="false" onMouseClicked="#onClickBtnMenu" text="Back to Menu" />
-   </children>
+<AnchorPane id="AnchorPane" minHeight="627.0" prefHeight="627.0" prefWidth="1075.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="prison_project.Reduction_peineController">
+  <children>
+    <Button fx:id="btnMenu" layoutX="952.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#onClickBtnMenu" prefHeight="52.0390625" prefWidth="109.0" text="Back to Menu" />
+    <Text layoutX="139.0" layoutY="75.0" scaleX="2.7503702790824005" scaleY="7.019579027901911" strokeType="OUTSIDE" strokeWidth="0.0" text="Rentrer un numéro d'Ecrou" underline="true" />
+    <TextField fx:id="text_necrou" layoutX="14.0" layoutY="164.0" prefHeight="66.0" prefWidth="394.0" />
+    <Button fx:id="btn_ok" cancelButton="false" defaultButton="true" layoutX="431.0" layoutY="164.0" mnemonicParsing="false" onMouseClicked="#onclickBtn_ok" prefHeight="66.0" prefWidth="63.0" text="OK" textFill="BLACK" visible="true" />
+    <TableView fx:id="tableview" disable="false" layoutX="14.0" layoutY="279.0" prefHeight="112.0390625" prefWidth="394.0" visible="false" />
+    <TextField id="text_tempsReduc" fx:id="text_fieldtemps" disable="false" layoutX="582.0" layoutY="147.0" prefHeight="45.0" prefWidth="334.056640625" visible="false" />
+    <Text fx:id="text_duree_reduc" disable="true" layoutX="692.0" layoutY="87.0" scaleX="2.9102775902324716" scaleY="4.573665962716361" strokeType="OUTSIDE" strokeWidth="0.0" text="Durée de la reduction" visible="false" />
+    <Circle fx:id="cercle" disable="false" fill="WHITE" layoutX="454.0" layoutY="336.0" radius="22.5" stroke="BLACK" strokeType="INSIDE" visible="false" />
+    <Button fx:id="btn_ok_reduc" disable="true" layoutX="924.0" layoutY="149.0" mnemonicParsing="false" onMouseClicked="#onclickBtn_ok_reduc" prefHeight="45.0" prefWidth="63.0" text="OK" visible="false" />
+    <Text fx:id="test_peine_reduite" disable="true" layoutX="757.0" layoutY="277.0" scaleX="5.260549813509301" scaleY="3.9468606592871693" strokeType="OUTSIDE" strokeWidth="0.0" text="Peine réduite ! " visible="false" />
+  </children>
 </AnchorPane>
