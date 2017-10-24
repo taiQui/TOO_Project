@@ -5,7 +5,7 @@
 *.log
 
 #database file
-.dat
+*.dat
 
 # BlueJ files
 *.ctxt
