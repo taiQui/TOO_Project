@@ -30,12 +30,12 @@ public class bank_database {
                     +"nom varchar(30),\n"
                     +"date_naissance Date,\n"
                     +"lieu_naissance varchar(30),\n"
-                    +"constraint Detenu_key primary key(n_ecrou))");
+                    +"constraint Detenu_key primary key(n_ecrou))\n");
             statement.execute("create table Affaire(\n"
-                    +"n_affaire varchar(10),"
+                    +"n_affaire varchar(10),\n"
                     //+"nom_juridiction varchar(30),"
-                    +"date_faits Date,"
-                    +"constraint Affaire_key primary key(n_affaire,nom_juridiction))");
+                    +"date_faits Date,\n"
+                    +"constraint Affaire_key primary key(n_affaire))\n");
             statement.execute("create table Detenu_Affaire("
                     +"n_ecrou varchar(10),"
                     +"n_affaire varchar(10),"
@@ -88,7 +88,7 @@ public class bank_database {
 
             statement.execute("INSERT INTO Detenu VALUES('1963','Franck','Barbier',DATE('1963-01-11'),'Montbeliard')");
             statement.execute("INSERT INTO Detenu VALUES('1964','Sophie','Darnal',DATE(1964-07-28),'Besancon')");
-
+          //  statement.execute("insert into Affaire values('1111')
 
             /*
             FIN DE REQUETE
@@ -145,8 +145,9 @@ public class bank_database {
        System.out.println(format1.format(detenu.getDNaiss().getTime()));
        System.out.println(format1.format(affaire.getDate().getTime()));
        _connection.createStatement().execute("insert into Detenu values('"+detenu.getEcrou()+"','"+detenu.getPrenom()+"','"+detenu.getNom()+"',DATE('"+format1.format(detenu.getDNaiss().getTime())+"'),'"+detenu.getLieuNaiss()+"')");
+       _connection.commit();
        System.out.println("reussis1");
-       _connection.createStatement().execute("insert into Affaire values('"+affaire.getAffaire()+"',DATE('"+format1.format(affaire.getDate().getTime())+"'))");
+      _connection.createStatement().execute("insert into Affaire values('"+affaire.getAffaire()+"',DATE('"+format1.format(affaire.getDate().getTime())+"'))");
        System.out.println("reussis2");
        _connection.createStatement().execute("insert into Juridiction values('"+juridiction.getNom()+"')");
        System.out.println("reussis3");
