@@ -64,12 +64,15 @@ public class MenuController /*extends Application*/ implements Initializable {
 
     public void switchScene(String name){
         try {
+            Stage oldstage = new Stage();
+            oldstage = (Stage)btn_newIncar.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource(name));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = new Stage();
             stage.setTitle(name);
             stage.setScene(scene);
+            oldstage.close();
             stage.show();
         } catch (IOException ex){
           ex.getCause();

@@ -6,6 +6,7 @@
 package prison_project;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,7 +15,9 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -378,9 +381,15 @@ public class FXMLController implements Initializable {
     }
 
     @FXML
-    private void onClickBtnMenu(MouseEvent event) {
-        Stage stage = (Stage) btnMenu.getScene().getWindow();
-        stage.close();
+    private void onClickBtnMenu(MouseEvent event) throws IOException {
+        Stage oldstage = (Stage) btnMenu.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("Menu.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        oldstage.close();
+        stage.show();
     }
 
     

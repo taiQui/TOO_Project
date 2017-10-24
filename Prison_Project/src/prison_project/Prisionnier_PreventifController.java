@@ -5,6 +5,7 @@
  */
 package prison_project;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +20,9 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -61,6 +64,7 @@ public class Prisionnier_PreventifController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("inPrisonPreventif");
         //tableview.setEditable(true);
 
         colonneDateNaiss.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_date_naissanceFX"));
@@ -92,9 +96,15 @@ public class Prisionnier_PreventifController implements Initializable {
     }
 
     @FXML
-    private void onClickBtnMenu(MouseEvent event) {
-        Stage stage = (Stage) btnMenu.getScene().getWindow();
-        stage.close();
+    private void onClickBtnMenu(MouseEvent event) throws IOException {
+        Stage oldstage = (Stage) btnMenu.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("Menu.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        oldstage.close();
+        stage.show();
     }
 
     @FXML
