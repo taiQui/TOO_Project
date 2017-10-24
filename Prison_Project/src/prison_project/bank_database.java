@@ -187,7 +187,9 @@ public class bank_database {
       // data.setLastName((_connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select prenom from Detenu ")).getString("prenom"));
        //data.setFirstName((_connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select FirstName from Prisoner ")).getString("FirstName"));
 
-       ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu ");
+       ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select *\n" +
+"from detenu d,Condamnation c\n" +
+"where c.n_ecrou != d.n_ecrou ");
        rs.beforeFirst();
       //int i = 0;
        
