@@ -5,16 +5,18 @@
  */
 package prison_project;
 
+import javafx.beans.property.StringProperty;
+
 /**
  *
- * @author greg1
+ * @author greg1ol
  */
 public class Affaire {
     
     private
             String _n_affaire;
+            StringProperty _n_affaireSP;
             java.util.Calendar _date_faits;
-        
             
     Affaire(String affaire, java.util.Calendar date){
         this._n_affaire = affaire;

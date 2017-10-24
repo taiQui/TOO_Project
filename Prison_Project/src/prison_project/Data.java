@@ -5,6 +5,8 @@
  */
 package prison_project;
 
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author greg1
@@ -12,17 +14,27 @@ package prison_project;
 public class Data {
     
     private String _LastName;
+    private StringProperty _LastNameSP;
     private String _FirstName;
+    private StringProperty _FirstNameSP;
     private String _Birthday;
+    private StringProperty _BirthdaySP;
     private String _Birthplace;
+    private StringProperty _BirthplaceSP;
     private String _CaseNumber;
+    private StringProperty _LastCaseNumberSP;
     private String _NameOfOriginCourt;
+    private StringProperty _NameOfOriginCourtSP;
     private String _ExactNameJuridiction;
+    private StringProperty _ExactNameJuridictionSP;
     private String _DayOfImprisonment;
+    private StringProperty _DayOfImprisonmentSP;
     private String _Reason;
+    private StringProperty _ReasonSP;
     private String _DayOfFact;
+    private StringProperty _DayOfFactSP;
     private String _Necrou;
-    
+    private StringProperty _NecrouSP;
      Data(String t1,String t2, String t3,String t4,String t5,String t6,String t7,String t8,String t9,String t10,String t11){
         //System.out.println("test2");
         this._LastName = t1;

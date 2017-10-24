@@ -5,6 +5,8 @@
  */
 package prison_project;
 
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author greg1
@@ -13,6 +15,7 @@ public class Juridiction {
     
     private
             String _nom_juridiction;
+            StringProperty _nom_juridictionSP;
     
     Juridiction(String juri){
         this._nom_juridiction = juri;

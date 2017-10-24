@@ -5,6 +5,8 @@
  */
 package prison_project;
 
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author greg1
@@ -13,6 +15,7 @@ public class Decision {
     
     private
             int _n_type_decision;
+            StringProperty _n_type_decisionSP;
             java.util.Calendar _date_decision;
     
     public int getTypeD(){
