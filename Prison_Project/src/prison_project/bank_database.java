@@ -163,7 +163,7 @@ public class bank_database {
        ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu ");
        
        
-       Detenu det = new Detenu();
+      
        
         java.util.Calendar datenaiss = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -171,13 +171,8 @@ public class bank_database {
         ArrayList<Detenu> liste  = new ArrayList<Detenu>();
        rs.beforeFirst();
        while(rs.next()){
-           det.setNom(rs.getString("prenom"));
-           det.setPrenom(rs.getString("nom"));
-           det.setLieuNaiss(rs.getString("lieu_naissance"));
-           Date dateobj = sdf.parse(rs.getString("date_naissance"));
-           datenaiss.setTime(dateobj);
-           det.setDNaiss(datenaiss);
-           det.setEcrou(rs.getString("n_ecrou"));
+
+           Detenu det = new Detenu(rs.getString("n_ecrou"),rs.getString("prenom"),rs.getString("nom"),datenaiss,rs.getString("lieu_naissance"));
            liste.add(det);
            System.out.println("Nom : "+ det.getNom());
        }

@@ -40,7 +40,7 @@ public class Prisionnier_PreventifController implements Initializable {
     @FXML
     private Button btnMenu;
     @FXML
-    private TableView<DetenuFX> tableview = new TableView<DetenuFX>();
+    private TableView<Detenu> tableview = new TableView<Detenu>();
     @FXML
     private Button btn_voir;
 
@@ -63,12 +63,25 @@ public class Prisionnier_PreventifController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //tableview.setEditable(true);
 
-        colonneDateNaiss.setCellValueFactory(new PropertyValueFactory<DetenuFX,String>("_date_naissanceFX"));
-        colonneLieuxNaiss.setCellValueFactory(new PropertyValueFactory<DetenuFX,String>("_lieu_naissanceFX"));
-        colonneEcrou.setCellValueFactory(new PropertyValueFactory<DetenuFX,String>("_n_ecrouFX"));
-        colonneNom.setCellValueFactory(new PropertyValueFactory<DetenuFX,String>("_nomFX"));
-        colonnePrenom.setCellValueFactory(new PropertyValueFactory<DetenuFX,String>("_prenomFX"));
+        colonneDateNaiss.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_date_naissanceFX"));
+        colonneDateNaiss.setStyle("-fx-text-fill: black;");
+        
+        colonneLieuxNaiss.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_lieu_naissanceFX"));
+        colonneLieuxNaiss.setStyle("-fx-text-fill: black;");
+        
+        colonneEcrou.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_n_ecrouFX"));
+        colonneEcrou.setStyle("-fx-text-fill: black;");
+        
+        colonneNom.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_nomFX"));
+        colonneNom.setStyle("-fx-text-fill: black;");
 
+        colonnePrenom.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_prenomFX"));
+        colonnePrenom.setStyle("-fx-text-fill: red;");
+        
+        tableview.getStyleClass().add("Times New Roman");
+        tableview.setStyle("-fx-text-fill: black;");
+        
+    
         tableview.getColumns().addAll(colonneEcrou,colonnePrenom,colonneNom,colonneDateNaiss,colonneLieuxNaiss);
 
         try {
@@ -97,7 +110,7 @@ public class Prisionnier_PreventifController implements Initializable {
         // java.util.Calendar calendar = Calendar.getInstance();
 
         ArrayList<Detenu> liste = _database.getArray();
-        ObservableList<DetenuFX> ajoutable = FXCollections.observableArrayList();
+        ObservableList<Detenu> ajoutable = FXCollections.observableArrayList();
          
         //rs.beforeFirst();
         for(Detenu d : liste){
@@ -120,12 +133,14 @@ public class Prisionnier_PreventifController implements Initializable {
             // System.out.println(newDet.getDNaiss().get());
             //
             //
-            // ajoutable.add(newDet);
-           DetenuFX detfx = new DetenuFX(d);
-           System.out.println(detfx.getNom() + "\t" + detfx.getPrenom());
-           ajoutable.add(detfx);
+            d.remplirFX();
+             ajoutable.add(d);
+           
+           //System.out.println(detfx.getNom() + "\t" + detfx.getPrenom());
+           
 
-
+   
+         //  tableview.refresh();
 
         }
 

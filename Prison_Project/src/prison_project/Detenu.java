@@ -19,36 +19,43 @@ public class Detenu {
     
     private
             String _n_ecrou;
-          
+            SimpleStringProperty _n_ecrouFX;
             String _prenom;
-            
+            SimpleStringProperty _prenomFX;
             String _nom;
-            
+            SimpleStringProperty _nomFX;
             java.util.Calendar _date_naissance;
-           
+            SimpleStringProperty _date_naissanceFX;
             String _lieu_naissance;
+            SimpleStringProperty _lieu_naissanceFX;
             
             
+     
     Detenu(){
-            _n_ecrou = "";
-            _prenom  = "";
-            _nom = "";
-            _date_naissance = Calendar.getInstance();
-            _lieu_naissance = "";
+            String _n_ecrou ="";
+            StringProperty _n_ecrouFX = new SimpleStringProperty("");
+            String _prenom = "";
+            StringProperty _prenomFX= new SimpleStringProperty("");
+            String _nom="";
+            StringProperty _nomFX= new SimpleStringProperty("");
+            java.util.Calendar _date_naissance = Calendar.getInstance();
+            StringProperty _date_naissanceFX= new SimpleStringProperty("");
+            String _lieu_naissance = "";
+            StringProperty _lieu_naissanceFX= new SimpleStringProperty("");
     }        
             
     Detenu(String ecrou,String prenom,String nom, java.util.Calendar date_naiss,String lieu_naiss){
-        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         this._n_ecrou = ecrou;
-        //this._n_ecrouFX = new SimpleStringProperty(ecrou);
+        this._n_ecrouFX = new SimpleStringProperty(ecrou);
         this._prenom = prenom;
-       // this._prenomFX = new SimpleStringProperty(prenom);
+        this._prenomFX = new SimpleStringProperty(prenom);
         this._nom = nom;
-       // this._nomFX = new SimpleStringProperty(nom);
-        this._date_naissance = date_naiss;
-       // this._date_naissanceFX = new SimpleStringProperty(sdf.format(date_naiss.getTime()));
+        this._nomFX = new SimpleStringProperty(nom);
+        this._date_naissance = Calendar.getInstance();
+        this._date_naissanceFX = new SimpleStringProperty(sdf.format(date_naiss.getTime()));
         this._lieu_naissance = lieu_naiss;
-       // this._lieu_naissanceFX = new SimpleStringProperty(lieu_naiss);
+        this._lieu_naissanceFX = new SimpleStringProperty(lieu_naiss);
         
     }        
     //All getter
@@ -56,20 +63,40 @@ public class Detenu {
         return(this._n_ecrou);
     }
     
+    public String get_n_ecrouFX(){
+        return this._n_ecrouFX.get();
+    }
+    
     public String getPrenom(){
         return(this._prenom);
+    }
+    
+    public String get_prenomFX(){
+        return this._prenomFX.get();
     }
     
     public String getNom(){
         return(this._nom);
     }
     
+    public String get_nomFX(){
+        return this._nomFX.get();
+    }
+    
     public java.util.Calendar getDNaiss(){
         return(this._date_naissance);
+    }
+    
+    public String get_date_naissanceFX(){
+        return this._date_naissanceFX.get();
     }
             
     public String getLieuNaiss(){
         return(this._lieu_naissance);
+    }
+    
+    public String get_lieu_naissanceFX(){
+        return this._lieu_naissanceFX.get();
     }
     
     //All setter
@@ -91,5 +118,14 @@ public class Detenu {
     
     public void setLieuNaiss(String date ){
         this._lieu_naissance = date;
+    }
+    
+    public void remplirFX(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        this._nomFX = new SimpleStringProperty(this._nom);
+        this._prenomFX = new SimpleStringProperty(this._prenom);
+        this._n_ecrouFX = new SimpleStringProperty(this._n_ecrou);
+        this._lieu_naissanceFX= new SimpleStringProperty(this._lieu_naissance);
+        this._date_naissanceFX = new SimpleStringProperty(sdf.format(this._date_naissance.getTime()));
     }
 }

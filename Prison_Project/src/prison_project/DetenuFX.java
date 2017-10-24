@@ -14,13 +14,13 @@ import javafx.beans.property.StringProperty;
  * @author greg1
  */
 public class DetenuFX {
-    
-    StringProperty _n_ecrouFX;
-    StringProperty _prenomFX;
-    StringProperty _nomFX;
-    StringProperty _date_naissanceFX;
-    StringProperty _lieu_naissanceFX;
-    
+
+    SimpleStringProperty _n_ecrouFX;
+    SimpleStringProperty _prenomFX;
+    SimpleStringProperty _nomFX;
+    SimpleStringProperty _date_naissanceFX;
+    SimpleStringProperty _lieu_naissanceFX;
+
     DetenuFX(Detenu D){
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         this._n_ecrouFX = new SimpleStringProperty(D.getEcrou());
@@ -30,27 +30,50 @@ public class DetenuFX {
         this._date_naissanceFX = new SimpleStringProperty(sdf.format(D.getDNaiss().getTime()));
         System.out.println("detenufx");
     }
-    
-    public StringProperty getEcrou(){
-        return this._n_ecrouFX;
+
+
+    public String get_n_ecrouFX(){
+        return this._n_ecrouFX.get();
     }
-    
-    public StringProperty getNom(){
-        return this._nomFX;
+
+    // public StringProperty getEcrouProperty(){
+    //     return this._n_ecrouFX;
+    // }
+
+    public String get_nomFX(){
+        return this._nomFX.get();
     }
-    
-    public StringProperty getPrenom(){
-        return this._prenomFX;
+
+    // public StringProperty getNomProperty(){
+    //     return this._nomFX;
+    // }
+
+    public String get_prenomFX(){
+        return this._prenomFX.get();
     }
-    
-    public StringProperty getLieuNaiss(){
-        return this._lieu_naissanceFX;
+
+    // public StringProperty getPrenomProperty(){
+    //     return this._prenomFX;
+    // }
+
+    public String get_lieu_naissanceFX(){
+        return this._lieu_naissanceFX.get();
     }
-    
-    public StringProperty getDNaiss(){
-        return this._date_naissanceFX;
+
+    // public StringProperty getLieuNaissProperty(){
+    //     return this._lieu_naissanceFX;
+    // }
+
+    public String get_date_naissanceFX(){
+        return this._date_naissanceFX.get();
     }
-    
-    
-    
+
+    // public StringProperty getDNaissProperty(){
+    //     return this._date_naissanceFX;
+    // }
+
+    // public void setNom (SimpleStringProperty f){
+    //     this._nomFX = f;
+    // }
+
 }
