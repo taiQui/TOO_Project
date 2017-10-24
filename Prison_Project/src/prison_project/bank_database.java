@@ -3,8 +3,13 @@ package prison_project;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -152,6 +157,33 @@ public class bank_database {
       System.out.println("reussis5");
    }
 
+   
+   public ArrayList<Detenu> getArray() throws SQLException, ParseException{
+       
+       ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu ");
+       
+       
+       Detenu det = new Detenu();
+       
+        java.util.Calendar datenaiss = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        
+        ArrayList<Detenu> liste  = new ArrayList<Detenu>();
+       rs.beforeFirst();
+       while(rs.next()){
+           det.setNom(rs.getString("prenom"));
+           det.setPrenom(rs.getString("nom"));
+           det.setLieuNaiss(rs.getString("lieu_naissance"));
+           Date dateobj = sdf.parse(rs.getString("date_naissance"));
+           datenaiss.setTime(dateobj);
+           det.setDNaiss(datenaiss);
+           det.setEcrou(rs.getString("n_ecrou"));
+           liste.add(det);
+           System.out.println("Nom : "+ det.getNom());
+       }
+       return liste;
+   }
+   
    public ResultSet readPrisonnierToDatabase() throws java.sql.SQLException {
       // Data data = new Data();
       // data.setLastName((_connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select prenom from Detenu ")).getString("prenom"));
