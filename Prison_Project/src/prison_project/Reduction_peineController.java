@@ -120,7 +120,17 @@ public class Reduction_peineController implements Initializable {
     private void onclickBtn_ok_reduc(MouseEvent event) throws SQLException, ParseException {
         
         if(!text_fieldtemps.getText().isEmpty()){
-            
+            switch(choice.getValue()){
+                case "Reduction de peine":
+                    
+                    break;
+                case "Liberation definitive":
+                    
+                    break;
+                case "Condamnation":
+                    
+                    break;
+            }
         }
 
     }
@@ -151,6 +161,7 @@ public class Reduction_peineController implements Initializable {
                 if(result.get() == buttonOK && choice.getValue()=="Reduction de peine") {
                     text_duree_reduc.setVisible(true);
                     btn_ok_reduc.setVisible(true);
+                    text_duree_reduc.setText("Reduction de peine");
                     text_fieldtemps.setVisible(true);
                     text_duree_reduc.setDisable(false);
                     btn_ok_reduc.setDisable(false);
@@ -165,6 +176,14 @@ public class Reduction_peineController implements Initializable {
                     text_fieldtemps.setVisible(true);
                     text_fieldtemps.setDisable(false);
                     
+                } else if ( result.get() == buttonOK && choice.getValue() == "Condamnation"){
+                    text_duree_reduc.setDisable(false);
+                    text_duree_reduc.setText("Condamnation");
+                    text_duree_reduc.setVisible(true);
+                    btn_ok_reduc.setVisible(true);
+                    btn_ok_reduc.setDisable(false);
+                    text_fieldtemps.setVisible(true);
+                    text_fieldtemps.setDisable(false);
                 }
                 
             } else {

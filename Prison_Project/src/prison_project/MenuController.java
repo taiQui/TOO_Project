@@ -86,17 +86,6 @@ public class MenuController /*extends Application*/ implements Initializable {
 
     }
 
-    @FXML
-    private void onclickBtncomdanmnation(MouseEvent event) {
-        String name = "NouvelleCondamnation.fxml";
-        switchScene(name);
-    }
-
-    @FXML
-    private void onclickBtnliberation(MouseEvent event) {
-        String name = "Liberation.fxml";
-        switchScene(name);
-    }
 
     @FXML
     private void onclickBtnreducpeine(MouseEvent event) {

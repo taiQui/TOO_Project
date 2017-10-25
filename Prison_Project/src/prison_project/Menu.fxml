@@ -18,9 +18,7 @@
         <Font size="23.0" fx:id="x1" />
       </font>
     </Button>
-    <Button fx:id="btn_condamnation" font="$x1" layoutX="38.0" layoutY="264.0" mnemonicParsing="false" onMouseClicked="#onclickBtncomdanmnation" prefHeight="185.0" prefWidth="303.0" text="Condamnation" />
-    <Button fx:id="btn_liberation" font="$x1" layoutX="503.0" layoutY="449.0" mnemonicParsing="false" onMouseClicked="#onclickBtnliberation" prefHeight="185.0" prefWidth="303.0" text="Liberations" />
-    <Button fx:id="btn_reductionpeine" font="$x1" layoutX="949.0" layoutY="56.0" mnemonicParsing="false" onMouseClicked="#onclickBtnreducpeine" prefHeight="185.0" prefWidth="303.0" text="Reduction de peine" />
-    <Button fx:id="btn_preventif" font="$x1" layoutX="949.0" layoutY="264.0" mnemonicParsing="false" onMouseClicked="#onclickBtnpreventif" prefHeight="185.0" prefWidth="303.0" text="Prisonnier preventif" />
+    <Button fx:id="btn_reductionpeine" font="$x1" layoutX="949.0" layoutY="56.0" mnemonicParsing="false" onMouseClicked="#onclickBtnreducpeine" prefHeight="185.0" prefWidth="303.0" text="Decision" />
+    <Button fx:id="btn_preventif" font="$x1" layoutX="504.0" layoutY="454.0" mnemonicParsing="false" onMouseClicked="#onclickBtnpreventif" prefHeight="185.0" prefWidth="303.0" text="Prisonnier preventif" />
   </children>
 </AnchorPane>

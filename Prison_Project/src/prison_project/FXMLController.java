@@ -97,104 +97,104 @@ public class FXMLController implements Initializable {
     private TextField text_DayOfFact;
     @FXML
     private ProgressBar LoadingBar;
-    
+
     private bank_database _database;
-    
-   
-    
+
+
+
     @FXML
     private Button btnRead;
     @FXML
     private Button Btn_update;
     @FXML
     private Button btnMenu;
- 
-    
+
+
     /**
      * Initializes the controller class.
      */
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SuppRep rep = new SuppRep();
-        File file = new File("C:\\Users\\greg1\\Documents\\TOO_Project\\Prison_Project\\bank_database");
-        if(file.exists()){
-            rep.deleteAll(file);
-            System.out.println("Repertoire supprimer");
-        }
-        if(file.exists())
-            System.out.println("Le fichier n'as pas ete supprimer");
+        // SuppRep rep = new SuppRep();
+        // File file = new File("C:\\Users\\greg1\\Documents\\TOO_Project\\Prison_Project\\bank_database");
+        // if(file.exists()){
+        //     rep.deleteAll(file);
+        //     System.out.println("Repertoire supprimer");
+        // }
+        // if(file.exists())
+        //     System.out.println("Le fichier n'as pas ete supprimer");
        // try {
             //_database = new bank_database();
           //  System.out.println(_database.toString );
-            
+
         try {
             createDatabase();
         } catch (Exception s1){
             System.out.println("intryconst");
             System.err.println(s1.getMessage());
         }
-            
-           
+
+
        // } catch (java.sql.SQLException sql1) {
-           
+
        // } catch (Exception e1){
-            
+
         //}
-        
-    }    
-    
+
+    }
+
     public void createDatabase() throws Exception {
         _database = new bank_database();
     }
-    
-    
+
+
     private void CompleteText() {
         if(text_LastName.getText().isEmpty())
             text_LastName.setStyle("-fx-border-color: red");
         else
             text_LastName.setStyle("-fx-background: Background.Empty");
-        
+
         if(text_FirstName.getText().isEmpty())
             text_FirstName.setStyle("-fx-border-color: red");
         else
             text_FirstName.setStyle("-fx-background-color: Background.Empty");
-        
+
         if(text_Birthday.getText().isEmpty())
             text_Birthday.setStyle("-fx-border-color: red");
         else
             text_Birthday.setStyle("-fx-background-color: Background.Empty");
-        
+
         if(text_Birthplace.getText().isEmpty())
             text_Birthplace.setStyle("-fx-border-color: red");
         else
             text_Birthplace.setStyle("-fx-background-color: Background.Empty");
-        
+
         if(text_CaseNumber.getText().isEmpty())
             text_CaseNumber.setStyle("-fx-border-color: red");
         else
             text_CaseNumber.setStyle("-fx-background-color: Background.Empty");
-        
+
         if(text_NameOrigin.getText().isEmpty())
             text_NameOrigin.setStyle("-fx-border-color: red");
         else
             text_NameOrigin.setStyle("-fx-background-color: Background.Empty");
-        
+
         if(text_ExactName.getText().isEmpty())
             text_ExactName.setStyle("-fx-border-color: red");
         else
             text_ExactName.setStyle("-fx-background-color: Background.Empty");
-        
+
         if(text_DayOfImprisonment.getText().isEmpty())
             text_DayOfImprisonment.setStyle("-fx-border-color: red");
         else
             text_DayOfImprisonment.setStyle("-fx-background-color: Background.Empty");
-        
+
         if(text_Reason.getText().isEmpty())
             text_Reason.setStyle("-fx-border-color: red");
         else
             text_Reason.setStyle("-fx-background-color: Background.Empty");
-        
+
         if(text_DayOfFact.getText().isEmpty())
             text_DayOfFact.setStyle("-fx-border-color: red");
         else
@@ -205,8 +205,8 @@ public class FXMLController implements Initializable {
         text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + '.';
         text_area.setText(aux);
-        
-        
+
+
     }
 
     @FXML
@@ -292,28 +292,28 @@ public class FXMLController implements Initializable {
     @FXML
     private void onClickBtnCreate(MouseEvent event)throws java.sql.SQLException, ParseException  {
         Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_ExactName.getText(),text_DayOfImprisonment.getText(),text_Reason.getText(),text_DayOfFact.getText(),text_area.getText());
-        
 
-        
-        
-        
+
+
+
+
         LoadingBar.setProgress(data.TestError());
         System.out.println(data.TestError());
         if(data.TestError() < 1.0)
             LoadingBar.setStyle("-fx-accent: red;");
         else
             LoadingBar.setStyle("-fx-accent: green;");
-        
+
         if(text_area.getText().isEmpty()) {
             text_area.setStyle("-fx-text-fill: red;");
             text_area.setText(text_area.getText()+'\n'+"Error Erase All and try again");
         }
-            
-        
+
+
         CompleteText();
 
-        
-            
+
+
         System.out.println(!data.TestVoid());
         if(!data.TestVoid()){
         //Detenu
@@ -322,33 +322,33 @@ public class FXMLController implements Initializable {
         java.util.Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateobj);
         Detenu detenu = new Detenu(text_area.getText(),text_FirstName.getText(),text_LastName.getText(),calendar,text_Birthplace.getText());
-        
+
         //Affaire
         dateobj = sdf.parse(text_DayOfFact.getText());
         calendar.setTime(dateobj);
         Affaire affaire = new Affaire(text_CaseNumber.getText(),calendar);
-        
+
         //Juridiction
         Juridiction juridiction = new Juridiction(text_NameOrigin.getText());
-        
+
         //Incarceration
         dateobj = sdf.parse(text_DayOfImprisonment.getText());
         calendar.setTime(dateobj);
         Incarceration incarceration = new Incarceration(calendar);
-        
+
         //Motif
         Motif motif = new Motif(text_Reason.getText());
-        
-        
+
+
         _database.addPrisionnierToDatabase(detenu,affaire,juridiction,incarceration,motif);
-        
+
         }
     }
 
     @FXML
     private void onClickBtnDelete(MouseEvent event) {
         System.out.println("user pressed delete !");
-        
+
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Look, an Information Dialog");
@@ -356,7 +356,7 @@ public class FXMLController implements Initializable {
 
         alert.showAndWait();
     }
-    
+
     public void newW(){
         Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("BITE");
@@ -364,16 +364,16 @@ public class FXMLController implements Initializable {
             alert.setContentText("BITE");
             alert.showAndWait();
             newW();
-        
+
     }
-    
+
     @FXML
     private void onClickBtnRead(MouseEvent event)throws java.sql.SQLException  {
        Data dataRead = new Data();
       // dataRead =  _database.readPrisonnierToDatabase();
        text_LastName.setText(dataRead.getLastName());
-        
-        
+
+
     }
 
     @FXML
@@ -392,7 +392,7 @@ public class FXMLController implements Initializable {
         stage.show();
     }
 
-    
 
-    
+
+
 }

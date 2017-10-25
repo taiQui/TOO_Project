@@ -147,17 +147,16 @@ public class bank_database {
        _connection.createStatement().execute("insert into Detenu values('"+detenu.getEcrou()+"','"+detenu.getPrenom()+"','"+detenu.getNom()+"',DATE('"+format1.format(detenu.getDNaiss().getTime())+"'),'"+detenu.getLieuNaiss()+"')");
       
        System.out.println("reussis1");
-      //_connection.createStatement().execute("insert into Affaire values('"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+format1.format(affaire.getDate().getTime())+"'))");
+      _connection.createStatement().execute("insert into Affaire values('"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+format1.format(affaire.getDate().getTime())+"'))");
        System.out.println("reussis2");
-       //_connection.createStatement().execute("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"')");
+        _connection.createStatement().execute("insert into Motif values('"+motif.getMotif()+"', 'test' )");
        System.out.println("reussis3");
-      // _connection.createStatement().execute("insert into Incarceration values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+format1.format(incarceration.getDate().getTime())+"'),'"+motif.getLMotif()+"')");
+      _connection.createStatement().execute("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"')");
        System.out.println("reussis4");
-       //_connection.createStatement().execute("insert into Motif values('"+motif.getMotif()+"', 'test' )");
-      // _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("insert into Affaire values("+data.getN()+","+data.getFirstName()+","+data.getLastName()+","+data.getBirthday()+","+data.getBirthplace()+")");
-      System.out.println("reussis5");
-         _connection.commit();
-         _connection.close();
+       _connection.createStatement().execute("insert into Incarceration values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+format1.format(incarceration.getDate().getTime())+"'),'"+motif.getLMotif()+"')");
+       System.out.println("reussis5");
+       _connection.commit();
+       _connection.close();
          
    }
 

@@ -18,7 +18,6 @@
     <TableView fx:id="tableview" disable="false" layoutX="14.0" layoutY="314.0" prefHeight="140.5" prefWidth="394.0" visible="false" />
     <TextField id="text_tempsReduc" fx:id="text_fieldtemps" disable="false" layoutX="582.0" layoutY="147.0" prefHeight="45.0" prefWidth="334.056640625" visible="false" />
     <Text fx:id="text_duree_reduc" disable="true" layoutX="692.0" layoutY="87.0" scaleX="2.9102775902324716" scaleY="4.573665962716361" strokeType="OUTSIDE" strokeWidth="0.0" text="Durée de la reduction" visible="false" />
-    <Circle fx:id="cercle" disable="false" fill="WHITE" layoutX="454.0" layoutY="336.0" radius="22.5" stroke="BLACK" strokeType="INSIDE" visible="false" />
     <Button fx:id="btn_ok_reduc" disable="true" layoutX="924.0" layoutY="149.0" mnemonicParsing="false" onMouseClicked="#onclickBtn_ok_reduc" prefHeight="45.0" prefWidth="63.0" text="OK" visible="false" />
     <Text fx:id="test_peine_reduite" disable="true" layoutX="757.0" layoutY="277.0" scaleX="5.260549813509301" scaleY="3.9468606592871693" strokeType="OUTSIDE" strokeWidth="0.0" text="Peine réduite ! " visible="false" />
     <ChoiceBox fx:id="choice" layoutX="14.0" layoutY="255.0" prefWidth="159.0">
