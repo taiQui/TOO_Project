@@ -88,7 +88,12 @@ public class bank_database {
 
             statement.execute("INSERT INTO Detenu VALUES('1963','Franck','Barbier',DATE('1963-01-11'),'Montbeliard')");
             statement.execute("INSERT INTO Detenu VALUES('1964','Sophie','Darnal',DATE(1964-07-28),'Besancon')");
-          //  statement.execute("insert into Affaire values('1111')
+            statement.execute("INSERT INTO Affaire VALUES('44','Nantes',DATE('1991-10-01'))");
+            statement.execute("INSERT INTO Motif VALUES('01','vols et delits assimiles')");
+            statement.execute("INSERT INTO Decision VALUES('1','1963',DATE('2006-11-22'))");
+            statement.execute("INSERT INTO Condamnation VALUES('1','1963',DATE('2006-11-22'),10)");
+            statement.execute("intsert into Liberation_definitive values (3,'1963',DATE('2006-11-22'),DATE('2010-01-01')");
+//  statement.execute("insert into Affaire values('1111')
 
             /*
             FIN DE REQUETE
@@ -142,10 +147,7 @@ public class bank_database {
       // cal.add(Calendar.DATE, 1);
       
        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-       System.out.println(format1.format(detenu.getDNaiss().getTime()));
-       System.out.println(format1.format(affaire.getDate().getTime()));
        _connection.createStatement().execute("insert into Detenu values('"+detenu.getEcrou()+"','"+detenu.getPrenom()+"','"+detenu.getNom()+"',DATE('"+format1.format(detenu.getDNaiss().getTime())+"'),'"+detenu.getLieuNaiss()+"')");
-      
        System.out.println("reussis1");
       _connection.createStatement().execute("insert into Affaire values('"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+format1.format(affaire.getDate().getTime())+"'))");
        System.out.println("reussis2");
@@ -153,7 +155,8 @@ public class bank_database {
        System.out.println("reussis3");
       _connection.createStatement().execute("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"')");
        System.out.println("reussis4");
-       _connection.createStatement().execute("insert into Incarceration values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+format1.format(incarceration.getDate().getTime())+"'),'"+motif.getLMotif()+"')");
+       System.out.println("motif : "+motif.getMotif());
+      _connection.createStatement().execute("insert into Incarceration values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+format1.format(incarceration.getDate().getTime())+"'),'"+motif.getMotif()+"')");
        System.out.println("reussis5");
        _connection.commit();
        _connection.close();
@@ -161,11 +164,32 @@ public class bank_database {
    }
 
    
-   public ArrayList<Detenu> getArray() throws SQLException, ParseException{
+   public void reducPeine(int duree,String ecrou) throws SQLException, ParseException{
+       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+       ResultSet rs = _connection.createStatement().executeQuery("insert into Reduction_peine values ('2' ,'"+ecrou+"',DATE('"+sdf.format(java.util.Calendar.getInstance().getTime())+"'),"+duree+") ");
+       rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Liberation_definitive where Liberation_definitive.n_ecrou = '"+ecrou+"'  ");
+       
+       Date dateobj = sdf.parse(rs.getString("date_liberation"));
+       Calendar cal = Calendar.getInstance();
+       cal.setTime(dateobj);
+       System.out.println("libe le "+sdf.format(cal.getTime()));
+       cal.add(Calendar.MONTH,-(duree));
+       _connection.createStatement().executeUpdate("update Liberation_definitive set date_liberation = '"+sdf.format(cal.getTime())+"'");
+        rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Liberation_definitive where Liberation_definitive.n_ecrou = '"+ecrou+"'  ");
+         dateobj = sdf.parse(rs.getString("date_liberation"));
+         cal.setTime(dateobj);
+        System.out.println("libe dans le : " + sdf.format(cal.getTime()));
+        _connection.commit();
+   }
+   
+   public ArrayList<Detenu> getArray(int sql) throws SQLException, ParseException{
        
        System.out.println("in getArray");
-       
-       ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu ");
+       ResultSet rs;
+       if (sql == 1)
+             rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu, Condamnation where Detenu.n_ecrou <> Condamnation.n_ecrou ");
+       else
+             rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu d, Condamnation c where c.n_ecrou = d.n_ecrou ");
        
         java.util.Calendar datenaiss = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -176,6 +200,7 @@ public class bank_database {
 
            Detenu det = new Detenu(rs.getString("n_ecrou"),rs.getString("prenom"),rs.getString("nom"),datenaiss,rs.getString("lieu_naissance"));
            liste.add(det);
+           System.out.println(" det : "+det.getNom());
            System.out.println("Nom : "+ det.getNom());
        }
        return liste;
@@ -184,7 +209,7 @@ public class bank_database {
    public ArrayList<Detenu> searchOnDatabase(String ecrou) throws SQLException, ParseException {
        ArrayList<Detenu> liste = new ArrayList();
        ArrayList<Detenu> list = new ArrayList();
-       liste = this.getArray();
+       liste = this.getArray(2);
        int i = 0;
        boolean continuer = true;
        while(continuer && i < liste.size() ){
@@ -206,13 +231,6 @@ public class bank_database {
            list.add(det);
            return(list);
        }
-   }
-   
-   
-   public void reductionPeine(String ecrou,int duree) throws SQLException{
-       SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-       _connection.createStatement().execute("insert into Detenu values(2,'"+ecrou+"',DATE('"+format1.format(java.util.Calendar.getInstance().getTime())+"'),'"+duree+"')");
-       _connection.commit();
    }
    
    public ResultSet readPrisonnierToDatabase() throws java.sql.SQLException {

@@ -109,48 +109,15 @@ public class Prisionnier_PreventifController implements Initializable {
     @FXML
     private void clickbtnvoir(MouseEvent event) throws SQLException, ParseException {
 
-       //  ResultSet rs = _database.readPrisonnierToDatabase();
-        // String nom;
-        // String prenom;
-        // java.util.Calendar datenaiss;
-        // String lieunaiss;
-        // String ecrou;
-        // SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        // java.util.Calendar calendar = Calendar.getInstance();
-
-        ArrayList<Detenu> liste = _database.getArray();
+        ArrayList<Detenu> liste = _database.getArray(1);
         ObservableList<Detenu> ajoutable = FXCollections.observableArrayList();
          
         //rs.beforeFirst();
         for(Detenu d : liste){
-            // prenom = rs.getString("prenom");
-            // nom = rs.getString("nom");
-            // ecrou = rs.getString("n_ecrou");
-            // Date dateobj = sdf.parse(rs.getString("date_naissance"));
-            // calendar.setTime(dateobj);
-            // datenaiss = calendar;
-            // lieunaiss = rs.getString("lieu_naissance");
-            //
-            // System.out.println(prenom+nom+ecrou+sdf.format(datenaiss.getTime())+ lieunaiss );
-            //
-            //
-            // Detenu det = new Detenu(ecrou,prenom,nom,datenaiss,lieunaiss);
-            //
-            // System.out.println("Detenu : "+det.getNom() + det.getPrenom() + det.getEcrou() + det.getDNaiss() + det.getLieuNaiss());
-            //
-            // DetenuFX newDet = new DetenuFX (det);
-            // System.out.println(newDet.getDNaiss().get());
-            //
-            //
+
             d.remplirFX();
              ajoutable.add(d);
-           
-           //System.out.println(detfx.getNom() + "\t" + detfx.getPrenom());
-           
-
-   
-         //  tableview.refresh();
-
+          
         }
 
          tableview.setItems(ajoutable);

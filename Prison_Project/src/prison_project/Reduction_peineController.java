@@ -68,7 +68,7 @@ public class Reduction_peineController implements Initializable {
     
     private bank_database _database;
     
-    private int numero_ecrou;
+    private String numero_ecrou;
 
     
         private TableColumn cnom = new TableColumn("Nom");
@@ -122,6 +122,7 @@ public class Reduction_peineController implements Initializable {
         if(!text_fieldtemps.getText().isEmpty()){
             switch(choice.getValue()){
                 case "Reduction de peine":
+                    _database.reducPeine(Integer.parseInt(text_fieldtemps.getText()), numero_ecrou);
                     
                     break;
                 case "Liberation definitive":
@@ -137,7 +138,7 @@ public class Reduction_peineController implements Initializable {
 
     @FXML
     private void onclickBtn_ok(MouseEvent event) throws SQLException, ParseException {
-                if(!text_necrou.getText().isEmpty()){
+           if(!text_necrou.getText().isEmpty()){
             System.out.println("test1 : onclickbtnok : reduccontrollerjava");
             System.out.println("Tu va chercher le numero : "+text_necrou.getText());
             ArrayList<Detenu> liste = _database.searchOnDatabase(text_necrou.getText());
@@ -166,7 +167,7 @@ public class Reduction_peineController implements Initializable {
                     text_duree_reduc.setDisable(false);
                     btn_ok_reduc.setDisable(false);
                     text_fieldtemps.setDisable(false);
-                    numero_ecrou = Integer.parseInt(text_necrou.getText());
+                    numero_ecrou = text_necrou.getText();
                 } else if ( result.get() == buttonOK && choice.getValue() == "Liberation definitive") {
                     text_duree_reduc.setDisable(false);
                     text_duree_reduc.setText("Date de liberation");
@@ -191,6 +192,13 @@ public class Reduction_peineController implements Initializable {
                 alert.setTitle("ERREUR");
                 alert.setHeaderText("Aucun prisionnier trouvé avec ce numero d'écrou");
                 alert.setContentText("ERROR 404 NOT FOUND");
+                text_duree_reduc.setDisable(true);
+                text_duree_reduc.setVisible(false);
+                btn_ok_reduc.setVisible(false);
+                btn_ok_reduc.setDisable(true);
+                text_fieldtemps.setVisible(false);
+                text_fieldtemps.setDisable(true);
+                tableview.setVisible(false);
                 alert.showAndWait();
             }
         }
