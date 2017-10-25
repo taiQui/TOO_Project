@@ -49,7 +49,6 @@ public class Prisionnier_PreventifController implements Initializable {
 
     private bank_database _database;
     final java.util.Calendar cal = Calendar.getInstance();
-   // private ObservableList<DetenuFX> ajoutable ;//= FXCollections.observableArrayList();
 
 
     public TableColumn colonneDateNaiss = new TableColumn("Date de naissance");

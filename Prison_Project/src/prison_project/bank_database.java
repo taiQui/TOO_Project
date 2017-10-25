@@ -184,24 +184,28 @@ public class bank_database {
    
    public ArrayList<Detenu> searchOnDatabase(String ecrou) throws SQLException, ParseException {
        ArrayList<Detenu> liste = new ArrayList();
+       ArrayList<Detenu> list = new ArrayList();
        liste = this.getArray();
        int i = 0;
-       
-       for(i = 0 ; i< liste.size() -1 ; i++){
-           System.out.println("ecrou : "+ liste.get(i).getEcrou());
-           if(!liste.get(i).getEcrou().equals(ecrou)){
-               System.out.println("je vais remove le detenu avec le numero : "+liste.get(i).getEcrou());
-               liste.remove(liste.remove(i));
+       boolean continuer = true;
+       while(continuer && i < liste.size() ){
+           if(liste.get(i).getEcrou().equals(ecrou)){
+               list.add(liste.get(i));
+               continuer = false;
+           } else {
+               i++;
            }
+           
        }
-       System.out.println("size : "+liste.size());
-       if(liste.size() == 0) {
-           System.out.println("Le numero d'ecrou est : "+liste.get(0).getEcrou());
-           return liste;
+       
+      System.out.println("size : " + list.size());
+       if(list.size() != 0) {
+           System.out.println("Le numero d'ecrou est : "+list.get(0).getEcrou());
+           return list;
        } else {
            Detenu det = new Detenu();
-           liste.add(det);
-           return(liste);
+           list.add(det);
+           return(list);
        }
    }
    

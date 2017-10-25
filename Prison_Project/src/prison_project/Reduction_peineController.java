@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -52,8 +53,7 @@ public class Reduction_peineController implements Initializable {
     private TableView<Detenu> tableview;
     @FXML
     private Text text_duree_reduc;
-    @FXML
-    private Circle cercle;
+   
     @FXML
     private Button btn_ok_reduc;
     @FXML
@@ -76,6 +76,8 @@ public class Reduction_peineController implements Initializable {
         private TableColumn cecrou = new TableColumn("Ecrou");
         private TableColumn cdnaiss = new TableColumn("Date de naissance");
         private TableColumn clnaiss = new TableColumn("Lieu de naissance");
+    @FXML
+    private ChoiceBox<String> choice =new ChoiceBox<String>();
     /**
      * Initializes the controller class.
      */
@@ -88,6 +90,12 @@ public class Reduction_peineController implements Initializable {
         cdnaiss.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_date_naissanceFX"));
         clnaiss.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_lieu_naissanceFX"));
         tableview.getColumns().addAll(cecrou,cprenom,cnom,cdnaiss,clnaiss);
+         
+       
+        choice.setItems(FXCollections.observableArrayList("Liberation definitive","Reduction de peine","Condamnation"));
+        
+      
+         
         try {
             _database = new bank_database();
         } catch (Exception e){
@@ -123,9 +131,10 @@ public class Reduction_peineController implements Initializable {
             System.out.println("test1 : onclickbtnok : reduccontrollerjava");
             System.out.println("Tu va chercher le numero : "+text_necrou.getText());
             ArrayList<Detenu> liste = _database.searchOnDatabase(text_necrou.getText());
-            
-           
-            if(liste.get(0).getEcrou() != ""){
+            System.out.println("valeur : " + choice.getValue());
+           System.out.println("after searchindatabase");
+           System.out.println("list : "+ liste.get(0).getEcrou());
+            if(liste.get(0).getEcrou() != null){
                 System.out.println("test2 : onclickbtnok : reduccontrollerjava");
                 ObservableList<Detenu> ajoutable = FXCollections.observableArrayList();
                 tableview.setVisible(true);
@@ -139,7 +148,7 @@ public class Reduction_peineController implements Initializable {
                 alert.getButtonTypes().setAll(buttonOK,buttonNO);
                 Optional<ButtonType> result = alert.showAndWait();
                 
-                if(result.get() == buttonOK) {
+                if(result.get() == buttonOK && choice.getValue()=="Reduction de peine") {
                     text_duree_reduc.setVisible(true);
                     btn_ok_reduc.setVisible(true);
                     text_fieldtemps.setVisible(true);
@@ -147,8 +156,23 @@ public class Reduction_peineController implements Initializable {
                     btn_ok_reduc.setDisable(false);
                     text_fieldtemps.setDisable(false);
                     numero_ecrou = Integer.parseInt(text_necrou.getText());
+                } else if ( result.get() == buttonOK && choice.getValue() == "Liberation definitive") {
+                    text_duree_reduc.setDisable(false);
+                    text_duree_reduc.setText("Date de liberation");
+                    text_duree_reduc.setVisible(true);
+                    btn_ok_reduc.setVisible(true);
+                    btn_ok_reduc.setDisable(false);
+                    text_fieldtemps.setVisible(true);
+                    text_fieldtemps.setDisable(false);
+                    
                 }
                 
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("ERREUR");
+                alert.setHeaderText("Aucun prisionnier trouvé avec ce numero d'écrou");
+                alert.setContentText("ERROR 404 NOT FOUND");
+                alert.showAndWait();
             }
         }
     }
