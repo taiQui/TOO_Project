@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import javafx.scene.control.ProgressIndicator;
 
 /**
  *
@@ -90,8 +91,9 @@ public class bank_database {
             statement.execute("INSERT INTO Detenu VALUES('1964','Sophie','Darnal',DATE(1964-07-28),'Besancon')");
             statement.execute("INSERT INTO Affaire VALUES('44','Nantes',DATE('1991-10-01'))");
             statement.execute("INSERT INTO Motif VALUES('01','vols et delits assimiles')");
+            statement.execute("INSERT INTO Decision VALUES('2','1963',DATE('2006-11-12'))");
             statement.execute("INSERT INTO Decision VALUES('3','1963',DATE('2006-11-12'))");
-            statement.execute("INSERT INTO Condamnation VALUES('3','1963',DATE('2006-11-12'),10)");
+            statement.execute("INSERT INTO Condamnation VALUES('2','1963',DATE('2006-11-12'),10)");
             statement.execute("INSERT INTO Liberation_definitive VALUES ('3','1963',DATE('2006-11-12'),DATE('2010-01-01'))");
 //  statement.execute("insert into Affaire values('1111')
 
@@ -183,10 +185,12 @@ public class bank_database {
                                                 //ajout reduction peine ( reducpeinecontroller )
    /**********************************************************************************************************/
    
-   public void reducPeine(int duree,String ecrou) throws SQLException, ParseException{
+   public void reducPeine(int duree,String ecrou,ProgressIndicator indicator) throws SQLException, ParseException{
+       
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
        _connection.createStatement().execute("insert into Decision values('2' ,'"+ecrou+"',DATE('"+sdf.format(java.util.Calendar.getInstance().getTime())+"'))");
        _connection.createStatement().execute("insert into Reduction_peine values ('2' ,'"+ecrou+"',DATE('"+sdf.format(java.util.Calendar.getInstance().getTime())+"'),"+duree+") ");
+       indicator.setProgress(indicator.getProgress()+0.1f);
        ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select date_liberation from Liberation_definitive");
        //System.out.println("testA1");
        Date dateobj = new Date();
@@ -194,19 +198,40 @@ public class bank_database {
        if(rs.next())
               dateobj = sdf.parse(rs.getString("date_liberation"));
        
+       indicator.setProgress(indicator.getProgress()+0.1f);
        Calendar cal = Calendar.getInstance();
        cal.setTime(dateobj);
+       indicator.setProgress(indicator.getProgress()+0.1f);
        cal.add(Calendar.MONTH,-(duree));
        _connection.createStatement().executeUpdate("update Liberation_definitive set date_liberation = '"+sdf.format(cal.getTime())+"' where n_ecrou = '"+ecrou+"' ");
        //System.out.println("testA2"); 
+       indicator.setProgress(indicator.getProgress()+0.1f);
        rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Liberation_definitive where Liberation_definitive.n_ecrou = '"+ecrou+"'  ");
        //System.out.println("testA3");
+       indicator.setProgress(indicator.getProgress()+0.1f);
        rs.beforeFirst();
        if(rs.next())
               dateobj = sdf.parse(rs.getString("date_liberation"));
+       indicator.setProgress(indicator.getProgress()+0.2f);
         cal.setTime(dateobj);
+        indicator.setProgress(indicator.getProgress()+0.1f);
         _connection.commit();
    }
+   
+   
+   
+   public void condamnation(int duree,String ecrou,ProgressIndicator indicator) throws SQLException{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH,duree);
+       _connection.createStatement().execute("insert into Decision values('1' ,'"+ecrou+"',DATE('"+sdf.format(java.util.Calendar.getInstance().getTime())+"'))");
+       _connection.createStatement().execute("insert into Condamnation values ('1' ,'"+ecrou+"',DATE('"+sdf.format(java.util.Calendar.getInstance().getTime())+"'),"+duree+") ");
+       _connection.createStatement().execute("insert into Decision values('3' ,'"+ecrou+"',DATE('"+sdf.format(java.util.Calendar.getInstance().getTime())+"'))");
+       _connection.createStatement().execute("insert into Liberation_definitive values ('3' ,'"+ecrou+"',DATE('"+sdf.format(java.util.Calendar.getInstance().getTime())+"'),DATE('"+sdf.format(calendar.getTime())+"')) ");
+       indicator.setProgress(indicator.getProgress()+1.0f);
+       _connection.commit();
+   }
+   
    
    public ArrayList<Detenu> getArray(int sql) throws SQLException, ParseException{
        
@@ -232,10 +257,13 @@ public class bank_database {
        return liste;
    }
    
-   public ArrayList<Detenu> searchOnDatabase(String ecrou) throws SQLException, ParseException {
+   public ArrayList<Detenu> searchOnDatabase(String ecrou,int choix) throws SQLException, ParseException {
        ArrayList<Detenu> liste = new ArrayList();
        ArrayList<Detenu> list = new ArrayList();
-       liste = this.getArray(2);
+       if(choix == 1)
+            liste = this.getArray(1);
+       else 
+           liste = this.getArray(2);
        int i = 0;
        boolean continuer = true;
        while(continuer && i < liste.size() ){
