@@ -24,6 +24,7 @@ public class Prison_Project extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
         stage.show();
     }
 
