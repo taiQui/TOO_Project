@@ -15,8 +15,9 @@ public class Motif {
             String _n_motif;
             String _libelle_motif;
      
-    Motif(String motif){
+    Motif(String motif,String lmotif){
         this._n_motif = motif;
+        this._libelle_motif = lmotif;
         
     }
             

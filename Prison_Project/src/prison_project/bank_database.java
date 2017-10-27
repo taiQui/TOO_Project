@@ -168,7 +168,7 @@ public class bank_database {
        System.out.println("reussis1");
       _connection.createStatement().execute("insert into Affaire values('"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+format1.format(affaire.getDate().getTime())+"'))");
        System.out.println("reussis2");
-        _connection.createStatement().execute("insert into Motif values('"+motif.getMotif()+"', 'test' )");
+        _connection.createStatement().execute("insert into Motif values('"+motif.getMotif()+"', '"+motif.getLMotif()+"' )");
        System.out.println("reussis3");
       _connection.createStatement().execute("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"')");
        System.out.println("reussis4");
@@ -238,9 +238,9 @@ public class bank_database {
        System.out.println("in getArray");
        ResultSet rs;
        if (sql == 1)
-             rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu, Condamnation where Detenu.n_ecrou <> Condamnation.n_ecrou ");
+             rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu where Detenu.n_ecrou NOT IN( select D.n_ecrou from Detenu D, Condamnation C where D.n_ecrou = C.n_ecrou)");
        else
-             rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu d, Condamnation c where c.n_ecrou = d.n_ecrou ");
+             rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu d, Condamnation c where d.n_ecrou IN ( select D.n_ecrou from Detenu D, Condamnation C where D.n_ecrou = C.n_ecrou) ");
        
         java.util.Calendar datenaiss = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
