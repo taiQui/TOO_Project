@@ -1,3 +1,1 @@
-revoir les ajout dans la base, y'a un truc qui deconne avec la selection,
- quand on ajoute un detenu et qu'on lui donne une condamnation,
- quand on veut voir tous les detenus en preventif on voit tous le monde
+Ca marche mais peut y'avoir qu'un seul meme motif ( BIZARRE ! ) qu'un seul libelle motif ( BIZARRE ! ) 
