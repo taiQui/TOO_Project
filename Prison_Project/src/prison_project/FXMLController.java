@@ -389,6 +389,7 @@ public class FXMLController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(scene);
         oldstage.close();
+        scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
         stage.show();
     }
 
