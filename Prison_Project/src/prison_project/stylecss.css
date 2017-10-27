@@ -120,3 +120,27 @@ and open the template in the editor.
    -fx-font-family: "Arial Black";
    -fx-fill: #404040;
 }
+
+#anchoradd {
+    -fx-background-image: url("./IMG/img1ica.jpg");
+}
+
+#btn_create {
+  -fx-border-radius: 25 0 25 0;
+  -fx-background-radius: 25 0 25 0;
+}
+
+#btnRead {
+  -fx-border-radius: 25 0 25 0;
+  -fx-background-radius: 25 0 25 0;
+}
+
+#Btnupdate {
+  -fx-border-radius: 25 0 25 0;
+  -fx-background-radius: 25 0 25 0;
+}
+
+#btnDelete {
+  -fx-border-radius: 25 0 25 0;
+  -fx-background-radius: 25 0 25 0;
+}
