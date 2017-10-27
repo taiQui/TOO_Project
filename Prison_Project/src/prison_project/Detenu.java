@@ -52,7 +52,7 @@ public class Detenu {
         this._prenomFX = new SimpleStringProperty(prenom);
         this._nom = nom;
         this._nomFX = new SimpleStringProperty(nom);
-        this._date_naissance = Calendar.getInstance();
+        this._date_naissance = date_naiss;
         this._date_naissanceFX = new SimpleStringProperty(sdf.format(date_naiss.getTime()));
         this._lieu_naissance = lieu_naiss;
         this._lieu_naissanceFX = new SimpleStringProperty(lieu_naiss);
