@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 
 import javafx.scene.input.MouseEvent;
 
@@ -50,19 +51,9 @@ public class MenuController /*extends Application*/ implements Initializable {
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        btn_newIncar.setStyle("-fx-background-color: \n" +
-"        #ecebe9,\n" +
-"        rgba(0,0,0,0.05),\n" +
-"        linear-gradient(#dcca8a, #c7a740),\n" +
-"        linear-gradient(#f9f2d6 0%, #f4e5bc 20%, #e6c75d 80%, #e2c045 100%),\n" +
-"        linear-gradient(#f6ebbe, #e6c34d);");
-         btn_newIncar.setStyle("-fx-background-insets: 0,9 9 8 9,9,10,11;");
-         btn_newIncar.setStyle("-fx-background-radius: 50;");
-         btn_newIncar.setStyle("-fx-padding: 15 30 15 30;");
-         btn_newIncar.setStyle("-fx-font-family: \"Helvetica\";");
-         btn_newIncar.setStyle("-fx-font-size: 18px;");
-         btn_newIncar.setStyle("-fx-text-fill: #311c09;");
-         btn_newIncar.setStyle("-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.1) , 2, 0.0 , 0 , 1);");
+         DropShadow shadow = new DropShadow();
+        
+       
          
          
          
@@ -90,6 +81,7 @@ public class MenuController /*extends Application*/ implements Initializable {
             stage.setTitle(name);
             stage.setScene(scene);
             oldstage.close();
+            scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
             stage.show();
         } catch (IOException ex){
           ex.getCause();

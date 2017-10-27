@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="708.0" prefWidth="1306.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="prison_project.MenuController" >
+<AnchorPane id="AnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="708.0" prefWidth="1306.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="prison_project.MenuController">
   <children>
     <Label alignment="CENTER" layoutX="341.0" layoutY="77.0" prefHeight="127.0" prefWidth="625.0" text="" textAlignment="CENTER" />
-    <Text layoutX="628.0" layoutY="116.0" scaleX="8.01699900005882" scaleY="5.304617392723119" strokeType="OUTSIDE" strokeWidth="0.0" text="Prison" />
-    <Text layoutX="643.0" layoutY="222.0" scaleX="7.296003513394818" scaleY="3.5896557350301843" strokeType="OUTSIDE" strokeWidth="0.0" text="de" />
-    <Text layoutX="628.0" layoutY="336.0" scaleX="7.923596264317625" scaleY="5.384129603457868" strokeType="OUTSIDE" strokeWidth="0.0" text="Nantes" />
-    <Button id="btnincar" fx:id="btn_newIncar" contentDisplay="LEFT" layoutX="38.0" layoutY="59.0" mnemonicParsing="false" onMouseClicked="#onclickBtnnewIncar" prefHeight="184.517578125" prefWidth="303.0" text="Nouvelle Incarceration " textFill="BLACK">
+    <Text fx:id="text_prison" layoutX="628.0" layoutY="116.0" scaleX="8.01699900005882" scaleY="5.304617392723119" strokeType="OUTSIDE" strokeWidth="0.0" text="Prison" />
+    <Text fx:id="text_de" layoutX="643.0" layoutY="222.0" scaleX="7.296003513394818" scaleY="3.5896557350301843" strokeType="OUTSIDE" strokeWidth="0.0" text="de" />
+    <Text fx:id="text_nantes" layoutX="628.0" layoutY="336.0" scaleX="7.923596264317625" scaleY="5.384129603457868" strokeType="OUTSIDE" strokeWidth="0.0" text="Nantes" />
+    <Button id="btnincar" fx:id="btn_newIncar" contentDisplay="LEFT" layoutX="38.0" layoutY="59.0" mnemonicParsing="false" onMouseClicked="#onclickBtnnewIncar" prefHeight="185.0" prefWidth="303.0" text="Nouvelle Incarceration " textFill="BLACK">
       <font>
         <Font size="23.0" fx:id="x1" />
       </font>

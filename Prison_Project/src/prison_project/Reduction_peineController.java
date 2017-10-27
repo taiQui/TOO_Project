@@ -94,7 +94,7 @@ public class Reduction_peineController implements Initializable {
         tableview.getColumns().addAll(cecrou,cprenom,cnom,cdnaiss,clnaiss);
          
        
-        choice.setItems(FXCollections.observableArrayList("Liberation definitive","Reduction de peine","Condamnation"));
+        choice.setItems(FXCollections.observableArrayList("Reduction de peine","Condamnation"));
         
       
          
@@ -127,9 +127,6 @@ public class Reduction_peineController implements Initializable {
                 case "Reduction de peine":
                     _database.reducPeine(Integer.parseInt(text_fieldtemps.getText()), numero_ecrou, indicator);
                     indicator.setProgress(indicator.getProgress()+0.2f);
-
-                    break;
-                case "Liberation definitive":
 
                     break;
                 case "Condamnation":
@@ -175,16 +172,6 @@ public class Reduction_peineController implements Initializable {
                     text_fieldtemps.setVisible(true);
                     text_duree_reduc.setDisable(false);
                     btn_ok_reduc.setDisable(false);
-                    text_fieldtemps.setDisable(false);
-                    indicator.setVisible(true);
-                    
-                } else if ( result.get() == buttonOK && choice.getValue() == "Liberation definitive") {
-                    text_duree_reduc.setDisable(false);
-                    text_duree_reduc.setText("Date de liberation ( en mois )");
-                    text_duree_reduc.setVisible(true);
-                    btn_ok_reduc.setVisible(true);
-                    btn_ok_reduc.setDisable(false);
-                    text_fieldtemps.setVisible(true);
                     text_fieldtemps.setDisable(false);
                     indicator.setVisible(true);
                 } else if ( result.get() == buttonOK && choice.getValue() == "Condamnation"){
