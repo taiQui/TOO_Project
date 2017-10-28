@@ -175,9 +175,9 @@ public class bank_database {
       // cal.add(Calendar.DATE, 1);
       
         ResultSet rs;
-      
+
       SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-       System.out.println(format1.format(detenu.getDNaiss().getTime()));
+       System.out.println( "TEST DANS ADDDATABASE : "+format1.format(detenu.getDNaiss().getTime()));
        _connection.createStatement().execute("insert into Detenu values('"+detenu.getEcrou()+"','"+detenu.getPrenom()+"','"+detenu.getNom()+"',DATE('"+format1.format(detenu.getDNaiss().getTime())+"'),'"+detenu.getLieuNaiss()+"')");
        System.out.println("reussis1");
        

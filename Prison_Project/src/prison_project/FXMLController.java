@@ -309,10 +309,11 @@ public class FXMLController implements Initializable {
         System.out.println(!data.TestVoid());
         if(!data.TestVoid()){
         //Detenu
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date dateobj = sdf.parse(text_Birthday.getText());
         java.util.Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateobj);
+        System.out.println("Creation det apres appuis bouton create : "+ sdf.format(calendar.getTime()));
         Detenu detenu = new Detenu(text_area.getText(),text_FirstName.getText(),text_LastName.getText(),calendar,text_Birthplace.getText());
 
         //Affaire
