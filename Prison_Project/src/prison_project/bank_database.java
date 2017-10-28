@@ -100,6 +100,8 @@ public class bank_database {
             statement.execute("INSERT INTO Detenu VALUES('1963','Franck','Barbier',DATE('1963-01-11'),'Montbeliard')");
             statement.execute("INSERT INTO Detenu VALUES('1964','Sophie','Darnal',DATE(1964-07-28),'Besancon')");
             statement.execute("INSERT INTO Affaire VALUES('44','Nantes',DATE('1991-10-01'))");
+            statement.execute("INSERT INTO Detenu_Affaire VALUES('1963','44','Nantes')");
+            statement.execute("INSERT INTO Incarceration VALUES('1963','44','Nantes',DATE('2008-04-16'),'1')");
             statement.execute("INSERT INTO Decision VALUES('2','1963',DATE('2006-11-12'))");
             statement.execute("INSERT INTO Decision VALUES('3','1963',DATE('2006-11-12'))");
             statement.execute("INSERT INTO Condamnation VALUES('2','1963',DATE('2006-11-12'),10)");
@@ -183,10 +185,22 @@ public class bank_database {
        System.out.println("mortif :"+ motif.getMotif());
       _connection.createStatement().execute("insert into Incarceration values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+format1.format(incarceration.getDate().getTime())+"'),'"+motif.getMotif()+"')");
        System.out.println("reussis4");
-       _connection.commit();
+
+      _connection.commit();
        _connection.close();
          
    }
+   
+   
+   public void UpdatePrisonnier(Detenu detenu,Affaire affaire,Juridiction juridiction,Incarceration incarceration,Motif motif) throws SQLException {
+       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+       _connection.createStatement().executeUpdate("update Detenu set prenom = '"+detenu.getPrenom()+"', nom = '"+detenu.getNom()+"',date_naissance = '"+sdf.format(detenu.getDNaiss().getTime())+"',lieu_naissance = '"+detenu.getLieuNaiss()+"' where n_ecrou = '"+detenu.getEcrou()+"' ");
+       _connection.createStatement().executeUpdate("update Affaire set n_affaire = '"+affaire.getAffaire()+"', nom_juridiction = '"+juridiction.getNom()+"',date_faits = '"+sdf.format(affaire.getDate().getTime())+"' where Affaire.n_affaire = (select d.n_affaire from Detenu_Affaire d where d.n_ecrou = '"+detenu.getEcrou()+"')");
+       _connection.createStatement().executeUpdate("update Detenu_Affaire set n_affaire = '"+affaire.getAffaire()+"', nom_juridiction = '"+juridiction.getNom()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
+       _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.getAffaire()+"',nom_juridiction='"+juridiction.getNom()+"',date_incarceration = '"+sdf.format(incarceration.getDate().getTime())+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
+       _connection.commit();
+   }
+   
 
       /*********************************************************************************************************/
    
@@ -247,16 +261,18 @@ public class bank_database {
        ResultSet rs;
        if (sql == 1)
              rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu where Detenu.n_ecrou NOT IN( select D.n_ecrou from Detenu D, Condamnation C where D.n_ecrou = C.n_ecrou)");
-       else
+       else if( sql == 2 )
              rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu d, Condamnation c where d.n_ecrou IN ( select D.n_ecrou from Detenu D, Condamnation C where D.n_ecrou = C.n_ecrou) ");
-       
+       else
+             rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu ");
         java.util.Calendar datenaiss = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateobj = new Date();
         ArrayList<Detenu> liste  = new ArrayList<Detenu>();
        rs.beforeFirst();
        while(rs.next()){
-
+           dateobj=sdf.parse(rs.getString("date_naissance"));
+           datenaiss.setTime(dateobj);
            Detenu det = new Detenu(rs.getString("n_ecrou"),rs.getString("prenom"),rs.getString("nom"),datenaiss,rs.getString("lieu_naissance"));
            liste.add(det);
            System.out.println(" det : "+det.getNom());
@@ -265,13 +281,40 @@ public class bank_database {
        return liste;
    }
    
+   
+   public ArrayList<String> getPrisonnier (String ecrou) throws SQLException{
+       System.out.println("------------------ "+'\n'+" GET PRISONNIER "+'\n'+"------------------------");
+       ResultSet rs;
+       ArrayList<String> liste = new ArrayList<String>();
+        rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire where Affaire.n_affaire = (select d.n_affaire from Detenu_Affaire d where d.n_ecrou = '"+ecrou+"')");
+       rs.beforeFirst();
+       if(rs.next()){
+           System.out.println("je passe dans la premiere recherche");
+           liste.add(rs.getString("n_affaire"));
+           liste.add(rs.getString("nom_juridiction"));
+           liste.add(rs.getString("date_faits"));
+       }
+       rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Incarceration where Incarceration.n_ecrou = '"+ecrou+"'");
+       rs.beforeFirst();
+       if(rs.next()){
+           System.out.println("Je passe dans la deuxieme recherche");
+           liste.add(rs.getString("date_incarceration"));
+           liste.add(rs.getString("n_motif"));
+       }
+       return liste;
+   }
+   
+   
    public ArrayList<Detenu> searchOnDatabase(String ecrou,int choix) throws SQLException, ParseException {
        ArrayList<Detenu> liste = new ArrayList();
        ArrayList<Detenu> list = new ArrayList();
        if(choix == 1)
             liste = this.getArray(1);
-       else 
+       else if(choix == 2)
            liste = this.getArray(2);
+       else 
+           liste = this.getArray(3);
+       
        int i = 0;
        boolean continuer = true;
        while(continuer && i < liste.size() ){

@@ -45,7 +45,7 @@ public class Detenu {
     }        
             
     Detenu(String ecrou,String prenom,String nom, java.util.Calendar date_naiss,String lieu_naiss){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         this._n_ecrou = ecrou;
         this._n_ecrouFX = new SimpleStringProperty(ecrou);
         this._prenom = prenom;
@@ -121,7 +121,7 @@ public class Detenu {
     }
     
     public void remplirFX(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         this._nomFX = new SimpleStringProperty(this._nom);
         this._prenomFX = new SimpleStringProperty(this._prenom);
         this._n_ecrouFX = new SimpleStringProperty(this._n_ecrou);

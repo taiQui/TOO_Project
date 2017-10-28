@@ -8,8 +8,10 @@ package prison_project;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -317,7 +319,7 @@ public class FXMLController implements Initializable {
         System.out.println(!data.TestVoid());
         if(!data.TestVoid()){
         //Detenu
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date dateobj = sdf.parse(text_Birthday.getText());
         java.util.Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateobj);
@@ -368,16 +370,65 @@ public class FXMLController implements Initializable {
     }
 
     @FXML
-    private void onClickBtnRead(MouseEvent event)throws java.sql.SQLException  {
-       Data dataRead = new Data();
-      // dataRead =  _database.readPrisonnierToDatabase();
-       text_LastName.setText(dataRead.getLastName());
+    private void onClickBtnRead(MouseEvent event)throws java.sql.SQLException, ParseException  {
+      ArrayList<Detenu> liste = _database.searchOnDatabase(text_area.getText(), 3);
+      
+      if(!liste.get(0)._nom.isEmpty()) {
+          ArrayList<String> prisonnier = new ArrayList<String>();
+          prisonnier = _database.getPrisonnier(text_area.getText());
+          if(prisonnier.isEmpty())
+              System.out.println("La liste est vide biatch");
+          for(int i = 0; i< prisonnier.size() ; i++)
+              System.out.println("String("+i+") = "+ prisonnier.get(i));
+          text_FirstName.setText(liste.get(0).getPrenom());
+          text_LastName.setText(liste.get(0).getNom());
+          text_Birthday.setText((String)liste.get(0).get_date_naissanceFX().toString());
+          text_Birthplace.setText(liste.get(0).getLieuNaiss());
+          text_CaseNumber.setText(prisonnier.get(0));
+          text_NameOrigin.setText(prisonnier.get(1));
+          text_DayOfFact.setText(prisonnier.get(2));
+          text_DayOfImprisonment.setText(prisonnier.get(3));
+          text_Reason.setText(prisonnier.get(4));
+          
+      } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("ERREUR");
+                alert.setHeaderText("Aucun prisionnier trouvé avec ce numero d'écrou");
+                alert.setContentText("ERROR 404 NOT FOUND");
+                alert.showAndWait();
+      }
+       
+      
 
 
     }
 
     @FXML
-    private void onClickBtnUpdate(MouseEvent event) {
+    private void onClickBtnUpdate(MouseEvent event) throws ParseException, SQLException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateobj = sdf.parse(text_Birthday.getText());
+        java.util.Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateobj);
+        Detenu detenu = new Detenu(text_area.getText(),text_FirstName.getText(),text_LastName.getText(),calendar,text_Birthplace.getText());
+
+        //Affaire
+        dateobj = sdf.parse(text_DayOfFact.getText());
+        calendar.setTime(dateobj);
+        Affaire affaire = new Affaire(text_CaseNumber.getText(),calendar);
+
+        //Juridiction
+        Juridiction juridiction = new Juridiction(text_NameOrigin.getText());
+
+        //Incarceration
+        dateobj = sdf.parse(text_DayOfImprisonment.getText());
+        calendar.setTime(dateobj);
+        Incarceration incarceration = new Incarceration(calendar);
+
+        //Motif
+        Motif motif = new Motif(text_Reason.getText());
+        
+        _database.UpdatePrisonnier(detenu, affaire, juridiction, incarceration, motif);
+        
     }
 
     @FXML

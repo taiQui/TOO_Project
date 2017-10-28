@@ -109,7 +109,7 @@ public class Prisionnier_PreventifController implements Initializable {
 
     @FXML
     private void clickbtnvoir(MouseEvent event) throws SQLException, ParseException {
-
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         ArrayList<Detenu> liste = _database.getArray(1);
         ObservableList<Detenu> ajoutable = FXCollections.observableArrayList();
          
@@ -117,6 +117,7 @@ public class Prisionnier_PreventifController implements Initializable {
         for(Detenu d : liste){
 
             d.remplirFX();
+            System.out.println(sdf.format(d.getDNaiss().getTime()));
              ajoutable.add(d);
           
         }

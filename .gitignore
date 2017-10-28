@@ -35,3 +35,5 @@ hs_err_pid*
 /testDB/nbproject/private/
 /testDB/build/
 /bank_database/
+/TEST/nbproject/private/
+/TEST/build/

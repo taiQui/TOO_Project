@@ -22,7 +22,7 @@ public class DetenuFX {
     SimpleStringProperty _lieu_naissanceFX;
 
     DetenuFX(Detenu D){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         this._n_ecrouFX = new SimpleStringProperty(D.getEcrou());
         this._prenomFX = new SimpleStringProperty(D.getPrenom());
         this._nomFX = new SimpleStringProperty(D.getNom());
