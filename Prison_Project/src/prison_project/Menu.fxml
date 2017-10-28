@@ -19,6 +19,6 @@
       </font>
     </Button>
     <Button id="btndecision" fx:id="btn_reductionpeine" font="$x1" layoutX="966.0" layoutY="454.0" mnemonicParsing="false" onMouseClicked="#onclickBtnreducpeine" prefHeight="185.0" prefWidth="303.0" text="Decision" />
-    <Button id="btnpreventif" fx:id="btn_preventif" font="$x1" layoutX="504.0" layoutY="454.0" mnemonicParsing="false" onMouseClicked="#onclickBtnpreventif" prefHeight="185.0" prefWidth="303.0" text="Prisonnier preventif" />
+    <Button id="btnpreventif" fx:id="btn_preventif" font="$x1" layoutX="504.0" layoutY="454.0" mnemonicParsing="false" onMouseClicked="#onclickBtnpreventif" prefHeight="185.0" prefWidth="303.0" text="Prisonniers" />
   </children>
 </AnchorPane>

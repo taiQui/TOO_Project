@@ -24,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -56,6 +57,8 @@ public class Prisionnier_PreventifController implements Initializable {
     public TableColumn colonneEcrou = new TableColumn("Ecrou");
     public TableColumn colonneNom = new TableColumn("Nom");
     public TableColumn colonnePrenom = new TableColumn("Prenom");
+    @FXML
+    private ChoiceBox<String> choiceBox = new ChoiceBox<String>();
     /**
      * Initializes the controller class.
      * @param url
@@ -87,6 +90,9 @@ public class Prisionnier_PreventifController implements Initializable {
     
         tableview.getColumns().addAll(colonneEcrou,colonnePrenom,colonneNom,colonneDateNaiss,colonneLieuxNaiss);
 
+        choiceBox.setItems(FXCollections.observableArrayList("Preventif","Tous"));
+        choiceBox.setValue("Tous");
+        
         try {
             _database = new bank_database();
         }catch (Exception e1){
@@ -110,21 +116,36 @@ public class Prisionnier_PreventifController implements Initializable {
     @FXML
     private void clickbtnvoir(MouseEvent event) throws SQLException, ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        ArrayList<Detenu> liste = _database.getArray(1);
-        ObservableList<Detenu> ajoutable = FXCollections.observableArrayList();
-         
-        //rs.beforeFirst();
-        for(Detenu d : liste){
+        ArrayList<Detenu> liste;
+        ObservableList<Detenu>  ajoutable = FXCollections.observableArrayList();
+        if(choiceBox.getValue().equals("Preventif")){
+             liste = _database.getArray(1);
 
-            d.remplirFX();
-            System.out.println(sdf.format(d.getDNaiss().getTime()));
-             ajoutable.add(d);
-          
+            //rs.beforeFirst();
+            for(Detenu d : liste){
+
+              
+                System.out.println("TIME2 : "+sdf.format(d.getDNaiss().getTime()));
+                 ajoutable.add(d);
+
+            }
+
+            
+        } else if (choiceBox.getValue().equals("Tous")){
+            liste = _database.getArray(3);
+
+            //rs.beforeFirst();
+            for(Detenu d : liste){
+
+              
+                System.out.println("TIME2 : "+sdf.format(d.getDNaiss().getTime()));
+               ajoutable.add(d);
+
+            }
         }
-
-         tableview.setItems(ajoutable);
-
-
+            
+        tableview.setItems(ajoutable);
+ 
     }
 
 }

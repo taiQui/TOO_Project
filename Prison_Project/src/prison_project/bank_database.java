@@ -174,12 +174,20 @@ public class bank_database {
        //Calendar cal = Calendar.getInstance();
       // cal.add(Calendar.DATE, 1);
       
-       SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        ResultSet rs;
+      
+      SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
        System.out.println(format1.format(detenu.getDNaiss().getTime()));
        _connection.createStatement().execute("insert into Detenu values('"+detenu.getEcrou()+"','"+detenu.getPrenom()+"','"+detenu.getNom()+"',DATE('"+format1.format(detenu.getDNaiss().getTime())+"'),'"+detenu.getLieuNaiss()+"')");
        System.out.println("reussis1");
-      _connection.createStatement().execute("insert into Affaire values('"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+format1.format(affaire.getDate().getTime())+"'))");
+       
+       rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire where n_affaire = '"+affaire.getAffaire()+"'");
+       rs.beforeFirst();
+       if(!rs.next()) {
+            _connection.createStatement().execute("insert into Affaire values('"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+format1.format(affaire.getDate().getTime())+"'))");
        System.out.println("reussis2");
+       } 
+           
       _connection.createStatement().execute("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"')");
        System.out.println("reussis3");
        System.out.println("mortif :"+ motif.getMotif());
@@ -187,7 +195,7 @@ public class bank_database {
        System.out.println("reussis4");
 
       _connection.commit();
-       _connection.close();
+      
          
    }
    
@@ -202,6 +210,43 @@ public class bank_database {
    }
    
 
+   public void DeletePrisonnier(String ecrou) throws SQLException{
+       
+       ResultSet rs;
+       
+       
+       
+       rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Reduction_peine where n_ecrou = '"+ecrou+"'");
+       rs.beforeFirst();
+       if(rs.next()) 
+           _connection.createStatement().executeUpdate("delete from Reduction_peine where n_ecrou = '"+ecrou+"'");
+             
+       rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Liberation_definitive where n_ecrou = '"+ecrou+"'");
+       rs.beforeFirst();
+       if(rs.next()) 
+           _connection.createStatement().executeUpdate("delete from Liberation_definitive where n_ecrou = '"+ecrou+"'");
+       
+     
+       rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Decision where n_ecrou = '"+ecrou+"'");
+       rs.beforeFirst();
+       if(rs.next()){
+           _connection.createStatement().executeUpdate("delete from Condamnation where n_ecrou = '"+ecrou+"'");
+           _connection.createStatement().executeUpdate("delete from Decision where n_ecrou = '"+ecrou+"'");
+       }
+       
+       rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu where n_ecrou = '"+ecrou+"'");
+       rs.beforeFirst();
+       if(rs.next()){
+            _connection.createStatement().executeUpdate("delete from Incarceration where n_ecrou = '"+ecrou+"'");
+            _connection.createStatement().executeUpdate("delete from Detenu_Affaire where n_ecrou = '"+ecrou+"'");
+            _connection.createStatement().executeUpdate("delete from Detenu where n_ecrou = '"+ecrou+"' ");
+       }
+       
+       _connection.commit();    
+       
+   }
+   
+   
       /*********************************************************************************************************/
    
                                                 //ajout reduction peine ( reducpeinecontroller )
@@ -273,6 +318,7 @@ public class bank_database {
        while(rs.next()){
            dateobj=sdf.parse(rs.getString("date_naissance"));
            datenaiss.setTime(dateobj);
+           System.out.println("TIME : "+sdf.format(datenaiss.getTime()));
            Detenu det = new Detenu(rs.getString("n_ecrou"),rs.getString("prenom"),rs.getString("nom"),datenaiss,rs.getString("lieu_naissance"));
            liste.add(det);
            System.out.println(" det : "+det.getNom());

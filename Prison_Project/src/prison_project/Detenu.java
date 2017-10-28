@@ -120,12 +120,4 @@ public class Detenu {
         this._lieu_naissance = date;
     }
     
-    public void remplirFX(){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        this._nomFX = new SimpleStringProperty(this._nom);
-        this._prenomFX = new SimpleStringProperty(this._prenom);
-        this._n_ecrouFX = new SimpleStringProperty(this._n_ecrou);
-        this._lieu_naissanceFX= new SimpleStringProperty(this._lieu_naissance);
-        this._date_naissanceFX = new SimpleStringProperty(sdf.format(this._date_naissance.getTime()));
-    }
 }

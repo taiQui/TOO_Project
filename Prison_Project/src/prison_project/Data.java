@@ -25,8 +25,6 @@ public class Data {
     private StringProperty _LastCaseNumberSP;
     private String _NameOfOriginCourt;
     private StringProperty _NameOfOriginCourtSP;
-    private String _ExactNameJuridiction;
-    private StringProperty _ExactNameJuridictionSP;
     private String _DayOfImprisonment;
     private StringProperty _DayOfImprisonmentSP;
     private String _Reason;
@@ -35,7 +33,7 @@ public class Data {
     private StringProperty _DayOfFactSP;
     private String _Necrou;
     private StringProperty _NecrouSP;
-     Data(String t1,String t2, String t3,String t4,String t5,String t6,String t7,String t8,String t9,String t10,String t11){
+     Data(String t1,String t2, String t3,String t4,String t5,String t6,String t8,String t9,String t10,String t11){
         //System.out.println("test2");
         this._LastName = t1;
         this._FirstName = t2;
@@ -43,7 +41,6 @@ public class Data {
         this._Birthplace = t4;
         this._CaseNumber = t5;
         this._NameOfOriginCourt = t6;
-        this._ExactNameJuridiction = t7;
         this._DayOfImprisonment = t8;
         this._Reason = t9;
         this._DayOfFact = t10;
@@ -57,7 +54,6 @@ public class Data {
         this._Birthplace = "";
         this._CaseNumber = "";
         this._NameOfOriginCourt = "";
-        this._ExactNameJuridiction = "";
         this._DayOfImprisonment = "";
         this._Reason = "";
         this._DayOfFact = "";
@@ -87,10 +83,6 @@ public class Data {
          
          public void setNameOfOrigin( String nameoforigin) {
              this._NameOfOriginCourt = nameoforigin;
-         }
-         
-         public void setExactName( String exactname ){
-             this._ExactNameJuridiction = exactname;
          }
          
          public void setDayofImprisonment(String dayofimprisonment ){
@@ -133,10 +125,6 @@ public class Data {
              return(this._NameOfOriginCourt);
          }
          
-         public String getExactName(){
-             return(this._ExactNameJuridiction);
-         }
-         
          public String getDayOfImprisonment(){
              return(this._DayOfImprisonment);
          }
@@ -154,7 +142,7 @@ public class Data {
          }
          
     public boolean TestVoid(){
-        return(this._LastName.isEmpty() && this._FirstName.isEmpty() && this._Birthday.isEmpty() && this._Birthplace.isEmpty() && this._CaseNumber.isEmpty() && this._NameOfOriginCourt.isEmpty() && this._ExactNameJuridiction.isEmpty() && this._DayOfImprisonment.isEmpty() && this._Reason.isEmpty() && this._DayOfFact.isEmpty() && this._Necrou.isEmpty());
+        return(this._LastName.isEmpty() && this._FirstName.isEmpty() && this._Birthday.isEmpty() && this._Birthplace.isEmpty() && this._CaseNumber.isEmpty() && this._NameOfOriginCourt.isEmpty() && this._DayOfImprisonment.isEmpty() && this._Reason.isEmpty() && this._DayOfFact.isEmpty() && this._Necrou.isEmpty());
     }
     
     public double TestError(){
@@ -171,8 +159,6 @@ public class Data {
             count++;
         if(!this._NameOfOriginCourt.isEmpty())
             count++;
-        if(!this._ExactNameJuridiction.isEmpty())
-            count++;
         if(!this._DayOfImprisonment.isEmpty())
             count++;
         if(!this._Reason.isEmpty())
@@ -180,6 +166,7 @@ public class Data {
         if(!this._DayOfFact.isEmpty())
             count++;
                     
+        count++;
         return(count/10.0f);
         
     }

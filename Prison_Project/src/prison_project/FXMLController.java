@@ -182,11 +182,6 @@ public class FXMLController implements Initializable {
         else
             text_NameOrigin.setStyle("-fx-background-color: Background.Empty");
 
-        if(text_ExactName.getText().isEmpty())
-            text_ExactName.setStyle("-fx-border-color: red");
-        else
-            text_ExactName.setStyle("-fx-background-color: Background.Empty");
-
         if(text_DayOfImprisonment.getText().isEmpty())
             text_DayOfImprisonment.setStyle("-fx-border-color: red");
         else
@@ -293,7 +288,7 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void onClickBtnCreate(MouseEvent event)throws java.sql.SQLException, ParseException  {
-        Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_ExactName.getText(),text_DayOfImprisonment.getText(),text_Reason.getText(),text_DayOfFact.getText(),text_area.getText());
+        Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_Reason.getText(),text_DayOfFact.getText(),text_area.getText());
 
 
 
@@ -301,11 +296,6 @@ public class FXMLController implements Initializable {
 
         LoadingBar.setProgress(data.TestError());
         System.out.println(data.TestError());
-        if(data.TestError() < 1.0)
-            LoadingBar.setStyle("-fx-accent: red;");
-        else
-            LoadingBar.setStyle("-fx-accent: green;");
-
         if(text_area.getText().isEmpty()) {
             text_area.setStyle("-fx-text-fill: red;");
             text_area.setText(text_area.getText()+'\n'+"Error Erase All and try again");
@@ -319,7 +309,7 @@ public class FXMLController implements Initializable {
         System.out.println(!data.TestVoid());
         if(!data.TestVoid()){
         //Detenu
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         Date dateobj = sdf.parse(text_Birthday.getText());
         java.util.Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateobj);
@@ -343,20 +333,14 @@ public class FXMLController implements Initializable {
 
 
         _database.addPrisionnierToDatabase(detenu,affaire,juridiction,incarceration,motif);
-
+        LoadingBar.setProgress(1.0d);
+        LoadingBar.setStyle("-fx-accent: green;");
         }
     }
 
     @FXML
-    private void onClickBtnDelete(MouseEvent event) {
-        System.out.println("user pressed delete !");
-
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText("I have a great message for you!");
-
-        alert.showAndWait();
+    private void onClickBtnDelete(MouseEvent event) throws SQLException {
+        _database.DeletePrisonnier(text_area.getText());
     }
 
     public void newW(){
