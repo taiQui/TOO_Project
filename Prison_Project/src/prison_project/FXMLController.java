@@ -337,7 +337,7 @@ public class FXMLController implements Initializable {
         Incarceration incarceration = new Incarceration(calendar);
 
         //Motif
-        Motif motif = new Motif(text_Reason.getText(),text_ExactName.getText());
+        Motif motif = new Motif(text_Reason.getText());
 
 
         _database.addPrisionnierToDatabase(detenu,affaire,juridiction,incarceration,motif);

@@ -87,15 +87,24 @@ public class bank_database {
                     +"constraint Liberation_definitive_key primary key(n_type_decision,n_ecrou,date_decision),"
                     +"constraint Liberation_definitive_fk foreign key(n_type_decision,n_ecrou,date_decision) references Decision(n_type_decision,n_ecrou,date_decision) on delete cascade)");
 
+            
+            statement.execute("INSERT INTO Motif VALUES('1','vols et delits assimiles')");
+            statement.execute("INSERT INTO Motif VALUES('02','coups et blessures')");
+            statement.execute("INSERT INTO Motif VALUES('03','escroquerie')");
+            statement.execute("INSERT INTO Motif VALUES('04','port d’armes prohibé')");
+            statement.execute("INSERT INTO Motif VALUES('05','conduite en état d’ivresse')");
+            statement.execute("INSERT INTO Motif VALUES('12','abus de confiance')");
+            statement.execute("INSERT INTO Motif VALUES('14','homicide')");
+            statement.execute("INSERT INTO Motif VALUES('15','proxénétisme')");
+            
             statement.execute("INSERT INTO Detenu VALUES('1963','Franck','Barbier',DATE('1963-01-11'),'Montbeliard')");
             statement.execute("INSERT INTO Detenu VALUES('1964','Sophie','Darnal',DATE(1964-07-28),'Besancon')");
             statement.execute("INSERT INTO Affaire VALUES('44','Nantes',DATE('1991-10-01'))");
-            statement.execute("INSERT INTO Motif VALUES('01','vols et delits assimiles')");
             statement.execute("INSERT INTO Decision VALUES('2','1963',DATE('2006-11-12'))");
             statement.execute("INSERT INTO Decision VALUES('3','1963',DATE('2006-11-12'))");
             statement.execute("INSERT INTO Condamnation VALUES('2','1963',DATE('2006-11-12'),10)");
             statement.execute("INSERT INTO Liberation_definitive VALUES ('3','1963',DATE('2006-11-12'),DATE('2010-01-01'))");
-//  statement.execute("insert into Affaire values('1111')
+
 
             /*
             FIN DE REQUETE
@@ -169,13 +178,11 @@ public class bank_database {
        System.out.println("reussis1");
       _connection.createStatement().execute("insert into Affaire values('"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+format1.format(affaire.getDate().getTime())+"'))");
        System.out.println("reussis2");
-        _connection.createStatement().execute("insert into Motif values('"+motif.getMotif()+"', '"+motif.getLMotif()+"' )");
-       System.out.println("reussis3");
       _connection.createStatement().execute("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"')");
-       System.out.println("reussis4");
-       System.out.println("motif : "+motif.getMotif());
+       System.out.println("reussis3");
+       System.out.println("mortif :"+ motif.getMotif());
       _connection.createStatement().execute("insert into Incarceration values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+format1.format(incarceration.getDate().getTime())+"'),'"+motif.getMotif()+"')");
-       System.out.println("reussis5");
+       System.out.println("reussis4");
        _connection.commit();
        _connection.close();
          
