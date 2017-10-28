@@ -5,17 +5,17 @@
  */
 package prison_project;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,11 +24,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -133,7 +131,7 @@ public class FXMLController implements Initializable {
         try {
             createDatabase();
         } catch (Exception s1){
-            System.out.println("intryconst");
+            
             System.err.println(s1.getMessage());
         }
 
@@ -286,6 +284,30 @@ public class FXMLController implements Initializable {
         text_area.setText(aux);
     }
 
+    
+    
+    
+    public static Calendar stringToCalendar(String stringDate, String datePattern) {
+    if (stringDate == null) {
+      return null;
+    }
+    Calendar calendar = new GregorianCalendar();
+    try {
+      Timestamp newDate = Timestamp.valueOf(stringDate);
+      calendar.setTime(newDate);
+    }
+    catch (Exception e) {
+      SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
+      try {
+        calendar.setTime(simpleDateFormat.parse(stringDate));
+      }
+      catch (ParseException pe) {
+        calendar = null;
+      }
+    }
+    return calendar;
+  }
+    
     @FXML
     private void onClickBtnCreate(MouseEvent event)throws java.sql.SQLException, ParseException  {
         Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_Reason.getText(),text_DayOfFact.getText(),text_area.getText());
@@ -310,23 +332,25 @@ public class FXMLController implements Initializable {
         if(!data.TestVoid()){
         //Detenu
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateobj = sdf.parse(text_Birthday.getText());
-        java.util.Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dateobj);
+        //Date dateobj = sdf.parse(text_Birthday.getText());
+        java.util.Calendar calendar = stringToCalendar(text_Birthday.getText(),"dd-MM-yyyy");
+       // calendar.setTime(dateobj);
+        
+            
         System.out.println("Creation det apres appuis bouton create : "+ sdf.format(calendar.getTime()));
         Detenu detenu = new Detenu(text_area.getText(),text_FirstName.getText(),text_LastName.getText(),calendar,text_Birthplace.getText());
 
         //Affaire
-        dateobj = sdf.parse(text_DayOfFact.getText());
-        calendar.setTime(dateobj);
+        //dateobj = sdf.parse(text_DayOfFact.getText());
+        calendar = stringToCalendar(text_DayOfFact.getText(),"dd-MM-yyyy");
         Affaire affaire = new Affaire(text_CaseNumber.getText(),calendar);
 
         //Juridiction
         Juridiction juridiction = new Juridiction(text_NameOrigin.getText());
 
         //Incarceration
-        dateobj = sdf.parse(text_DayOfImprisonment.getText());
-        calendar.setTime(dateobj);
+        //dateobj = sdf.parse(text_DayOfImprisonment.getText());
+        calendar = stringToCalendar(text_DayOfImprisonment.getText(),"dd-MM-yyyy");
         Incarceration incarceration = new Incarceration(calendar);
 
         //Motif

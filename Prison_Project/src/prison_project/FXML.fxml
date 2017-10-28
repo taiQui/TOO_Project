@@ -30,14 +30,14 @@
             <Button fx:id="btn_8" font="$x2" layoutX="150.0" layoutY="486.0" mnemonicParsing="false" onMouseClicked="#onClickBtn8" prefHeight="73.0" prefWidth="116.0" text="8" />
             <Button fx:id="btn_7" font="$x2" layoutX="14.0" layoutY="486.0" mnemonicParsing="false" onMouseClicked="#onClickBtn7" prefHeight="73.0" prefWidth="116.0" text="7" />
             <TextArea fx:id="text_area" disable="false" editable="false" layoutX="14.0" layoutY="52.0" prefHeight="235.0" prefWidth="387.0" promptText="Enter Nut Number" wrapText="true" />
-            <TextField id="text_8" fx:id="text_DayOfImprisonment" layoutX="433.0" layoutY="406.0" prefHeight="52.0" prefWidth="200.0" promptText="Day of imprisonment" />
-            <TextField id="text_9" fx:id="text_Reason" layoutX="433.0" layoutY="458.0" prefHeight="52.0" prefWidth="200.0" promptText="Reason" />
-            <TextField id="text_NOC" fx:id="text_NameOrigin" layoutX="433.0" layoutY="347.0" prefHeight="59.0" prefWidth="200.0" promptText="Name of Origin Court" />
-            <TextField id="text_CN" fx:id="text_CaseNumber" layoutX="433.0" layoutY="288.0" prefHeight="59.0" prefWidth="200.0" promptText="Case Number" />
+            <TextField id="text_8" fx:id="text_DayOfImprisonment" layoutX="433.0" layoutY="405.0" prefHeight="52.0" prefWidth="200.0" promptText="Day of imprisonment" />
+            <TextField id="text_9" fx:id="text_Reason" layoutX="433.0" layoutY="457.0" prefHeight="52.0" prefWidth="200.0" promptText="Reason" />
+            <TextField id="text_NOC" fx:id="text_NameOrigin" layoutX="433.0" layoutY="346.0" prefHeight="59.0" prefWidth="200.0" promptText="Name of Origin Court" />
+            <TextField id="text_CN" fx:id="text_CaseNumber" layoutX="433.0" layoutY="287.0" prefHeight="59.0" prefWidth="200.0" promptText="Case Number" />
             <TextField id="text_LN" fx:id="text_LastName" layoutX="433.0" layoutY="52.0" prefHeight="59.0" prefWidth="200.0" promptText="Last Name" />
             <TextField id="text_FN" fx:id="text_FirstName" layoutX="433.0" layoutY="111.0" prefHeight="59.0" prefWidth="200.0" promptText="First Name" />
             <TextField id="text_Birth" fx:id="text_Birthday" layoutX="433.0" layoutY="170.0" prefHeight="59.0" prefWidth="200.0" promptText="Birthday" />
-            <TextField id="text_BP" fx:id="text_Birthplace" layoutX="433.0" layoutY="229.0" prefHeight="59.0" prefWidth="200.0" promptText="Birthplace" />
+            <TextField id="text_BP" fx:id="text_Birthplace" layoutX="433.0" layoutY="228.0" prefHeight="59.0" prefWidth="200.0" promptText="Birthplace" />
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="433.0" layoutY="0.0" prefHeight="52.0" prefWidth="200.0" text="Data" textAlignment="JUSTIFY" underline="true">
               <font>
                 <Font size="25.0" fx:id="x4" />
@@ -51,7 +51,7 @@
             <Button fx:id="btnDelete" font="$x3" layoutX="663.0" layoutY="451.0" mnemonicParsing="false" onMouseClicked="#onClickBtnDelete" prefHeight="126.0" prefWidth="246.0" text="Delete" />
             <Button fx:id="btnRead" font="$x3" layoutX="663.0" layoutY="184.0" maxHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#onClickBtnRead" prefHeight="126.0" prefWidth="246.0" text="Read" />
             <Button fx:id="btn_create" font="$x3" layoutX="663.0" layoutY="52.0" maxHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#onClickBtnCreate" prefHeight="126.0" prefWidth="246.0" text="Create" />
-            <TextField id="Text_DayOfFact" fx:id="text_DayOfFact" layoutX="433.0" layoutY="510.0" prefHeight="59.0" prefWidth="200.0" promptText="Day of fact" />
+            <TextField id="Text_DayOfFact" fx:id="text_DayOfFact" layoutX="433.0" layoutY="509.0" prefHeight="59.0" prefWidth="200.0" promptText="Day of fact" />
             <ProgressBar fx:id="LoadingBar" layoutX="433.0" layoutY="638.0" minHeight="14.0001220703125" prefHeight="15.0" prefWidth="200.0" progress="0.0" />
             <Label alignment="CENTER" contentDisplay="CENTER" font="$x4" layoutX="14.0" layoutY="0.0" prefHeight="52.0" prefWidth="387.0" text="Prison Register Number" textAlignment="JUSTIFY" underline="false" />
             <Button fx:id="btnMenu" font="$x3" layoutX="663.0" layoutY="599.0" mnemonicParsing="false" onMouseClicked="#onClickBtnMenu" prefHeight="36.0" prefWidth="246.0" style="-fx-border-color: #003366; -fx-border-width: 2;" text="&lt;- Menu" textAlignment="JUSTIFY" textFill="#b98d42" textOverrun="WORD_ELLIPSIS" />
