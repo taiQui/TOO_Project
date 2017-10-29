@@ -287,26 +287,7 @@ public class FXMLController implements Initializable {
     
     
     
-    public static Calendar stringToCalendar(String stringDate, String datePattern) {
-    if (stringDate == null) {
-      return null;
-    }
-    Calendar calendar = new GregorianCalendar();
-    try {
-      Timestamp newDate = Timestamp.valueOf(stringDate);
-      calendar.setTime(newDate);
-    }
-    catch (Exception e) {
-      SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
-      try {
-        calendar.setTime(simpleDateFormat.parse(stringDate));
-      }
-      catch (ParseException pe) {
-        calendar = null;
-      }
-    }
-    return calendar;
-  }
+    
     
     @FXML
     private void onClickBtnCreate(MouseEvent event)throws java.sql.SQLException, ParseException  {
@@ -454,6 +435,25 @@ public class FXMLController implements Initializable {
     }
 
 
-
+public static Calendar stringToCalendar(String stringDate, String datePattern) {
+    if (stringDate == null) {
+      return null;
+    }
+    Calendar calendar = new GregorianCalendar();
+    try {
+      Timestamp newDate = Timestamp.valueOf(stringDate);
+      calendar.setTime(newDate);
+    }
+    catch (Exception e) {
+      SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
+      try {
+        calendar.setTime(simpleDateFormat.parse(stringDate));
+      }
+      catch (ParseException pe) {
+        calendar = null;
+      }
+    }
+    return calendar;
+  }
 
 }
