@@ -312,18 +312,18 @@ public class FXMLController implements Initializable {
         System.out.println(!data.TestVoid());
         if(!data.TestVoid()){
         //Detenu
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         //Date dateobj = sdf.parse(text_Birthday.getText());
-        java.util.Calendar calendar = stringToCalendar(text_Birthday.getText(),"dd-MM-yyyy");
+        java.util.Calendar calendar = Convertisseur.stringToCalendar(text_Birthday.getText(),"yyyy-MM-dd");
        // calendar.setTime(dateobj);
         
             
-        System.out.println("Creation det apres appuis bouton create : "+ sdf.format(calendar.getTime()));
+        System.out.println("Creation det apres appuis bouton create : "+ Convertisseur.calendarToString(calendar,"yyyy-MM-dd"));
         Detenu detenu = new Detenu(text_area.getText(),text_FirstName.getText(),text_LastName.getText(),calendar,text_Birthplace.getText());
 
         //Affaire
         //dateobj = sdf.parse(text_DayOfFact.getText());
-        calendar = stringToCalendar(text_DayOfFact.getText(),"dd-MM-yyyy");
+        calendar = Convertisseur.stringToCalendar(text_DayOfFact.getText(),"yyyy-MM-dd");
         Affaire affaire = new Affaire(text_CaseNumber.getText(),calendar);
 
         //Juridiction
@@ -331,7 +331,7 @@ public class FXMLController implements Initializable {
 
         //Incarceration
         //dateobj = sdf.parse(text_DayOfImprisonment.getText());
-        calendar = stringToCalendar(text_DayOfImprisonment.getText(),"dd-MM-yyyy");
+        calendar = Convertisseur.stringToCalendar(text_DayOfImprisonment.getText(),"yyyy-MM-dd");
         Incarceration incarceration = new Incarceration(calendar);
 
         //Motif
@@ -340,22 +340,27 @@ public class FXMLController implements Initializable {
 
         _database.addPrisionnierToDatabase(detenu,affaire,juridiction,incarceration,motif);
         LoadingBar.setProgress(1.0d);
+        
         LoadingBar.setStyle("-fx-accent: green;");
+        newW();
+        LoadingBar.setStyle("-fx-accent: white;");
         }
     }
 
     @FXML
     private void onClickBtnDelete(MouseEvent event) throws SQLException {
         _database.DeletePrisonnier(text_area.getText());
+        LoadingBar.setStyle("-fx-accent: green;");
+        newW();
+        LoadingBar.setStyle("-fx-accent: white;");
     }
 
     public void newW(){
-        Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("BITE");
-            alert.setHeaderText("BITE");
-            alert.setContentText("BITE");
+        Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Ajout Prisonnier");
+            alert.setHeaderText("Succes");
+            alert.setContentText("La modification est validé");
             alert.showAndWait();
-            newW();
 
     }
 
@@ -395,30 +400,30 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void onClickBtnUpdate(MouseEvent event) throws ParseException, SQLException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateobj = sdf.parse(text_Birthday.getText());
+       // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        
         java.util.Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dateobj);
+        calendar = Convertisseur.stringToCalendar(text_Birthday.getText(), "yyyy-MM-dd");
         Detenu detenu = new Detenu(text_area.getText(),text_FirstName.getText(),text_LastName.getText(),calendar,text_Birthplace.getText());
 
         //Affaire
-        dateobj = sdf.parse(text_DayOfFact.getText());
-        calendar.setTime(dateobj);
+        calendar = Convertisseur.stringToCalendar(text_DayOfFact.getText(), "yyyy-MM-dd");
         Affaire affaire = new Affaire(text_CaseNumber.getText(),calendar);
 
         //Juridiction
         Juridiction juridiction = new Juridiction(text_NameOrigin.getText());
 
         //Incarceration
-        dateobj = sdf.parse(text_DayOfImprisonment.getText());
-        calendar.setTime(dateobj);
+        calendar = Convertisseur.stringToCalendar(text_DayOfImprisonment.getText(), "yyyy-MM-dd");
         Incarceration incarceration = new Incarceration(calendar);
 
         //Motif
         Motif motif = new Motif(text_Reason.getText());
         
         _database.UpdatePrisonnier(detenu, affaire, juridiction, incarceration, motif);
-        
+        LoadingBar.setStyle("-fx-accent: green;");
+        newW();
+        LoadingBar.setStyle("-fx-accent: white;");
     }
 
     @FXML
@@ -435,25 +440,6 @@ public class FXMLController implements Initializable {
     }
 
 
-public static Calendar stringToCalendar(String stringDate, String datePattern) {
-    if (stringDate == null) {
-      return null;
-    }
-    Calendar calendar = new GregorianCalendar();
-    try {
-      Timestamp newDate = Timestamp.valueOf(stringDate);
-      calendar.setTime(newDate);
-    }
-    catch (Exception e) {
-      SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
-      try {
-        calendar.setTime(simpleDateFormat.parse(stringDate));
-      }
-      catch (ParseException pe) {
-        calendar = null;
-      }
-    }
-    return calendar;
-  }
+
 
 }

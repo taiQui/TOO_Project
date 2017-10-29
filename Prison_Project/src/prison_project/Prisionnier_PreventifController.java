@@ -115,7 +115,7 @@ public class Prisionnier_PreventifController implements Initializable {
 
     @FXML
     private void clickbtnvoir(MouseEvent event) throws SQLException, ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+       // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         ArrayList<Detenu> liste;
         ObservableList<Detenu>  ajoutable = FXCollections.observableArrayList();
         if(choiceBox.getValue().equals("Preventif")){
@@ -125,7 +125,7 @@ public class Prisionnier_PreventifController implements Initializable {
             for(Detenu d : liste){
 
               
-                System.out.println("TIME2 : "+sdf.format(d.getDNaiss().getTime()));
+                System.out.println("TIME2 : "+Convertisseur.calendarToString(d.getDNaiss(),"yyyy-MM-dd"));
                  ajoutable.add(d);
 
             }
@@ -138,7 +138,7 @@ public class Prisionnier_PreventifController implements Initializable {
             for(Detenu d : liste){
 
               
-                System.out.println("TIME2 : "+sdf.format(d.getDNaiss().getTime()));
+                System.out.println("TIME2 : "+Convertisseur.calendarToString(d.getDNaiss(),"yyyy-MM-dd"));
                ajoutable.add(d);
 
             }
