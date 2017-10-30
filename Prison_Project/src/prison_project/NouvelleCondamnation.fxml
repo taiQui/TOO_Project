@@ -5,9 +5,18 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prison_project.NouvelleComdanmationController">
-   <children>
-      <Button fx:id="btnMenu" layoutX="262.0" layoutY="168.0" mnemonicParsing="false" onMouseClicked="#onClickBtnMenu" text="Back to Menu" />
-   </children>
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="prison_project.NouvelleComdanmationController">
+  <children>
+    <VBox layoutX="250.0" layoutY="100.0" prefHeight="200.0" prefWidth="100.0">
+      <children>
+        <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+          <children>
+            <Text scaleX="4.51738133050997" scaleY="1.626529592373288" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+          </children>
+        </HBox>
+      </children>
+    </VBox>
+  </children>
 </AnchorPane>

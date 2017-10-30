@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -252,9 +253,9 @@ public class bank_database {
                                                 //ajout reduction peine ( reducpeinecontroller )
    /**********************************************************************************************************/
 
-   public void reducPeine(int duree,String ecrou,ProgressIndicator indicator) throws SQLException, ParseException{
+   public void reducPeine(int duree,String ecrou,ProgressIndicator indicator,TextField t1, TextField t2) throws SQLException, ParseException{
 
-       //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+       
        _connection.createStatement().execute("insert into Decision values('2' ,'"+ecrou+"',DATE('"+Convertisseur.calendarToString(java.util.Calendar.getInstance(),"yyyy-MM-dd")+"'))");
        _connection.createStatement().execute("insert into Reduction_peine values ('2' ,'"+ecrou+"',DATE('"+Convertisseur.calendarToString(java.util.Calendar.getInstance(),"yyyy-MM-dd")+"'),"+duree+") ");
        indicator.setProgress(indicator.getProgress()+0.1f);
@@ -263,9 +264,10 @@ public class bank_database {
       //  Date dateobj = new Date();
         Calendar cal = Calendar.getInstance();
         rs.beforeFirst();
-        if(rs.next())
+        if(rs.next()){
               cal = Convertisseur.stringToCalendar(rs.getString("date_liberation"), "yyyy-MM-dd");
-
+              t1.setText(Convertisseur.calendarToString(cal, "yyyy-MM-dd"));
+        }
        indicator.setProgress(indicator.getProgress()+0.1f);
        
        
@@ -278,10 +280,12 @@ public class bank_database {
        //System.out.println("testA3");
        indicator.setProgress(indicator.getProgress()+0.1f);
        rs.beforeFirst();
-       if(rs.next())
+       if(rs.next()){
                cal = Convertisseur.stringToCalendar(rs.getString("date_liberation"), "yyyy-MM-dd");
+               t2.setText(Convertisseur.calendarToString(cal,"yyyy-MM-dd"));
+               
+       }
        indicator.setProgress(indicator.getProgress()+0.2f);
-        
         indicator.setProgress(indicator.getProgress()+0.1f);
         _connection.commit();
    }

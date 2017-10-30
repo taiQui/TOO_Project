@@ -30,5 +30,8 @@
     </ChoiceBox>
     <Text layoutX="233.0" layoutY="277.0" scaleX="1.6800860322648776" scaleY="1.2091600669079048" strokeType="OUTSIDE" strokeWidth="0.0" text="Type de decision" />
     <ProgressIndicator fx:id="indicator" layoutX="743.0" layoutY="243.0" prefHeight="82.0" prefWidth="116.0" progress="0.0" visible="true" />
+    <TextField fx:id="text_oldDate" layoutX="543.0" layoutY="361.0" prefHeight="36.0" prefWidth="200.0" visible="true" />
+    <TextField id="test_newDate" fx:id="text_newDate" layoutX="789.0" layoutY="361.0" prefHeight="36.0" prefWidth="200.0" visible="true" />
+    <Text fx:id="text_fleche" layoutX="758.0" layoutY="384.0" scaleX="1.7309064696130125" scaleY="2.329703395138682" strokeType="OUTSIDE" strokeWidth="0.0" text="=&gt;" />
   </children>
 </AnchorPane>

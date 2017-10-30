@@ -80,6 +80,12 @@ public class Reduction_peineController implements Initializable {
     private ChoiceBox<String> choice =new ChoiceBox<String>();
     @FXML
     private ProgressIndicator indicator;
+    @FXML
+    private TextField text_oldDate;
+    @FXML
+    private TextField text_newDate;
+    @FXML
+    private Text text_fleche;
     /**
      * Initializes the controller class.
      */
@@ -96,7 +102,9 @@ public class Reduction_peineController implements Initializable {
        
         choice.setItems(FXCollections.observableArrayList("Reduction de peine","Condamnation"));
         
-      
+        text_oldDate.setVisible(false);
+        text_newDate.setVisible(false);
+        text_fleche.setVisible(false);
          
         try {
             _database = new bank_database();
@@ -125,7 +133,7 @@ public class Reduction_peineController implements Initializable {
         if(!text_fieldtemps.getText().isEmpty()){
             switch(choice.getValue()){
                 case "Reduction de peine":
-                    _database.reducPeine(Integer.parseInt(text_fieldtemps.getText()), numero_ecrou, indicator);
+                    _database.reducPeine(Integer.parseInt(text_fieldtemps.getText()), numero_ecrou, indicator,text_oldDate, text_newDate);
                     indicator.setProgress(indicator.getProgress()+0.2f);
 
                     break;
@@ -174,6 +182,9 @@ public class Reduction_peineController implements Initializable {
                     btn_ok_reduc.setDisable(false);
                     text_fieldtemps.setDisable(false);
                     indicator.setVisible(true);
+                    text_oldDate.setVisible(true);
+                    text_newDate.setVisible(true);
+                     text_fleche.setVisible(true);
                 } else if ( result.get() == buttonOK && choice.getValue() == "Condamnation"){
                     text_duree_reduc.setDisable(false);
                     text_duree_reduc.setText("Condamnation ( en mois )");
