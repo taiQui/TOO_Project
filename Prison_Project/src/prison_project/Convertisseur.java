@@ -14,6 +14,9 @@ import java.util.GregorianCalendar;
 /**
  *
  * @author greg1
+ * 
+ * Convertisseur entre Calendar et String et inversement
+ * 
  */
 public class Convertisseur {
     public static Calendar stringToCalendar(String stringDate, String datePattern) {

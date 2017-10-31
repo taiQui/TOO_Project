@@ -9,7 +9,10 @@ import javafx.beans.property.StringProperty;
 
 /**
  *
- * @author greg1ol
+ * @author greg
+ * 
+ * Class Affaire
+ * 
  */
 public class Affaire {
     

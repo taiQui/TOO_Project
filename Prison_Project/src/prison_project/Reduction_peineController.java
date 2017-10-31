@@ -5,9 +5,6 @@
  */
 package prison_project;
 
-
-import java.awt.Color;
-import java.awt.Paint;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -31,7 +28,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -41,10 +37,6 @@ import javafx.stage.Stage;
  *
  * @author greg1
  */
-
-
-//////////    DATABANK ----- > Detenu Decision ReductionPeine
-
 
 public class Reduction_peineController implements Initializable {
 
@@ -57,6 +49,7 @@ public class Reduction_peineController implements Initializable {
    
     @FXML
     private Button btn_ok_reduc;
+    
     private Text test_peine_reduite;
     @FXML
     private Button btn_ok;
@@ -148,19 +141,12 @@ public class Reduction_peineController implements Initializable {
     @FXML
     private void onclickBtn_ok(MouseEvent event) throws SQLException, ParseException {
            if(!text_necrou.getText().isEmpty()){
-            System.out.println("test1 : onclickbtnok : reduccontrollerjava");
-            
-            System.out.println("Tu va chercher le numero : "+text_necrou.getText());
-             ArrayList<Detenu> liste;
+            ArrayList<Detenu> liste;
             if(choice.getValue().equals("Condamnation"))
                 liste = _database.searchOnDatabase(text_necrou.getText(),1);
             else
            liste = _database.searchOnDatabase(text_necrou.getText(),2);
-           System.out.println("valeur : " + choice.getValue());
-           System.out.println("after searchindatabase");
-           System.out.println("list : "+ liste.get(0).getEcrou());
             if(liste.get(0).getEcrou() != null){
-                System.out.println("test2 : onclickbtnok : reduccontrollerjava");
                 ObservableList<Detenu> ajoutable = FXCollections.observableArrayList();
                 tableview.setVisible(true);
                 ajoutable.add(liste.get(0));
@@ -184,7 +170,7 @@ public class Reduction_peineController implements Initializable {
                     indicator.setVisible(true);
                     text_oldDate.setVisible(true);
                     text_newDate.setVisible(true);
-                     text_fleche.setVisible(true);
+                    text_fleche.setVisible(true);
                 } else if ( result.get() == buttonOK && choice.getValue() == "Condamnation"){
                     text_duree_reduc.setDisable(false);
                     text_duree_reduc.setText("Condamnation ( en mois )");

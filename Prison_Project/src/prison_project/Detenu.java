@@ -14,6 +14,9 @@ import javafx.beans.property.StringProperty;
 /**
  *
  * @author greg1
+ * 
+ * Class Detenu 
+ * 
  */
 public class Detenu {
     

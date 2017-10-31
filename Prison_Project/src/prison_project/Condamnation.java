@@ -10,6 +10,9 @@ import javafx.beans.property.StringProperty;
 /**
  *
  * @author greg1
+ * 
+ * Class Condamnation
+ * 
  */
 public class Condamnation extends Decision {
     

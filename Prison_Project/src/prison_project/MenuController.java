@@ -8,21 +8,14 @@ package prison_project;
 
 import java.io.IOException;
 import java.net.URL;
-
 import java.util.ResourceBundle;
-import javafx.application.Application;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
 import javafx.scene.Scene;
-
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
-
 import javafx.scene.input.MouseEvent;
-
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -32,7 +25,7 @@ import javafx.stage.Stage;
  *
  * @author greg1
  */
-public class MenuController /*extends Application*/ implements Initializable {
+public class MenuController  implements Initializable {
 
     @FXML
     private Button btn_newIncar;
@@ -92,7 +85,6 @@ public class MenuController /*extends Application*/ implements Initializable {
     private void onclickBtnnewIncar(MouseEvent event) {
         String name = "FXML.fxml";
         switchScene(name);
-
     }
 
 

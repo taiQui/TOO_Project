@@ -33,6 +33,8 @@ public class Data {
     private StringProperty _DayOfFactSP;
     private String _Necrou;
     private StringProperty _NecrouSP;
+    
+    
      Data(String t1,String t2, String t3,String t4,String t5,String t6,String t8,String t9,String t10,String t11){
         //System.out.println("test2");
         this._LastName = t1;

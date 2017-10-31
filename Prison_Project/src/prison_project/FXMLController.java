@@ -8,13 +8,9 @@ package prison_project;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -117,8 +113,8 @@ public class FXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // SuppRep rep = new SuppRep();
-        // File file = new File("C:\\Users\\greg1\\Documents\\TOO_Project\\Prison_Project\\bank_database");
-        // if(file.exists()){
+        // File file = new File("C:\\Users\\greg1\\Documents\\TOO_Project\\Prison_Project\\bank_database");       // Supprime un repertoire ( base de donnée pour eviter de le supprimer 
+        // if(file.exists()){                                                                                     // avant chaque execution
         //     rep.deleteAll(file);
         //     System.out.println("Repertoire supprimer");
         // }
@@ -129,18 +125,11 @@ public class FXMLController implements Initializable {
           //  System.out.println(_database.toString );
 
         try {
-            createDatabase();
+            createDatabase();                                                                                     // Creation base de donnée
         } catch (Exception s1){
             
             System.err.println(s1.getMessage());
         }
-
-
-       // } catch (java.sql.SQLException sql1) {
-
-       // } catch (Exception e1){
-
-        //}
 
     }
 
@@ -149,7 +138,7 @@ public class FXMLController implements Initializable {
     }
 
 
-    private void CompleteText() {
+    private void CompleteText() {                    // Regarde si les champs sont remplis ou pas et les colores en consequence
         if(text_LastName.getText().isEmpty())
             text_LastName.setStyle("-fx-border-color: red");
         else
@@ -200,8 +189,6 @@ public class FXMLController implements Initializable {
         text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + '.';
         text_area.setText(aux);
-
-
     }
 
     @FXML
@@ -293,10 +280,6 @@ public class FXMLController implements Initializable {
     private void onClickBtnCreate(MouseEvent event)throws java.sql.SQLException, ParseException  {
         Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_Reason.getText(),text_DayOfFact.getText(),text_area.getText());
 
-
-
-
-
         LoadingBar.setProgress(data.TestError());
         System.out.println(data.TestError());
         if(text_area.getText().isEmpty()) {
@@ -307,22 +290,13 @@ public class FXMLController implements Initializable {
 
         CompleteText();
 
-
-
-        System.out.println(!data.TestVoid());
         if(!data.TestVoid()){
         //Detenu
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //Date dateobj = sdf.parse(text_Birthday.getText());
         java.util.Calendar calendar = Convertisseur.stringToCalendar(text_Birthday.getText(),"yyyy-MM-dd");
-       // calendar.setTime(dateobj);
-        
             
-        System.out.println("Creation det apres appuis bouton create : "+ Convertisseur.calendarToString(calendar,"yyyy-MM-dd"));
         Detenu detenu = new Detenu(text_area.getText(),text_FirstName.getText(),text_LastName.getText(),calendar,text_Birthplace.getText());
 
         //Affaire
-        //dateobj = sdf.parse(text_DayOfFact.getText());
         calendar = Convertisseur.stringToCalendar(text_DayOfFact.getText(),"yyyy-MM-dd");
         Affaire affaire = new Affaire(text_CaseNumber.getText(),calendar);
 
@@ -330,7 +304,6 @@ public class FXMLController implements Initializable {
         Juridiction juridiction = new Juridiction(text_NameOrigin.getText());
 
         //Incarceration
-        //dateobj = sdf.parse(text_DayOfImprisonment.getText());
         calendar = Convertisseur.stringToCalendar(text_DayOfImprisonment.getText(),"yyyy-MM-dd");
         Incarceration incarceration = new Incarceration(calendar);
 
@@ -366,15 +339,13 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void onClickBtnRead(MouseEvent event)throws java.sql.SQLException, ParseException  {
-      ArrayList<Detenu> liste = _database.searchOnDatabase(text_area.getText(), 3);
+      ArrayList<Detenu> liste = _database.searchOnDatabase(text_area.getText(), 3);     // met le detenu avec le numero d'ecrou dans l'ArrayList " list "
       
       if(!liste.get(0)._nom.isEmpty()) {
           ArrayList<String> prisonnier = new ArrayList<String>();
           prisonnier = _database.getPrisonnier(text_area.getText());
           if(prisonnier.isEmpty())
               System.out.println("La liste est vide biatch");
-          for(int i = 0; i< prisonnier.size() ; i++)
-              System.out.println("String("+i+") = "+ prisonnier.get(i));
           text_FirstName.setText(liste.get(0).getPrenom());
           text_LastName.setText(liste.get(0).getNom());
           text_Birthday.setText((String)liste.get(0).get_date_naissanceFX().toString());
@@ -400,8 +371,7 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void onClickBtnUpdate(MouseEvent event) throws ParseException, SQLException {
-       // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        
+            
         java.util.Calendar calendar = Calendar.getInstance();
         calendar = Convertisseur.stringToCalendar(text_Birthday.getText(), "yyyy-MM-dd");
         Detenu detenu = new Detenu(text_area.getText(),text_FirstName.getText(),text_LastName.getText(),calendar,text_Birthplace.getText());

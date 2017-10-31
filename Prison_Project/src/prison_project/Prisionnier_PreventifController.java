@@ -7,16 +7,11 @@ package prison_project;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -115,17 +110,12 @@ public class Prisionnier_PreventifController implements Initializable {
 
     @FXML
     private void clickbtnvoir(MouseEvent event) throws SQLException, ParseException {
-       // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         ArrayList<Detenu> liste;
         ObservableList<Detenu>  ajoutable = FXCollections.observableArrayList();
         if(choiceBox.getValue().equals("Preventif")){
              liste = _database.getArray(1);
-
-            //rs.beforeFirst();
             for(Detenu d : liste){
-
-              
-                System.out.println("TIME2 : "+Convertisseur.calendarToString(d.getDNaiss(),"yyyy-MM-dd"));
+                
                  ajoutable.add(d);
 
             }
@@ -133,12 +123,8 @@ public class Prisionnier_PreventifController implements Initializable {
             
         } else if (choiceBox.getValue().equals("Tous")){
             liste = _database.getArray(3);
-
-            //rs.beforeFirst();
             for(Detenu d : liste){
 
-              
-                System.out.println("TIME2 : "+Convertisseur.calendarToString(d.getDNaiss(),"yyyy-MM-dd"));
                ajoutable.add(d);
 
             }
