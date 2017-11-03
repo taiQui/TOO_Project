@@ -96,7 +96,6 @@ public class bank_database {
             statement.execute("INSERT INTO Motif VALUES('15','proxénétisme')");
 
             statement.execute("INSERT INTO Detenu VALUES('1963','Franck','Barbier',DATE('1963-01-11'),'Montbeliard')");
-            statement.execute("INSERT INTO Detenu VALUES('1964','Sophie','Darnal',DATE(1964-07-28),'Besancon')");
             statement.execute("INSERT INTO Affaire VALUES('44','Nantes',DATE('1991-10-01'))");
             statement.execute("INSERT INTO Detenu_Affaire VALUES('1963','44','Nantes')");
             statement.execute("INSERT INTO Incarceration VALUES('1963','44','Nantes',DATE('2008-04-16'),'1')");
@@ -105,7 +104,10 @@ public class bank_database {
             statement.execute("INSERT INTO Condamnation VALUES('2','1963',DATE('2006-11-12'),10)");
             statement.execute("INSERT INTO Liberation_definitive VALUES ('3','1963',DATE('2006-11-12'),DATE('2010-01-01'))");
 
-
+            statement.execute("INSERT INTO Detenu VALUES('1964','Sophie','Darnal',DATE(1964-07-28),'Besancon')");
+            statement.execute("INSERT INTO Affaire VALUES('43','Nantes',DATE('1991-10-01'))");            
+            statement.execute("INSERT INTO Detenu_Affaire VALUES('1964','43','Nantes')");
+            statement.execute("INSERT INTO Incarceration VALUES('1964','43','Nantes',DATE('2008-04-16'),'1')");            
             /*
             FIN DE REQUETE
              */
