@@ -171,6 +171,8 @@ public class Prisionnier_PreventifController implements Initializable {
     
     public void switchScene2(String name,String text) throws SQLException, ParseException{
         try {
+            System.out.println("name: " + name);
+            System.out.println("text:" + text);
             Stage oldstage = new Stage();
             oldstage = (Stage)tableview.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -211,7 +213,6 @@ public class Prisionnier_PreventifController implements Initializable {
                     
                 }catch(Exception e){
                     e.printStackTrace();
-                    System.out.println("echec");
                 }
 
             }
@@ -230,7 +231,7 @@ public class Prisionnier_PreventifController implements Initializable {
                
                 try {
                    // cont.read(item.getEcrou());
-                    switchScene2("FXML.fxml",item.getEcrou());
+                    switchScene2("FXML.fxml",String.valueOf(item.getEcrou()));
                 } catch (SQLException ex) {
                     Logger.getLogger(Prisionnier_PreventifController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ParseException ex) {

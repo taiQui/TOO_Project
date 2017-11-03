@@ -141,6 +141,7 @@ public class FXMLController implements Initializable {
    
     
     public void lancement() throws SQLException, ParseException{
+        System.out.println("Ici y'a le null rouge: " + testecrou);
         if(!testecrou.isEmpty()){
             read(testecrou);
         }
@@ -151,10 +152,13 @@ public class FXMLController implements Initializable {
     }
 
     public void getE(String e) throws SQLException, ParseException{
-       if(e != null)
-            this.testecrou = e;
-       else
-            System.out.println("e = NULL");
+        System.out.println("getE");
+        System.out.println("e: " + e);
+        if(e != null)
+             this.testecrou = e;
+        else
+             System.out.println("e = NULL");
+        read(e);
         
     }
     
@@ -393,16 +397,23 @@ public class FXMLController implements Initializable {
     }
     
     public void read(String ecrou) throws java.sql.SQLException, ParseException  {
+        System.out.println("read ("+ ecrou + ")");
         ArrayList<Detenu> liste = _database.searchOnDatabase(text_area.getText(), 3);     // met le detenu avec le numero d'ecrou dans l'ArrayList " list "
       
-      if(!liste.get(0)._nom.isEmpty()) {
+      //if(!liste.get(0)._nom.isEmpty()) {
+          
           ArrayList<String> prisonnier = new ArrayList<String>();
           prisonnier = _database.getPrisonnier(ecrou);
           if(prisonnier.isEmpty())
               System.out.println("La liste est vide biatch");
           text_FirstName.setText(liste.get(0).getPrenom());
           text_LastName.setText(liste.get(0).getNom());
+          System.out.println("ca plante ici j'parie");
+          
+          //ICI
           text_Birthday.setText((String)liste.get(0).get_date_naissanceFX().toString());
+          //Exception in thread "JavaFX Application Thread" java.lang.NullPointerException
+          
           text_Birthplace.setText(liste.get(0).getLieuNaiss());
           text_CaseNumber.setText(prisonnier.get(0));
           text_NameOrigin.setText(prisonnier.get(1));
@@ -410,13 +421,13 @@ public class FXMLController implements Initializable {
           text_DayOfImprisonment.setText(prisonnier.get(3));
           choiceBox.setValue(Data.getNmotif(prisonnier.get(4)));
           
-      } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      //} else {
+      /*          Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("ERREUR");
                 alert.setHeaderText("Aucun prisionnier trouvé avec ce numero d'écrou");
                 alert.setContentText("ERROR 404 NOT FOUND");
                 alert.showAndWait();
-      }
+      }*/
        
       
 
