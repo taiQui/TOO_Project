@@ -305,7 +305,6 @@ public class bank_database {
        ResultSet rs;
        ArrayList<String> liste = new ArrayList<String>();
         rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire where Affaire.n_affaire = (select d.n_affaire from Detenu_Affaire d where d.n_ecrou = '"+ecrou+"')");
-       System.out.println("ONE LOOOOVE " + rs);
        rs.beforeFirst();
        if(rs.next()){
            liste.add(rs.getString("n_affaire"));
@@ -318,8 +317,6 @@ public class bank_database {
            liste.add(rs.getString("date_incarceration"));
            liste.add(rs.getString("n_motif"));
        }
-       System.out.println("LET'S GET TOGETHER AND IT WILL BE ALRIGHT");
-       System.out.println("COULD YOU BE LOVE: " + liste.get(0));
        return liste;
    }
 

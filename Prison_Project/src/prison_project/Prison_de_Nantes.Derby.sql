@@ -72,7 +72,7 @@ INSERT INTO Detenu VALUES('1964','Sophie','Darnal',DATE(1964-07-28),'Besancon');
 
 INSERT INTO Affaire VALUES('44','Nantes',DATE('1991-10-01'));
 
-INSERT INTO Motif VALUES('01','vols et d�lits assimil�s');
+INSERT INTO Motif VALUES('01','vols et délits assimilés');
 
 INSERT INTO Detenu_Affaire VALUES('1963','44','Nantes');
 INSERT INTO Incarceration VALUES('1963','44','Nantes',DATE('2008-04-16'),'01');
