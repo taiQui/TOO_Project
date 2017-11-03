@@ -12,6 +12,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -167,7 +169,30 @@ public class Prisionnier_PreventifController implements Initializable {
         }
     }
     
-    
+    public void switchScene2(String name,String text) throws SQLException, ParseException{
+        try {
+            Stage oldstage = new Stage();
+            oldstage = (Stage)tableview.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(name));
+            System.out.println("testAVANT");
+            Scene scene = new Scene(fxmlLoader.load());
+            System.out.println("testAPRES");
+            Stage stage = new Stage();
+            stage.setTitle(name);
+            stage.setScene(scene);
+            oldstage.close();
+            scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
+           // FXMLLoader control = new FXMLLoader(getClass().getResource("FXML.fxml"));
+            FXMLController cont = fxmlLoader.<FXMLController>getController();
+            System.out.println("test1");
+            cont.getE(text);
+            System.out.println("test2");
+            stage.show();
+        } catch (IOException ex){
+          ex.getCause();
+        }
+    }
     @FXML
     private void onContextMenuClicked(ContextMenuEvent event) {
         final ContextMenu tableContextMenu = new ContextMenu();
@@ -200,19 +225,24 @@ public class Prisionnier_PreventifController implements Initializable {
                 TablePosition pos = tableview.getSelectionModel().getSelectedCells().get(0);
                 int row = pos.getRow();
                 Detenu item = tableview.getItems().get(row);
-                System.out.println(item.getEcrou());
+                System.out.println("item :"+item.getEcrou());
                 
-                FXMLController control = new FXMLController();
-                try{
-                    //Trouver un moyen pour ecrire dans une nouvelle scène
-                    switchScene("FXML.fxml");
-                    control.read(String.valueOf(item.getEcrou()));
-                    
-                }catch(SQLException e){
-                    e.printStackTrace();
-                }catch(ParseException e){
-                    e.printStackTrace();
+               
+                try {
+                   // cont.read(item.getEcrou());
+                    switchScene2("FXML.fxml",item.getEcrou());
+                } catch (SQLException ex) {
+                    Logger.getLogger(Prisionnier_PreventifController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Prisionnier_PreventifController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
+                    //Trouver un moyen pour ecrire dans une nouvelle scène
+                    
+                    
+                    
+            
+                   
                 
             }
         });

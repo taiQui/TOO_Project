@@ -12,6 +12,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -104,40 +106,59 @@ public class FXMLController implements Initializable {
     @FXML
     private ChoiceBox<String> choiceBox;
 
-
+    private String testecrou;
     /**
      * Initializes the controller class.
      */
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // SuppRep rep = new SuppRep();
-        // File file = new File("C:\\Users\\greg1\\Documents\\TOO_Project\\Prison_Project\\bank_database");       // Supprime un repertoire ( base de donnée pour eviter de le supprimer 
-        // if(file.exists()){                                                                                     // avant chaque execution
-        //     rep.deleteAll(file);
-        //     System.out.println("Repertoire supprimer");
-        // }
-        // if(file.exists())
-        //     System.out.println("Le fichier n'as pas ete supprimer");
-       // try {
-            //_database = new bank_database();
-          //  System.out.println(_database.toString );
-        choiceBox.setItems(FXCollections.observableArrayList("vols et delits assimiles","coups et blessures","escroquerie","port d’armes prohibé","conduite en état d’ivresse","viol","pédophilie","abus de confiance","homicide","proxénétisme"));
-        choiceBox.setValue("viol");
         try {
-            createDatabase();                                                                                     // Creation base de donnée
-        } catch (Exception s1){
+            // SuppRep rep = new SuppRep();
+            // File file = new File("C:\\Users\\greg1\\Documents\\TOO_Project\\Prison_Project\\bank_database");       // Supprime un repertoire ( base de donnée pour eviter de le supprimer
+            // if(file.exists()){                                                                                     // avant chaque execution
+            //     rep.deleteAll(file);
+            //     System.out.println("Repertoire supprimer");
+            // }
+            // if(file.exists())
+            //     System.out.println("Le fichier n'as pas ete supprimer");
+            // try {
+            //_database = new bank_database();
+            //  System.out.println(_database.toString );
+            choiceBox.setItems(FXCollections.observableArrayList("vols et delits assimiles","coups et blessures","escroquerie","port d’armes prohibé","conduite en état d’ivresse","viol","pédophilie","abus de confiance","homicide","proxénétisme"));
+            choiceBox.setValue("viol");
             
-            System.err.println(s1.getMessage());
-        }
+            
+            
+                createDatabase(); 
+                lancement();// Creation base de donnée
+            } catch (Exception s1){
+                
+                System.err.println(s1.getMessage());
+            }
 
+    }
+   
+    
+    public void lancement() throws SQLException, ParseException{
+        if(!testecrou.isEmpty()){
+            read(testecrou);
+        }
     }
 
     public void createDatabase() throws Exception {
         _database = new bank_database();
     }
 
-
+    public void getE(String e) throws SQLException, ParseException{
+       if(e != null)
+            this.testecrou = e;
+       else
+            System.out.println("e = NULL");
+        
+    }
+    
+    
     private void CompleteText() {                    // Regarde si les champs sont remplis ou pas et les colores en consequence
         if(text_LastName.getText().isEmpty())
             text_LastName.setStyle("-fx-border-color: red");
