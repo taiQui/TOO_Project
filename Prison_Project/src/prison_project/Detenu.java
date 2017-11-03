@@ -20,17 +20,17 @@ import javafx.beans.property.StringProperty;
  */
 public class Detenu {
     
-    private
-            String _n_ecrou;
-            SimpleStringProperty _n_ecrouFX;
-            String _prenom;
-            SimpleStringProperty _prenomFX;
-            String _nom;
-            SimpleStringProperty _nomFX;
-            java.util.Calendar _date_naissance;
-            SimpleStringProperty _date_naissanceFX;
-            String _lieu_naissance;
-            SimpleStringProperty _lieu_naissanceFX;
+   
+        private    String _n_ecrou;
+        private    SimpleStringProperty _n_ecrouFX;
+        private    String _prenom;
+        private    SimpleStringProperty _prenomFX;
+        private    String _nom;
+        private    SimpleStringProperty _nomFX;
+        private    java.util.Calendar _date_naissance;
+        private    SimpleStringProperty _date_naissanceFX;
+        private    String _lieu_naissance;
+        private    SimpleStringProperty _lieu_naissanceFX;
             
             
      

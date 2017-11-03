@@ -26,6 +26,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -368,7 +369,7 @@ public class FXMLController implements Initializable {
     public void read() throws java.sql.SQLException, ParseException  {
         ArrayList<Detenu> liste = _database.searchOnDatabase(text_area.getText(), 3);     // met le detenu avec le numero d'ecrou dans l'ArrayList " list "
       
-      if(!liste.get(0)._nom.isEmpty()) {
+      if(!liste.get(0).getNom().isEmpty()) {
           ArrayList<String> prisonnier = new ArrayList<String>();
           prisonnier = _database.getPrisonnier(text_area.getText());
           if(prisonnier.isEmpty())
@@ -399,7 +400,7 @@ public class FXMLController implements Initializable {
     public void read(String ecrou) throws java.sql.SQLException, ParseException  {
         System.out.println("read ("+ ecrou + ")");
         ArrayList<Detenu> liste = _database.searchOnDatabase(ecrou, 3);     // met le detenu avec le numero d'ecrou dans l'ArrayList " list "
-      if(!liste.get(0)._nom.isEmpty()) {
+      if(!liste.get(0).getNom().isEmpty()) {
           
           ArrayList<String> prisonnier = new ArrayList<String>();
           prisonnier = _database.getPrisonnier(ecrou);
@@ -408,11 +409,11 @@ public class FXMLController implements Initializable {
           text_area.setText(ecrou);
           text_FirstName.setText(liste.get(0).getPrenom());
           text_LastName.setText(liste.get(0).getNom());
-          System.out.println("ca plante ici j'parie");
-          text_Birthday.setText(Convertisseur.calendarToString (liste.get(0).getDNaiss(),"yyyy-MM-dd"));
+          //System.out.println("ca plante ici j'parie");
+          text_Birthday.setText(Convertisseur.calendarToString(liste.get(0).getDNaiss(),"yyyy-MM-dd"));
           text_Birthplace.setText(liste.get(0).getLieuNaiss());
           text_CaseNumber.setText(prisonnier.get(0));
-          System.out.println("ca plante ici j'parie"); //LE FAMEUX PRINTLN D2CAL2 mdr trololol
+          //System.out.println("ca plante ici j'parie"); //LE FAMEUX PRINTLN D2CAL2 mdr trololol
           text_NameOrigin.setText(prisonnier.get(1));
           text_DayOfFact.setText(prisonnier.get(2));
           text_DayOfImprisonment.setText(prisonnier.get(3));
@@ -478,6 +479,13 @@ public class FXMLController implements Initializable {
         oldstage.close();
         scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
         stage.show();
+    }
+
+    @FXML
+    private void onkeyPressedTextArea(KeyEvent event) {
+       
+        
+        
     }
 
 
