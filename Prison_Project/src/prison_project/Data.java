@@ -27,15 +27,13 @@ public class Data {
     private StringProperty _NameOfOriginCourtSP;
     private String _DayOfImprisonment;
     private StringProperty _DayOfImprisonmentSP;
-    private String _Reason;
-    private StringProperty _ReasonSP;
     private String _DayOfFact;
     private StringProperty _DayOfFactSP;
     private String _Necrou;
     private StringProperty _NecrouSP;
     
     
-     Data(String t1,String t2, String t3,String t4,String t5,String t6,String t8,String t9,String t10,String t11){
+     Data(String t1,String t2, String t3,String t4,String t5,String t6,String t8,String t10,String t11){
         //System.out.println("test2");
         this._LastName = t1;
         this._FirstName = t2;
@@ -44,7 +42,6 @@ public class Data {
         this._CaseNumber = t5;
         this._NameOfOriginCourt = t6;
         this._DayOfImprisonment = t8;
-        this._Reason = t9;
         this._DayOfFact = t10;
         this._Necrou = t11;
     }
@@ -57,7 +54,6 @@ public class Data {
         this._CaseNumber = "";
         this._NameOfOriginCourt = "";
         this._DayOfImprisonment = "";
-        this._Reason = "";
         this._DayOfFact = "";
         this._Necrou = "";
     }
@@ -89,10 +85,6 @@ public class Data {
          
          public void setDayofImprisonment(String dayofimprisonment ){
              this._DayOfImprisonment = dayofimprisonment;
-         }
-         
-         public void setReason( String reason ) {
-             this._Reason = reason;
          }
          
          public void setDayOfFact(String dayoffact) {
@@ -131,10 +123,6 @@ public class Data {
              return(this._DayOfImprisonment);
          }
          
-         public String getReason(){
-             return(this._Reason);
-         }
-         
          public String getDayOfFact(){
              return(this._DayOfFact);
          }
@@ -144,7 +132,7 @@ public class Data {
          }
          
     public boolean TestVoid(){
-        return(this._LastName.isEmpty() && this._FirstName.isEmpty() && this._Birthday.isEmpty() && this._Birthplace.isEmpty() && this._CaseNumber.isEmpty() && this._NameOfOriginCourt.isEmpty() && this._DayOfImprisonment.isEmpty() && this._Reason.isEmpty() && this._DayOfFact.isEmpty() && this._Necrou.isEmpty());
+        return(this._LastName.isEmpty() && this._FirstName.isEmpty() && this._Birthday.isEmpty() && this._Birthplace.isEmpty() && this._CaseNumber.isEmpty() && this._NameOfOriginCourt.isEmpty() && this._DayOfImprisonment.isEmpty() && this._DayOfFact.isEmpty() && this._Necrou.isEmpty());
     }
     
     public double TestError(){
@@ -163,14 +151,70 @@ public class Data {
             count++;
         if(!this._DayOfImprisonment.isEmpty())
             count++;
-        if(!this._Reason.isEmpty())
-            count++;
         if(!this._DayOfFact.isEmpty())
             count++;
                     
         count++;
+        count++;
         return(count/10.0f);
         
     }
+    
+    
+   public static String choiceMotif( String motif ){
+       
+       switch(motif){
+           case "vols et delits assimiles":
+               return("1");
+           case "coups et blessures":
+               return("2");
+           case "escroquerie":
+               return("3");
+           case "port d’armes prohibé":
+               return("4");
+           case "conduite en état d’ivresse":
+               return("5");
+           case "viol":
+                return("6");
+           case "pédophilie":
+                return("7");
+           case "abus de confiance":
+                return("12");
+           case "homicide":
+                return("14");
+           case "proxénétisme":
+                return("15");
+           default:
+               return("0");
+       }
+   }
+   
+   public static String getNmotif(String motif) {
+       switch (motif){
+           case "1":
+               return("vols et delits assimiles");
+           case "2":
+               return("coups et blessures");
+           case "3":
+               return("escroquerie");
+           case "4":
+               return("conduite en état d’ivresse");
+           case "5":
+               return("conduite en état d’ivresse");
+           case "6":
+               return("viol");
+           case "7":
+               return("pédophilie");
+           case "12":
+               return("abus de confiance");
+           case "14":
+               return("homicide");
+           case "15":
+               return("proxénétisme");
+           default:
+               return("");
+               
+       }
+   }
     
 }

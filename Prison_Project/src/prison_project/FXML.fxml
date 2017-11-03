@@ -2,6 +2,7 @@
 
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -31,7 +32,6 @@
             <Button fx:id="btn_7" font="$x2" layoutX="14.0" layoutY="486.0" mnemonicParsing="false" onMouseClicked="#onClickBtn7" prefHeight="73.0" prefWidth="116.0" text="7" />
             <TextArea fx:id="text_area" disable="false" editable="false" layoutX="14.0" layoutY="52.0" prefHeight="235.0" prefWidth="387.0" promptText="Entrée le numéro d'écrou" wrapText="true" />
             <TextField id="text_8" fx:id="text_DayOfImprisonment" layoutX="433.0" layoutY="405.0" prefHeight="52.0" prefWidth="200.0" promptText="Date d'emprisonnement" text="" />
-            <TextField id="text_9" fx:id="text_Reason" layoutX="433.0" layoutY="457.0" prefHeight="52.0" prefWidth="200.0" promptText="Motif" text="" />
             <TextField id="text_NOC" fx:id="text_NameOrigin" layoutX="433.0" layoutY="346.0" prefHeight="59.0" prefWidth="200.0" promptText="Nom de juridiction" text="" />
             <TextField id="text_CN" fx:id="text_CaseNumber" layoutX="433.0" layoutY="287.0" prefHeight="59.0" prefWidth="200.0" promptText="Numéro d'affaire" />
             <TextField id="text_LN" fx:id="text_LastName" layoutX="433.0" layoutY="52.0" prefHeight="59.0" prefWidth="200.0" promptText="Nom" text="" />
@@ -55,6 +55,15 @@
             <ProgressBar fx:id="LoadingBar" layoutX="433.0" layoutY="638.0" minHeight="14.0001220703125" prefHeight="15.0" prefWidth="200.0" progress="0.0" />
             <Label alignment="CENTER" contentDisplay="CENTER" font="$x4" layoutX="14.0" layoutY="0.0" prefHeight="52.0" prefWidth="387.0" text="Numéro d'écrou" textAlignment="JUSTIFY" underline="false" />
             <Button fx:id="btnMenu" font="$x3" layoutX="663.0" layoutY="599.0" mnemonicParsing="false" onMouseClicked="#onClickBtnMenu" prefHeight="36.0" prefWidth="246.0" style="-fx-border-color: #003366; -fx-border-width: 2;" text="&lt;- Menu" textAlignment="JUSTIFY" textFill="#b98d42" textOverrun="WORD_ELLIPSIS" />
+            <ChoiceBox fx:id="choiceBox" layoutX="433.0" layoutY="457.0" prefHeight="52.0" prefWidth="200.0">
+              <items>
+                <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Item 1" />
+                  <String fx:value="Item 2" />
+                  <String fx:value="Item 3" />
+                </FXCollections>
+              </items>
+            </ChoiceBox>
           </children>
         </AnchorPane>
         <AnchorPane minHeight="-1.0" minWidth="-1.0" prefHeight="707.0" prefWidth="564.0">

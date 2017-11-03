@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -41,8 +43,6 @@ public class FXMLController implements Initializable {
     private Font x2;
     @FXML
     private Button btn_3;
-    @FXML
-    private Font x1;
     @FXML
     private Button btn_0;
     @FXML
@@ -73,12 +73,9 @@ public class FXMLController implements Initializable {
     private Button btn_create;
     @FXML
     private TextField text_DayOfImprisonment;
-    @FXML
     private TextField text_Reason;
     @FXML
     private TextField text_NameOrigin;
-    @FXML
-    private TextField text_ExactName;
     @FXML
     private TextField text_CaseNumber;
     @FXML
@@ -104,6 +101,8 @@ public class FXMLController implements Initializable {
     private Button Btn_update;
     @FXML
     private Button btnMenu;
+    @FXML
+    private ChoiceBox<String> choiceBox;
 
 
     /**
@@ -123,7 +122,8 @@ public class FXMLController implements Initializable {
        // try {
             //_database = new bank_database();
           //  System.out.println(_database.toString );
-
+        choiceBox.setItems(FXCollections.observableArrayList("vols et delits assimiles","coups et blessures","escroquerie","port d’armes prohibé","conduite en état d’ivresse","viol","pédophilie","abus de confiance","homicide","proxénétisme"));
+        choiceBox.setValue("viol");
         try {
             createDatabase();                                                                                     // Creation base de donnée
         } catch (Exception s1){
@@ -174,10 +174,10 @@ public class FXMLController implements Initializable {
         else
             text_DayOfImprisonment.setStyle("-fx-background-color: Background.Empty");
 
-        if(text_Reason.getText().isEmpty())
-            text_Reason.setStyle("-fx-border-color: red");
-        else
-            text_Reason.setStyle("-fx-background-color: Background.Empty");
+        //if(text_Reason.getText().isEmpty())
+         //   text_Reason.setStyle("-fx-border-color: red");
+        //else
+       //     text_Reason.setStyle("-fx-background-color: Background.Empty");
 
         if(text_DayOfFact.getText().isEmpty())
             text_DayOfFact.setStyle("-fx-border-color: red");
@@ -280,7 +280,7 @@ public class FXMLController implements Initializable {
     
     @FXML
     private void onClickBtnCreate(MouseEvent event)throws java.sql.SQLException, ParseException  {
-        Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_Reason.getText(),text_DayOfFact.getText(),text_area.getText());
+        Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText(),text_area.getText());
 
         LoadingBar.setProgress(data.TestError());
         System.out.println(data.TestError());
@@ -310,7 +310,8 @@ public class FXMLController implements Initializable {
         Incarceration incarceration = new Incarceration(calendar);
 
         //Motif
-        Motif motif = new Motif(text_Reason.getText());
+       
+        Motif motif = new Motif(Data.choiceMotif(choiceBox.getValue()));
 
 
         _database.addPrisionnierToDatabase(detenu,affaire,juridiction,incarceration,motif);
@@ -355,7 +356,7 @@ public class FXMLController implements Initializable {
           text_NameOrigin.setText(prisonnier.get(1));
           text_DayOfFact.setText(prisonnier.get(2));
           text_DayOfImprisonment.setText(prisonnier.get(3));
-          text_Reason.setText(prisonnier.get(4));
+          choiceBox.setValue(Data.getNmotif(prisonnier.get(4)));
           
       } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -386,7 +387,7 @@ public class FXMLController implements Initializable {
           text_NameOrigin.setText(prisonnier.get(1));
           text_DayOfFact.setText(prisonnier.get(2));
           text_DayOfImprisonment.setText(prisonnier.get(3));
-          text_Reason.setText(prisonnier.get(4));
+          choiceBox.setValue(Data.getNmotif(prisonnier.get(4)));
           
       } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -428,7 +429,7 @@ public class FXMLController implements Initializable {
             Incarceration incarceration = new Incarceration(calendar);
 
             //Motif
-            Motif motif = new Motif(text_Reason.getText());
+            Motif motif = new Motif(Data.choiceMotif(choiceBox.getValue()));
 
             _database.UpdatePrisonnier(detenu, affaire, juridiction, incarceration, motif);
             LoadingBar.setStyle("-fx-accent: green;");
