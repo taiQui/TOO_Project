@@ -12,17 +12,24 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -95,6 +102,9 @@ public class Prisionnier_PreventifController implements Initializable {
         }
     }
 
+    
+    
+    
     @FXML
     private void onClickBtnMenu(MouseEvent event) throws IOException {
         Stage oldstage = (Stage) btnMenu.getScene().getWindow();
@@ -108,8 +118,7 @@ public class Prisionnier_PreventifController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    private void clickbtnvoir(MouseEvent event) throws SQLException, ParseException {
+    private void show() throws SQLException, ParseException {
         ArrayList<Detenu> liste;
         ObservableList<Detenu>  ajoutable = FXCollections.observableArrayList();
         if(choiceBox.getValue().equals("Preventif")){
@@ -132,6 +141,101 @@ public class Prisionnier_PreventifController implements Initializable {
             
         tableview.setItems(ajoutable);
  
+    }
+    
+    @FXML
+    private void clickbtnvoir(MouseEvent event) throws SQLException, ParseException {
+        show();
+    }
+    
+    //Experimental
+    public void switchScene(String name){
+        try {
+            Stage oldstage = new Stage();
+            oldstage = (Stage)tableview.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(name));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setTitle(name);
+            stage.setScene(scene);
+            oldstage.close();
+            scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
+            stage.show();
+        } catch (IOException ex){
+          ex.getCause();
+        }
+    }
+    
+    
+    @FXML
+    private void onContextMenuClicked(ContextMenuEvent event) {
+        final ContextMenu tableContextMenu = new ContextMenu();
+        final MenuItem addPrisoner = new MenuItem("Ajouter un nouveau detenu");
+        final MenuItem modifyPrisoner = new MenuItem("Modifier ce detenu");
+        final MenuItem deletePrisoner = new MenuItem("Supprimer ce detenu");
+        tableContextMenu.getItems().addAll(addPrisoner, modifyPrisoner,deletePrisoner);
+        tableview.setContextMenu(tableContextMenu);
+
+        addPrisoner.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("On change de page pour aller sur celle de création");
+                try{
+                    switchScene("FXML.fxml");
+                    
+                }catch(Exception e){
+                    e.printStackTrace();
+                    System.out.println("echec");
+                }
+
+            }
+        });
+        
+        modifyPrisoner.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("On ouvre la page de modification avec les informations préremplies");
+                //System.out.println(tableview.getSelectionModel().getSelectedItems());
+                TablePosition pos = tableview.getSelectionModel().getSelectedCells().get(0);
+                int row = pos.getRow();
+                Detenu item = tableview.getItems().get(row);
+                System.out.println(item.getEcrou());
+                
+                FXMLController control = new FXMLController();
+                try{
+                    //Trouver un moyen pour ecrire dans une nouvelle scène
+                    switchScene("FXML.fxml");
+                    control.read(String.valueOf(item.getEcrou()));
+                    
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }catch(ParseException e){
+                    e.printStackTrace();
+                }
+                
+            }
+        });
+        
+        deletePrisoner.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                
+                System.out.println("On supprime directement le detenu");
+                TablePosition pos = tableview.getSelectionModel().getSelectedCells().get(0);
+                int row = pos.getRow();
+                Detenu item = tableview.getItems().get(row);
+                System.out.println(item.getEcrou());
+                try{
+                    _database.DeletePrisonnier(item.getEcrou());
+                    show();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }catch(ParseException e2){
+                    e2.printStackTrace();
+                }
+            }
+        });
     }
 
 }

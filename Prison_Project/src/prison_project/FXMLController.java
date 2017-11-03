@@ -184,6 +184,8 @@ public class FXMLController implements Initializable {
         else
             text_DayOfFact.setStyle("-fx-background-color: Background.Empty");
     }
+    
+    //onClick events for numbers
     @FXML
     private void onClickBtnPoint(MouseEvent event) {
         text_area.setStyle("-fx-text-fill: black");
@@ -336,10 +338,9 @@ public class FXMLController implements Initializable {
             alert.showAndWait();
 
     }
-
-    @FXML
-    private void onClickBtnRead(MouseEvent event)throws java.sql.SQLException, ParseException  {
-      ArrayList<Detenu> liste = _database.searchOnDatabase(text_area.getText(), 3);     // met le detenu avec le numero d'ecrou dans l'ArrayList " list "
+    
+    public void read() throws java.sql.SQLException, ParseException  {
+        ArrayList<Detenu> liste = _database.searchOnDatabase(text_area.getText(), 3);     // met le detenu avec le numero d'ecrou dans l'ArrayList " list "
       
       if(!liste.get(0)._nom.isEmpty()) {
           ArrayList<String> prisonnier = new ArrayList<String>();
@@ -368,32 +369,72 @@ public class FXMLController implements Initializable {
 
 
     }
+    
+    public void read(String ecrou) throws java.sql.SQLException, ParseException  {
+        ArrayList<Detenu> liste = _database.searchOnDatabase(text_area.getText(), 3);     // met le detenu avec le numero d'ecrou dans l'ArrayList " list "
+      
+      if(!liste.get(0)._nom.isEmpty()) {
+          ArrayList<String> prisonnier = new ArrayList<String>();
+          prisonnier = _database.getPrisonnier(ecrou);
+          if(prisonnier.isEmpty())
+              System.out.println("La liste est vide biatch");
+          text_FirstName.setText(liste.get(0).getPrenom());
+          text_LastName.setText(liste.get(0).getNom());
+          text_Birthday.setText((String)liste.get(0).get_date_naissanceFX().toString());
+          text_Birthplace.setText(liste.get(0).getLieuNaiss());
+          text_CaseNumber.setText(prisonnier.get(0));
+          text_NameOrigin.setText(prisonnier.get(1));
+          text_DayOfFact.setText(prisonnier.get(2));
+          text_DayOfImprisonment.setText(prisonnier.get(3));
+          text_Reason.setText(prisonnier.get(4));
+          
+      } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("ERREUR");
+                alert.setHeaderText("Aucun prisionnier trouvé avec ce numero d'écrou");
+                alert.setContentText("ERROR 404 NOT FOUND");
+                alert.showAndWait();
+      }
+       
+      
+
+
+    }
+    
+    @FXML
+    private void onClickBtnRead(MouseEvent event)throws java.sql.SQLException, ParseException  {
+        read();
+    }
 
     @FXML
     private void onClickBtnUpdate(MouseEvent event) throws ParseException, SQLException {
-            
-        java.util.Calendar calendar = Calendar.getInstance();
-        calendar = Convertisseur.stringToCalendar(text_Birthday.getText(), "yyyy-MM-dd");
-        Detenu detenu = new Detenu(text_area.getText(),text_FirstName.getText(),text_LastName.getText(),calendar,text_Birthplace.getText());
+        //More natural usage
+        if(text_LastName.getText().isEmpty()){
+            onClickBtnRead(event);
+        }else{
+            java.util.Calendar calendar = Calendar.getInstance();
+            calendar = Convertisseur.stringToCalendar(text_Birthday.getText(), "yyyy-MM-dd");
+            Detenu detenu = new Detenu(text_area.getText(),text_FirstName.getText(),text_LastName.getText(),calendar,text_Birthplace.getText());
 
-        //Affaire
-        calendar = Convertisseur.stringToCalendar(text_DayOfFact.getText(), "yyyy-MM-dd");
-        Affaire affaire = new Affaire(text_CaseNumber.getText(),calendar);
+            //Affaire
+            calendar = Convertisseur.stringToCalendar(text_DayOfFact.getText(), "yyyy-MM-dd");
+            Affaire affaire = new Affaire(text_CaseNumber.getText(),calendar);
 
-        //Juridiction
-        Juridiction juridiction = new Juridiction(text_NameOrigin.getText());
+            //Juridiction
+            Juridiction juridiction = new Juridiction(text_NameOrigin.getText());
 
-        //Incarceration
-        calendar = Convertisseur.stringToCalendar(text_DayOfImprisonment.getText(), "yyyy-MM-dd");
-        Incarceration incarceration = new Incarceration(calendar);
+            //Incarceration
+            calendar = Convertisseur.stringToCalendar(text_DayOfImprisonment.getText(), "yyyy-MM-dd");
+            Incarceration incarceration = new Incarceration(calendar);
 
-        //Motif
-        Motif motif = new Motif(text_Reason.getText());
-        
-        _database.UpdatePrisonnier(detenu, affaire, juridiction, incarceration, motif);
-        LoadingBar.setStyle("-fx-accent: green;");
-        newW();
-        LoadingBar.setStyle("-fx-accent: white;");
+            //Motif
+            Motif motif = new Motif(text_Reason.getText());
+
+            _database.UpdatePrisonnier(detenu, affaire, juridiction, incarceration, motif);
+            LoadingBar.setStyle("-fx-accent: green;");
+            newW();
+            LoadingBar.setStyle("-fx-accent: white;"); 
+        }
     }
 
     @FXML
