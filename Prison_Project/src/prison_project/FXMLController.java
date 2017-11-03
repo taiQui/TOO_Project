@@ -398,36 +398,33 @@ public class FXMLController implements Initializable {
     
     public void read(String ecrou) throws java.sql.SQLException, ParseException  {
         System.out.println("read ("+ ecrou + ")");
-        ArrayList<Detenu> liste = _database.searchOnDatabase(text_area.getText(), 3);     // met le detenu avec le numero d'ecrou dans l'ArrayList " list "
-      
-      //if(!liste.get(0)._nom.isEmpty()) {
+        ArrayList<Detenu> liste = _database.searchOnDatabase(ecrou, 3);     // met le detenu avec le numero d'ecrou dans l'ArrayList " list "
+      if(!liste.get(0)._nom.isEmpty()) {
           
           ArrayList<String> prisonnier = new ArrayList<String>();
           prisonnier = _database.getPrisonnier(ecrou);
           if(prisonnier.isEmpty())
               System.out.println("La liste est vide biatch");
+          text_area.setText(ecrou);
           text_FirstName.setText(liste.get(0).getPrenom());
           text_LastName.setText(liste.get(0).getNom());
           System.out.println("ca plante ici j'parie");
-          
-          //ICI
-          text_Birthday.setText((String)liste.get(0).get_date_naissanceFX().toString());
-          //Exception in thread "JavaFX Application Thread" java.lang.NullPointerException
-          
+          text_Birthday.setText(Convertisseur.calendarToString (liste.get(0).getDNaiss(),"yyyy-MM-dd"));
           text_Birthplace.setText(liste.get(0).getLieuNaiss());
           text_CaseNumber.setText(prisonnier.get(0));
+          System.out.println("ca plante ici j'parie"); //LE FAMEUX PRINTLN D2CAL2 mdr trololol
           text_NameOrigin.setText(prisonnier.get(1));
           text_DayOfFact.setText(prisonnier.get(2));
           text_DayOfImprisonment.setText(prisonnier.get(3));
           choiceBox.setValue(Data.getNmotif(prisonnier.get(4)));
           
-      //} else {
-      /*          Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("ERREUR");
                 alert.setHeaderText("Aucun prisionnier trouvé avec ce numero d'écrou");
                 alert.setContentText("ERROR 404 NOT FOUND");
                 alert.showAndWait();
-      }*/
+      }
        
       
 

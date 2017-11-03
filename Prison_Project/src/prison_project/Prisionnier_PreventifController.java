@@ -195,6 +195,7 @@ public class Prisionnier_PreventifController implements Initializable {
           ex.getCause();
         }
     }
+    
     @FXML
     private void onContextMenuClicked(ContextMenuEvent event) {
         final ContextMenu tableContextMenu = new ContextMenu();
