@@ -332,6 +332,9 @@ public class bank_database {
            liste = this.getArray(2);
        else
            liste = this.getArray(3);
+       if(!liste.get(0).getNom().isEmpty()){
+           
+       
        int i = 0;
        boolean continuer = true;
        while(continuer && i < liste.size() ){
@@ -343,12 +346,10 @@ public class bank_database {
            }
 
        }
-
+       }
        if(!list.isEmpty()) {
            return list;
        } else {
-           Detenu det = new Detenu();
-           list.add(det);
            return(list);
        }
    }

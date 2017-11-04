@@ -369,6 +369,7 @@ public class FXMLController implements Initializable {
             alert.setTitle("Ajout Prisonnier");
             alert.setHeaderText("Succes");
             alert.setContentText("La modification est validé");
+            alert.initOwner(LoadingBar.getScene().getWindow());
             alert.showAndWait();
 
     }
@@ -376,7 +377,8 @@ public class FXMLController implements Initializable {
     public void read() throws java.sql.SQLException, ParseException  {
         ArrayList<Detenu> liste = _database.searchOnDatabase(text_area.getText(), 3);     // met le detenu avec le numero d'ecrou dans l'ArrayList " list "
       
-      if(!liste.get(0).getNom().isEmpty()) {
+      if(!liste.isEmpty()) {
+          System.out.println("LE NOM EST : "+ liste.get(0).getNom());
           ArrayList<String> prisonnier = new ArrayList<String>();
           prisonnier = _database.getPrisonnier(text_area.getText());
           if(prisonnier.isEmpty())
@@ -396,7 +398,8 @@ public class FXMLController implements Initializable {
                 alert.setTitle("ERREUR");
                 alert.setHeaderText("Aucun prisionnier trouvé avec ce numero d'écrou");
                 alert.setContentText("ERROR 404 NOT FOUND");
-                alert.showAndWait();
+                alert.initOwner(text_area.getScene().getWindow());
+                alert.show();
       }
        
       

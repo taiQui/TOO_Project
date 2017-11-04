@@ -98,6 +98,7 @@ public class Reduction_peineController implements Initializable {
         text_oldDate.setVisible(false);
         text_newDate.setVisible(false);
         text_fleche.setVisible(false);
+        indicator.setVisible(false);
          
         try {
             _database = new bank_database();
@@ -158,6 +159,7 @@ public class Reduction_peineController implements Initializable {
                 ButtonType buttonOK = new ButtonType("oui");
                 ButtonType buttonNO = new ButtonType("non");
                 alert.getButtonTypes().setAll(buttonOK,buttonNO);
+                alert.initOwner(tableview.getScene().getWindow());
                 Optional<ButtonType> result = alert.showAndWait();
                 numero_ecrou = text_necrou.getText();
                 if(result.get() == buttonOK && choice.getValue()=="Reduction de peine") {
@@ -196,6 +198,7 @@ public class Reduction_peineController implements Initializable {
                 text_fieldtemps.setDisable(true);
                 tableview.setVisible(false);
                 indicator.setProgress(0.0f);
+                alert.initOwner(indicator.getScene().getWindow());
                 alert.showAndWait();
             }
         }
