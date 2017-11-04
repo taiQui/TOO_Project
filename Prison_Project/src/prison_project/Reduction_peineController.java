@@ -117,6 +117,7 @@ public class Reduction_peineController implements Initializable {
             stage.setScene(scene);
             oldstage.close();
             scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
+            stage.setFullScreen(true);
             stage.show();
     }
 

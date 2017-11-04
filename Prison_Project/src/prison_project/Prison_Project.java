@@ -25,6 +25,7 @@ public class Prison_Project extends Application {
         
         stage.setScene(scene);
         scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
+        stage.setFullScreen(true);
         stage.show();
     }
 

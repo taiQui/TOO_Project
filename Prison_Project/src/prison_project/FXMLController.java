@@ -108,6 +108,10 @@ public class FXMLController implements Initializable {
     private ChoiceBox<String> choiceBox;
 
     private String testecrou;
+    @FXML
+    private TextArea text_aide;
+    @FXML
+    private Button btn_aide;
     /**
      * Initializes the controller class.
      */
@@ -128,6 +132,9 @@ public class FXMLController implements Initializable {
             //  System.out.println(_database.toString );
             choiceBox.setItems(FXCollections.observableArrayList("vols et delits assimiles","coups et blessures","escroquerie","port d’armes prohibé","conduite en état d’ivresse","viol","pédophilie","abus de confiance","homicide","proxénétisme"));
             choiceBox.setValue("viol");
+            text_aide.setVisible(false);
+            text_aide.setDisable(true);
+            System.out.println("test : "+ btn_aide.getText());
             
             
             
@@ -478,6 +485,7 @@ public class FXMLController implements Initializable {
         stage.setScene(scene);
         oldstage.close();
         scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
+        stage.setFullScreen(true);
         stage.show();
     }
 
@@ -486,6 +494,22 @@ public class FXMLController implements Initializable {
        
         
         
+    }
+
+    @FXML
+    private void onclickBtnaide(MouseEvent event) {
+        switch(btn_aide.getText()){
+            case "Aide":
+                btn_aide.setText("Cacher");
+                text_aide.setVisible(true);
+                text_aide.setDisable(false);
+                break;
+            case "Cacher":
+                btn_aide.setText("Aide");
+                text_aide.setVisible(false);
+                text_aide.setDisable(true);
+                break;
+        }
     }
 
 

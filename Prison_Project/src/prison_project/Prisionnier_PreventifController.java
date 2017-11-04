@@ -163,6 +163,7 @@ public class Prisionnier_PreventifController implements Initializable {
             stage.setScene(scene);
             oldstage.close();
             scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
+            stage.setFullScreen(true);
             stage.show();
         } catch (IOException ex){
           ex.getCause();
@@ -190,6 +191,7 @@ public class Prisionnier_PreventifController implements Initializable {
             System.out.println("test1");
             cont.getE(text);
             System.out.println("test2");
+            stage.setFullScreen(true);
             stage.show();
         } catch (IOException ex){
           ex.getCause();
