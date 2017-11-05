@@ -26,6 +26,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
@@ -490,6 +491,7 @@ public class FXMLController implements Initializable {
         oldstage.close();
         scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
         stage.setFullScreen(true);
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.show();
     }
 

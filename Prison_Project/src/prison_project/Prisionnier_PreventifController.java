@@ -32,6 +32,7 @@ import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -118,6 +119,7 @@ public class Prisionnier_PreventifController implements Initializable {
         oldstage.close();
         scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
         stage.setFullScreen(true);
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.show();
     }
 
@@ -165,6 +167,7 @@ public class Prisionnier_PreventifController implements Initializable {
             oldstage.close();
             scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
             stage.setFullScreen(true);
+            stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
             stage.show();
         } catch (IOException ex){
           ex.getCause();
@@ -193,6 +196,7 @@ public class Prisionnier_PreventifController implements Initializable {
             cont.getE(text);
             System.out.println("test2");
             stage.setFullScreen(true);
+            stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
             stage.show();
         } catch (IOException ex){
           ex.getCause();

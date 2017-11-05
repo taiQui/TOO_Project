@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -76,6 +77,7 @@ public class MenuController  implements Initializable {
             oldstage.close();
             scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
             stage.setFullScreen(true);
+            stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
             stage.show();
         } catch (IOException ex){
           ex.getCause();

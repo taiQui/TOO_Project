@@ -150,7 +150,7 @@ public class Reduction_peineController implements Initializable {
                 liste = _database.searchOnDatabase(text_necrou.getText(),1);
             else
            liste = _database.searchOnDatabase(text_necrou.getText(),2);
-            if(liste.get(0).getEcrou() != null){
+            if(!liste.isEmpty()){
                 ObservableList<Detenu> ajoutable = FXCollections.observableArrayList();
                 tableview.setVisible(true);
                 ajoutable.add(liste.get(0));
