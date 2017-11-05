@@ -434,6 +434,7 @@ public class FXMLController implements Initializable {
                 alert.setTitle("ERREUR");
                 alert.setHeaderText("Aucun prisionnier trouvé avec ce numero d'écrou");
                 alert.setContentText("ERROR 404 NOT FOUND");
+                alert.initOwner(choiceBox.getScene().getWindow());
                 alert.showAndWait();
       }
        

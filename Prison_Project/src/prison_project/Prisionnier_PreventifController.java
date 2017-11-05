@@ -117,6 +117,7 @@ public class Prisionnier_PreventifController implements Initializable {
         stage.setScene(scene);
         oldstage.close();
         scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
+        stage.setFullScreen(true);
         stage.show();
     }
 
