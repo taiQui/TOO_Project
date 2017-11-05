@@ -200,6 +200,7 @@ public class Reduction_peineController implements Initializable {
                 text_fieldtemps.setDisable(true);
                 tableview.setVisible(false);
                 indicator.setProgress(0.0f);
+                indicator.setVisible(false);
                 alert.initOwner(indicator.getScene().getWindow());
                 alert.showAndWait();
             }
