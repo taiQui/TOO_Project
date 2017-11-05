@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 /**
@@ -26,6 +27,7 @@ public class Prison_Project extends Application {
         stage.setScene(scene);
         scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
         stage.setFullScreen(true);
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.show();
     }
 

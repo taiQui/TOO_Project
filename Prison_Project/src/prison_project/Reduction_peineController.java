@@ -27,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -119,6 +120,7 @@ public class Reduction_peineController implements Initializable {
             oldstage.close();
             scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
             stage.setFullScreen(true);
+            stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
             stage.show();
     }
 
