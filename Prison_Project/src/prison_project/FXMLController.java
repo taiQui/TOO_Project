@@ -27,12 +27,14 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 /**
  * FXML Controller class
@@ -516,34 +518,56 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void onkeyPressedTextArea(KeyEvent event) {
-        String ecrou;
-        if(event.getCode() == KeyCode.A){
-            
-            ecrou = text_area.getText();
-            System.out.println("P ecrou: " + ecrou);
-            ecrou = ecrou.substring(0, text_area.getText().length() -1);
-            System.out.println("P ecrou: " + ecrou);
-            text_area.setText(ecrou);
-            
-            
-            
-        }
+//        String ecrou;
+//        if(event.getCode() == KeyCode.A){
+//            
+//            ecrou = text_area.getText();
+//            System.out.println("P ecrou: " + ecrou);
+//            ecrou = ecrou.substring(0, text_area.getText().length() -1);
+//            System.out.println("P ecrou: " + ecrou);
+//            text_area.setText(ecrou);
+//            
+//            
+//            
+//        }
     }
 
     @FXML
     private void onkeyTypedTextArea(KeyEvent event) {
-        String ecrou;
-        if(event.getCode() == KeyCode.A){
-            
-            ecrou = text_area.getText();
-            System.out.println("ecrou: " + ecrou);
-            ecrou = ecrou.substring(0, text_area.getText().length() -1);
-            System.out.println("ecrou: " + ecrou);
-            text_area.setText(ecrou);
-            
-            
-            
-        }
+//        String ecrou;
+//        if(event.getCode() == KeyCode.A){
+//            
+//            ecrou = text_area.getText();
+//            System.out.println("ecrou: " + ecrou);
+//            ecrou = ecrou.substring(0, text_area.getText().length() -1);
+//            System.out.println("ecrou: " + ecrou);
+//            text_area.setText(ecrou);
+//            
+//            
+//            
+//        }
+    }
+
+    @FXML
+    private void onkeyRelease(KeyEvent event) {
+        
+       String test = text_area.getText();
+       //if(!test.matches("//d{0,7}([\\.]\\d{0,4})?")) {   
+       //}
+       
+       if(!test.matches("//d{0,7}([\\.]\\d{0,4})?")){
+           if(test.length() > 0 ){
+                System.out.println("bite");
+                String aux = test.substring(0,test.length()-1);
+                text_area.setText("");
+                text_area.setText(aux);
+                text_area.positionCaret(text_area.getText().length());
+           } else {
+                text_area.setText("");
+           }
+       }
+    
+       
     }
 
 
