@@ -18,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -26,6 +27,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -495,12 +497,6 @@ public class FXMLController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    private void onkeyPressedTextArea(KeyEvent event) {
-       
-        
-        
-    }
 
     @FXML
     private void onclickBtnaide(MouseEvent event) {
@@ -515,6 +511,38 @@ public class FXMLController implements Initializable {
                 text_aide.setVisible(false);
                 text_aide.setDisable(true);
                 break;
+        }
+    }
+
+    @FXML
+    private void onkeyPressedTextArea(KeyEvent event) {
+        String ecrou;
+        if(event.getCode() == KeyCode.A){
+            
+            ecrou = text_area.getText();
+            System.out.println("P ecrou: " + ecrou);
+            ecrou = ecrou.substring(0, text_area.getText().length() -1);
+            System.out.println("P ecrou: " + ecrou);
+            text_area.setText(ecrou);
+            
+            
+            
+        }
+    }
+
+    @FXML
+    private void onkeyTypedTextArea(KeyEvent event) {
+        String ecrou;
+        if(event.getCode() == KeyCode.A){
+            
+            ecrou = text_area.getText();
+            System.out.println("ecrou: " + ecrou);
+            ecrou = ecrou.substring(0, text_area.getText().length() -1);
+            System.out.println("ecrou: " + ecrou);
+            text_area.setText(ecrou);
+            
+            
+            
         }
     }
 

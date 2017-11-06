@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="708.0" prefWidth="1279.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="prison_project.FXMLController">
+<AnchorPane id="AnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="708.0" prefWidth="1279.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prison_project.FXMLController">
   <children>
     <AnchorPane id="AnchorPane" disable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="646.0" prefWidth="963.0">
       <children>
@@ -28,7 +28,7 @@
         <Button fx:id="btn_9" font="$x2" layoutX="285.0" layoutY="486.0" mnemonicParsing="false" onMouseClicked="#onClickBtn9" prefHeight="73.0" prefWidth="116.0" text="9" />
         <Button fx:id="btn_8" font="$x2" layoutX="150.0" layoutY="486.0" mnemonicParsing="false" onMouseClicked="#onClickBtn8" prefHeight="73.0" prefWidth="116.0" text="8" />
         <Button fx:id="btn_7" font="$x2" layoutX="14.0" layoutY="486.0" mnemonicParsing="false" onMouseClicked="#onClickBtn7" prefHeight="73.0" prefWidth="116.0" text="7" />
-        <TextArea fx:id="text_area" disable="false" editable="true" layoutX="14.0" layoutY="52.0" onKeyPressed="#onkeyPressedTextArea" prefHeight="235.0" prefWidth="387.0" promptText="Entrée le numéro d'écrou" wrapText="true" />
+        <TextArea fx:id="text_area" disable="false" editable="true" layoutX="14.0" layoutY="52.0" onKeyPressed="#onkeyPressedTextArea" onKeyTyped="#onkeyTypedTextArea" prefHeight="235.0" prefWidth="387.0" promptText="Entrée le numéro d'écrou" wrapText="true" />
         <TextField id="text_8" fx:id="text_DayOfImprisonment" layoutX="433.0" layoutY="405.0" prefHeight="52.0" prefWidth="200.0" promptText="Date d'emprisonnement aaaa-MM-jj" text="" />
         <TextField id="text_NOC" fx:id="text_NameOrigin" layoutX="433.0" layoutY="346.0" prefHeight="59.0" prefWidth="200.0" promptText="Nom de juridiction" text="" />
         <TextField id="text_CN" fx:id="text_CaseNumber" layoutX="433.0" layoutY="287.0" prefHeight="59.0" prefWidth="200.0" promptText="Numéro d'affaire" />
