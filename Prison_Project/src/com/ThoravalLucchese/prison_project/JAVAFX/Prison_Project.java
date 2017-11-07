@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prison_project;
-
+package com.ThoravalLucchese.prison_project.JAVAFX;
+//import com.ThoravalLucchese.prison_project.JAVAFX.*;
+import com.ThoravalLucchese.prison_project.JAVAFX.MenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,9 +22,7 @@ public class Prison_Project extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
-        
         Scene scene = new Scene(root);
-        
         stage.setScene(scene);
         scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
         stage.setFullScreen(true);

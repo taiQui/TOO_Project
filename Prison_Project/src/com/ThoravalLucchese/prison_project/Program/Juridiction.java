@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prison_project;
+package com.ThoravalLucchese.prison_project.Program;
 
 import javafx.beans.property.StringProperty;
 
@@ -17,7 +17,7 @@ public class Juridiction {
             String _nom_juridiction;
             StringProperty _nom_juridictionSP;
     
-    Juridiction(String juri){
+   public Juridiction(String juri){
         this._nom_juridiction = juri;
     }
     public String getNom(){

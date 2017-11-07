@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prison_project;
+package com.ThoravalLucchese.prison_project.Program;
 
 /**
  *
@@ -15,7 +15,7 @@ public class Motif {
             String _n_motif;
             String _libelle_motif;
      
-    Motif(String motif){
+    public Motif(String motif){
         this._n_motif = motif;
        
         

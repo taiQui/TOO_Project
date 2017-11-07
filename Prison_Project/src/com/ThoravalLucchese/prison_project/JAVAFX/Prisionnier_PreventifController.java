@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prison_project;
+package com.ThoravalLucchese.prison_project.JAVAFX;
 
+import com.ThoravalLucchese.prison_project.JAVAFX.MenuController;
+import com.ThoravalLucchese.prison_project.JAVAFX.FXMLController;
+import com.ThoravalLucchese.prison_project.Program.Detenu;
+import com.ThoravalLucchese.prison_project.Program.bank_database;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -14,7 +18,6 @@ import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -41,8 +44,6 @@ import javafx.stage.Stage;
  *
  * @author greg1
  */
-
-/////// DATABANK  --------> Detenu (Comdamnation == rien )
 
 public class Prisionnier_PreventifController implements Initializable {
 
@@ -126,23 +127,15 @@ public class Prisionnier_PreventifController implements Initializable {
     private void show() throws SQLException, ParseException {
         ArrayList<Detenu> liste;
         ObservableList<Detenu>  ajoutable = FXCollections.observableArrayList();
-        if(choiceBox.getValue().equals("Preventif")){
+        if(choiceBox.getValue().equals("Preventif"))
              liste = _database.getArray(1);
-            for(Detenu d : liste){
-                
-                 ajoutable.add(d);
-
-            }
-
+        else 
+             liste = _database.getArray(3);
             
-        } else if (choiceBox.getValue().equals("Tous")){
-            liste = _database.getArray(3);
-            for(Detenu d : liste){
-
-               ajoutable.add(d);
-
-            }
-        }
+        liste.forEach((d) -> {
+            ajoutable.add(d);
+        });
+        
             
         tableview.setItems(ajoutable);
  
@@ -154,7 +147,7 @@ public class Prisionnier_PreventifController implements Initializable {
     }
     
     //Experimental
-    public void switchScene(String name){
+    public void switchScene(String name){         // changement de scene classic
         try {
             Stage oldstage = new Stage();
             oldstage = (Stage)tableview.getScene().getWindow();
@@ -174,7 +167,7 @@ public class Prisionnier_PreventifController implements Initializable {
         }
     }
     
-    public void switchScene2(String name,String text) throws SQLException, ParseException{
+    public void switchScene2(String name,String text) throws SQLException, ParseException{ // changement de scene en passant un parametre qui est le numero d'ecrou pour ouvrir directement le fichier fxml avec directement toutes les informations correspondant a un numero d'ecrou
         try {
             System.out.println("name: " + name);
             System.out.println("text:" + text);

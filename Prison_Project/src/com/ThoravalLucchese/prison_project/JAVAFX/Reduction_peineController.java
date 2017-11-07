@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prison_project;
+package com.ThoravalLucchese.prison_project.JAVAFX;
 
+import com.ThoravalLucchese.prison_project.JAVAFX.MenuController;
+import com.ThoravalLucchese.prison_project.Program.Detenu;
+import com.ThoravalLucchese.prison_project.Program.bank_database;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;

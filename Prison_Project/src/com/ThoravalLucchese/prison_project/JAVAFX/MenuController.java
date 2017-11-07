@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prison_project;
+package com.ThoravalLucchese.prison_project.JAVAFX;
+//import com.ThoravalLucchese.prison_project.Program.*;
 
 
 import java.io.IOException;
@@ -45,12 +46,7 @@ public class MenuController  implements Initializable {
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         DropShadow shadow = new DropShadow();
-        
-       
-         
-         
-         
+
     }
     /*
     @Override

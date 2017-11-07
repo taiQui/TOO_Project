@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prison_project;
+package com.ThoravalLucchese.prison_project.Program;
 
 /**
  *
@@ -14,7 +14,7 @@ public class Incarceration {
     private
             java.util.Calendar _date_incarceration ;
    
-    Incarceration (java.util.Calendar date){
+    public Incarceration (java.util.Calendar date){
         this._date_incarceration = date;
     }
     

@@ -3,7 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prison_project;
+package com.ThoravalLucchese.prison_project.JAVAFX;
+import com.ThoravalLucchese.prison_project.Program.Affaire;
+import com.ThoravalLucchese.prison_project.Program.Convertisseur;
+import com.ThoravalLucchese.prison_project.Program.Data;
+import com.ThoravalLucchese.prison_project.Program.Detenu;
+import com.ThoravalLucchese.prison_project.Program.Incarceration;
+import com.ThoravalLucchese.prison_project.Program.Juridiction;
+import com.ThoravalLucchese.prison_project.Program.Motif;
+import com.ThoravalLucchese.prison_project.Program.bank_database;
 
 import java.io.IOException;
 import java.net.URL;
@@ -12,13 +20,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -27,14 +32,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.converter.IntegerStringConverter;
 
 /**
  * FXML Controller class
@@ -124,25 +126,19 @@ public class FXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            // SuppRep rep = new SuppRep();
-            // File file = new File("C:\\Users\\greg1\\Documents\\TOO_Project\\Prison_Project\\bank_database");       // Supprime un repertoire ( base de donnée pour eviter de le supprimer
-            // if(file.exists()){                                                                                     // avant chaque execution
-            //     rep.deleteAll(file);
-            //     System.out.println("Repertoire supprimer");
-            // }
-            // if(file.exists())
-            //     System.out.println("Le fichier n'as pas ete supprimer");
-            // try {
-            //_database = new bank_database();
-            //  System.out.println(_database.toString );
-            choiceBox.setItems(FXCollections.observableArrayList("vols et delits assimiles","coups et blessures","escroquerie","port d’armes prohibé","conduite en état d’ivresse","viol","pédophilie","abus de confiance","homicide","proxénétisme"));
-            choiceBox.setValue("viol");
-            text_aide.setVisible(false);
-            text_aide.setDisable(true);
-            System.out.println("test : "+ btn_aide.getText());
-            
-            
-            
+                // SuppRep rep = new SuppRep();
+                // File file = new File("C:\\Users\\greg1\\Documents\\TOO_Project\\Prison_Project\\bank_database");       // Supprime un repertoire ( base de donnée pour eviter de le supprimer
+                // if(file.exists()){                                                                                     // avant chaque execution
+                //     rep.deleteAll(file);
+                //     System.out.println("Repertoire supprimer");
+                // }
+                // if(file.exists())
+                //     System.out.println("Le fichier n'as pas ete supprimer");
+                choiceBox.setItems(FXCollections.observableArrayList("vols et delits assimiles","coups et blessures","escroquerie","port d’armes prohibé","conduite en état d’ivresse","viol","pédophilie","abus de confiance","homicide","proxénétisme"));
+                choiceBox.setValue("viol");
+                text_aide.setVisible(false);
+                text_aide.setDisable(true);
+
                 createDatabase(); 
                 lancement();// Creation base de donnée
             } catch (Exception s1){
@@ -154,7 +150,7 @@ public class FXMLController implements Initializable {
    
     
     public void lancement() throws SQLException, ParseException{
-        System.out.println("Ici y'a le null rouge: " + testecrou);
+        //System.out.println("Ici y'a le null rouge: " + testecrou);
         if(!testecrou.isEmpty()){
             read(testecrou);
         }
@@ -383,7 +379,7 @@ public class FXMLController implements Initializable {
         ArrayList<Detenu> liste = _database.searchOnDatabase(text_area.getText(), 3);     // met le detenu avec le numero d'ecrou dans l'ArrayList " list "
       
       if(!liste.isEmpty()) {
-          System.out.println("LE NOM EST : "+ liste.get(0).getNom());
+          //System.out.println("LE NOM EST : "+ liste.get(0).getNom());
           ArrayList<String> prisonnier = new ArrayList<String>();
           prisonnier = _database.getPrisonnier(text_area.getText());
           if(prisonnier.isEmpty())
@@ -517,59 +513,26 @@ public class FXMLController implements Initializable {
     }
 
     @FXML
-    private void onkeyPressedTextArea(KeyEvent event) {
-//        String ecrou;
-//        if(event.getCode() == KeyCode.A){
-//            
-//            ecrou = text_area.getText();
-//            System.out.println("P ecrou: " + ecrou);
-//            ecrou = ecrou.substring(0, text_area.getText().length() -1);
-//            System.out.println("P ecrou: " + ecrou);
-//            text_area.setText(ecrou);
-//            
-//            
-//            
-//        }
-    }
-
-    @FXML
-    private void onkeyTypedTextArea(KeyEvent event) {
-//        String ecrou;
-//        if(event.getCode() == KeyCode.A){
-//            
-//            ecrou = text_area.getText();
-//            System.out.println("ecrou: " + ecrou);
-//            ecrou = ecrou.substring(0, text_area.getText().length() -1);
-//            System.out.println("ecrou: " + ecrou);
-//            text_area.setText(ecrou);
-//            
-//            
-//            
-//        }
-    }
-
-    @FXML
-    private void onkeyRelease(KeyEvent event) {
+    private void onkeyRelease(KeyEvent event) {   // permet de n'avoir que des chiffres dans le numero d'ecrou
         
        String test = text_area.getText();
        //if(!test.matches("//d{0,7}([\\.]\\d{0,4})?")) {   
        //}
-       
-       if(!test.matches("//d{0,7}([\\.]\\d{0,4})?")){
-           if(test.length() > 0 ){
-                System.out.println("bite");
-                String aux = test.substring(0,test.length()-1);
-                text_area.setText("");
-                text_area.setText(aux);
-                text_area.positionCaret(text_area.getText().length());
-           } else {
-                text_area.setText("");
-           }
-       }
-    
-       
-    }
+       if(!(test.length() <= 0)) {
+            if(!Character.isDigit(test.charAt(test.length()-1))){
+                if(test.length() > 0 ){
+                     String aux = test.substring(0,test.length()-1);
+                     text_area.setText("");
+                     text_area.setText(aux);
+                     text_area.positionCaret(text_area.getText().length());
+                } else {
+                     text_area.setText("");
+                }
+            }
 
+
+         }
+        }
 
 
 

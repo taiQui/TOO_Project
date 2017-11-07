@@ -1,4 +1,4 @@
-package prison_project;
+package com.ThoravalLucchese.prison_project.Program;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

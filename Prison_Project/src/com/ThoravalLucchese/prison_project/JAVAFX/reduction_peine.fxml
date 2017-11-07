@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minHeight="627.0" prefHeight="627.0" prefWidth="1075.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="prison_project.Reduction_peineController">
+<AnchorPane id="AnchorPane" minHeight="627.0" prefHeight="627.0" prefWidth="1075.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.ThoravalLucchese.prison_project.JAVAFX.Reduction_peineController">
   <children>
     <Button fx:id="btnMenu" layoutX="952.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#onClickBtnMenu" prefHeight="52.0390625" prefWidth="109.0" text="Back to Menu" />
     <Text id="text_n_ecrou" layoutX="139.0" layoutY="75.0" scaleX="2.7503702790824005" scaleY="7.019579027901911" strokeType="OUTSIDE" strokeWidth="0.0" text="Rentrer un numéro d'Ecrou" underline="true" />

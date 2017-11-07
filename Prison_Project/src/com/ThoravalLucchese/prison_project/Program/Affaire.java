@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prison_project;
+package com.ThoravalLucchese.prison_project.Program;
 
 import javafx.beans.property.StringProperty;
 
@@ -21,7 +21,7 @@ public class Affaire {
             StringProperty _n_affaireSP;
             java.util.Calendar _date_faits;
             
-    Affaire(String affaire, java.util.Calendar date){
+    public Affaire(String affaire, java.util.Calendar date){
         this._n_affaire = affaire;
         this._date_faits = date;
     }

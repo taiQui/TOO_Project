@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prison_project;
+package com.ThoravalLucchese.prison_project.Program;
 
 import javafx.beans.property.StringProperty;
 
@@ -33,7 +33,7 @@ public class Data {
     private StringProperty _NecrouSP;
     
     
-     Data(String t1,String t2, String t3,String t4,String t5,String t6,String t8,String t10,String t11){
+    public Data(String t1,String t2, String t3,String t4,String t5,String t6,String t8,String t10,String t11){
         //System.out.println("test2");
         this._LastName = t1;
         this._FirstName = t2;
@@ -45,7 +45,7 @@ public class Data {
         this._DayOfFact = t10;
         this._Necrou = t11;
     }
-         Data(){
+    public  Data(){
         //System.out.println("test2");
         this._LastName = "";
         this._FirstName = "";

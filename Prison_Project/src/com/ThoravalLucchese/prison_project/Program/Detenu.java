@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prison_project;
+package com.ThoravalLucchese.prison_project.Program;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,6 +21,7 @@ import javafx.beans.property.StringProperty;
 public class Detenu {
     
    
+    
         private    String _n_ecrou;
         private    SimpleStringProperty _n_ecrouFX;
         private    String _prenom;
@@ -34,7 +35,7 @@ public class Detenu {
             
             
      
-    Detenu(){
+   public Detenu(){
             String _n_ecrou ="";
             StringProperty _n_ecrouFX = new SimpleStringProperty("");
             String _prenom = "";
@@ -47,7 +48,7 @@ public class Detenu {
             StringProperty _lieu_naissanceFX= new SimpleStringProperty("");
     }        
             
-    Detenu(String ecrou,String prenom,String nom, java.util.Calendar date_naiss,String lieu_naiss){
+    public Detenu(String ecrou,String prenom,String nom, java.util.Calendar date_naiss,String lieu_naiss){
         //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         this._n_ecrou = ecrou;
         this._n_ecrouFX = new SimpleStringProperty(ecrou);

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="708.0" prefWidth="1306.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prison_project.Prisionnier_PreventifController">
+<AnchorPane id="AnchorPane" prefHeight="708.0" prefWidth="1306.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ThoravalLucchese.prison_project.JAVAFX.Prisionnier_PreventifController">
   <children>
     <Button fx:id="btnMenu" layoutX="1107.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#onClickBtnMenu" prefHeight="75.0" prefWidth="170.0" text="Back to Menu" />
     <Text id="text_tlp" layoutX="349.0" layoutY="44.0" scaleX="7.414681489324157" scaleY="3.1302006852667645" strokeType="OUTSIDE" strokeWidth="0.0" text="Tous les prisonniers" underline="true" />
