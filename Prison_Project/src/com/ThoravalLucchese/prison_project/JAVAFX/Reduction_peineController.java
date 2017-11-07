@@ -256,6 +256,10 @@ public class Reduction_peineController implements Initializable {
             tableviewRecherche.setVisible(false);
             tableviewRecherche.setDisable(true);
         }
+        if(text_necrou.getText().isEmpty()){
+            tableviewRecherche.setVisible(false);
+            tableviewRecherche.setDisable(true);
+        }
     }
 
     @FXML

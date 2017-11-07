@@ -355,19 +355,14 @@ public class bank_database {
    }
    
    public ArrayList<Detenu> RecherchePredictive (String text ) throws SQLException{
-       System.out.println("test5");
        ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu where n_ecrou like '"+text+"%' or prenom like '"+text+"%' or nom like '"+text+"%' or lieu_naissance like '"+text+"%'");    
    
        ArrayList<Detenu> liste = new ArrayList<>();
        java.util.Calendar datenaiss = Calendar.getInstance();
-       System.out.println("test4");
        rs.beforeFirst();
        while(rs.next()){
-           System.out.println("test1");
            datenaiss = Convertisseur.stringToCalendar(rs.getString("date_naissance"),"yyyy-MM-dd");
-           System.out.println("test2");
            Detenu det = new Detenu(rs.getString("n_ecrou"),rs.getString("prenom"),rs.getString("nom"),datenaiss,rs.getString("lieu_naissance"));
-           System.out.println("test3");
            liste.add(det);
        }
        return(liste);
