@@ -30,7 +30,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -73,6 +75,13 @@ public class Reduction_peineController implements Initializable {
         private TableColumn cecrou = new TableColumn("Ecrou");
         private TableColumn cdnaiss = new TableColumn("Date de naissance");
         private TableColumn clnaiss = new TableColumn("Lieu de naissance");
+        
+        private TableColumn cnomR = new TableColumn("Nom");
+        private TableColumn cprenomR = new TableColumn("Prenom");
+        private TableColumn cecrouR = new TableColumn("Ecrou");
+        private TableColumn cdnaissR = new TableColumn("Date de naissance");
+        private TableColumn clnaissR = new TableColumn("Lieu de naissance");
+        
     @FXML
     private ChoiceBox<String> choice =new ChoiceBox<String>();
     @FXML
@@ -83,12 +92,15 @@ public class Reduction_peineController implements Initializable {
     private TextField text_newDate;
     @FXML
     private Text text_fleche;
+    @FXML
+    private TableView<Detenu> tableviewRecherche;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        //premiere tableview
         cnom.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_nomFX"));
         cprenom.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_prenomFX"));
         cecrou.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_n_ecrouFX"));
@@ -96,6 +108,14 @@ public class Reduction_peineController implements Initializable {
         clnaiss.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_lieu_naissanceFX"));
         tableview.getColumns().addAll(cecrou,cprenom,cnom,cdnaiss,clnaiss);
          
+        //deuxieme tableview
+        cnomR.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_nomFX"));
+        cprenomR.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_prenomFX"));
+        cecrouR.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_n_ecrouFX"));
+        cdnaissR.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_date_naissanceFX"));
+        clnaissR.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_lieu_naissanceFX"));
+        tableviewRecherche.getColumns().addAll(cecrouR,cprenomR,cnomR,cdnaissR,clnaissR);
+        
        
         choice.setItems(FXCollections.observableArrayList("Reduction de peine","Condamnation"));
         
@@ -103,6 +123,8 @@ public class Reduction_peineController implements Initializable {
         text_newDate.setVisible(false);
         text_fleche.setVisible(false);
         indicator.setVisible(false);
+        tableviewRecherche.setVisible(false);
+        tableviewRecherche.setDisable(true);
          
         try {
             _database = new bank_database();
@@ -152,7 +174,7 @@ public class Reduction_peineController implements Initializable {
             if(choice.getValue().equals("Condamnation"))
                 liste = _database.searchOnDatabase(text_necrou.getText(),1);
             else
-           liste = _database.searchOnDatabase(text_necrou.getText(),2);
+                liste = _database.searchOnDatabase(text_necrou.getText(),2);
             if(!liste.isEmpty()){
                 ObservableList<Detenu> ajoutable = FXCollections.observableArrayList();
                 tableview.setVisible(true);
@@ -209,5 +231,24 @@ public class Reduction_peineController implements Initializable {
             }
         }
     }
+
+    @FXML
+    private void onRecherchePredictive(KeyEvent event) throws SQLException {
+        ArrayList<Detenu> liste = _database.RecherchePredictive(text_necrou.getText());
+        ObservableList<Detenu> ajoutable = FXCollections.observableArrayList();
+        if(liste.size()>= 1){
+            for(Detenu d : liste){
+                ajoutable.add(d);
+            }
+            tableviewRecherche.setVisible(true);
+            tableviewRecherche.setDisable(false);
+            tableviewRecherche.setItems(ajoutable);
+
+        } else {
+            tableviewRecherche.setVisible(false);
+            tableviewRecherche.setDisable(true);
+        }
+    }
+
     
 }
