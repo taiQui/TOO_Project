@@ -17,6 +17,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,11 +27,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -170,11 +176,13 @@ public class Reduction_peineController implements Initializable {
     @FXML
     private void onclickBtn_ok(MouseEvent event) throws SQLException, ParseException {
            if(!text_necrou.getText().isEmpty()){
-            ArrayList<Detenu> liste;
+            ArrayList<Detenu> liste = new ArrayList<>();
             if(choice.getValue().equals("Condamnation"))
                 liste = _database.searchOnDatabase(text_necrou.getText(),1);
-            else
+            else if(choice.getValue().equals("Reduction de peine"))
                 liste = _database.searchOnDatabase(text_necrou.getText(),2);
+            else
+                liste.clear();
             if(!liste.isEmpty()){
                 ObservableList<Detenu> ajoutable = FXCollections.observableArrayList();
                 tableview.setVisible(true);
@@ -213,6 +221,7 @@ public class Reduction_peineController implements Initializable {
                 }
                 
             } else {
+                System.out.println("je connais pas !");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("ERREUR");
                 alert.setHeaderText("Aucun prisionnier trouvé avec ce numero d'écrou");
@@ -223,7 +232,6 @@ public class Reduction_peineController implements Initializable {
                 btn_ok_reduc.setDisable(true);
                 text_fieldtemps.setVisible(false);
                 text_fieldtemps.setDisable(true);
-                tableview.setVisible(false);
                 indicator.setProgress(0.0f);
                 indicator.setVisible(false);
                 alert.initOwner(indicator.getScene().getWindow());
@@ -248,6 +256,24 @@ public class Reduction_peineController implements Initializable {
             tableviewRecherche.setVisible(false);
             tableviewRecherche.setDisable(true);
         }
+    }
+
+    @FXML
+    private void onContextMenuClicked(ContextMenuEvent event) {
+        final ContextMenu tableContextMenu = new ContextMenu();
+        final MenuItem recuperer = new MenuItem("recuperer le numero d'ecrou");
+        tableContextMenu.getItems().addAll(recuperer);
+        tableviewRecherche.setContextMenu(tableContextMenu);
+
+        recuperer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                TablePosition pos = tableviewRecherche.getSelectionModel().getSelectedCells().get(0);
+                int row = pos.getRow();
+                Detenu item = tableviewRecherche.getItems().get(row);
+                text_necrou.setText(item.getEcrou());
+            }
+        });
     }
 
     

@@ -33,6 +33,6 @@
     <TextField fx:id="text_oldDate" layoutX="543.0" layoutY="361.0" prefHeight="36.0" prefWidth="200.0" visible="true" />
     <TextField id="test_newDate" fx:id="text_newDate" layoutX="789.0" layoutY="361.0" prefHeight="36.0" prefWidth="200.0" visible="true" />
     <Text fx:id="text_fleche" layoutX="758.0" layoutY="384.0" scaleX="1.7309064696130125" scaleY="2.329703395138682" strokeType="OUTSIDE" strokeWidth="0.0" text="=&gt;" />
-    <TableView fx:id="tableviewRecherche" layoutX="14.0" layoutY="314.0" prefHeight="129.0" prefWidth="417.0" />
+    <TableView fx:id="tableviewRecherche" layoutX="14.0" layoutY="314.0" onContextMenuRequested="#onContextMenuClicked" prefHeight="129.0" prefWidth="417.0" />
   </children>
 </AnchorPane>

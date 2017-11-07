@@ -332,7 +332,7 @@ public class bank_database {
            liste = this.getArray(2);
        else
            liste = this.getArray(3);
-       if(!liste.get(0).getNom().isEmpty()){
+       if(!liste.isEmpty()){
            
        
        int i = 0;
