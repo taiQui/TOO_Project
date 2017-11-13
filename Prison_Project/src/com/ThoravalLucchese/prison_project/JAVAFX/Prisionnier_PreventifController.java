@@ -346,6 +346,8 @@ public class Prisionnier_PreventifController implements Initializable {
         
         Stage stage = new Stage();
         stage.setScene(scene);
+        stage.setTitle("Statistiques");
+        stage.initOwner(btn_voir.getScene().getWindow());
         stage.showAndWait();
         
         
