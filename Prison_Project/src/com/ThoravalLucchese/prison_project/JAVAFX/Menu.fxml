@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" cache="true" cacheHint="SPEED" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="708.0" prefWidth="1306.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.ThoravalLucchese.prison_project.JAVAFX.MenuController">
+<AnchorPane id="AnchorPane" cache="false" cacheHint="DEFAULT" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="708.0" prefWidth="1306.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.ThoravalLucchese.prison_project.JAVAFX.MenuController">
   <children>
     <Label alignment="CENTER" layoutX="341.0" layoutY="77.0" prefHeight="127.0" prefWidth="625.0" text="" textAlignment="CENTER" />
     <Text fx:id="text_prison" layoutX="628.0" layoutY="116.0" scaleX="8.01699900005882" scaleY="5.304617392723119" strokeType="OUTSIDE" strokeWidth="0.0" text="Prison" />

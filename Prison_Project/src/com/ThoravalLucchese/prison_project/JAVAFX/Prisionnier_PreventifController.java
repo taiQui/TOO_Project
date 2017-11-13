@@ -319,6 +319,7 @@ public class Prisionnier_PreventifController implements Initializable {
         BarChart barchart = new BarChart(xAxis,yAxis);
        
         XYChart.Series data = new XYChart.Series();
+        data.setName("Annee");
         
         ArrayList<String> list = _database.getYearIncar();
 
@@ -326,9 +327,27 @@ public class Prisionnier_PreventifController implements Initializable {
         ArrayList<Integer> tabCount = new ArrayList<Integer>();
         
         for(int i = 0; i < list.size() ; i++ ) {
-
-            
+            System.out.println("liste : "+list.get(i));
+            if(!tabA.contains(list.get(i))){
+                tabA.add(list.get(i));
+                tabCount.add(1);
+            } else {
+                tabCount.set(tabA.indexOf(list.get(i)),tabCount.get(tabA.indexOf(list.get(i)))+1);
+            }
         }
+        System.out.println("TAILLE TABA : "+tabA.size());
+        for(int i = 0; i < tabA.size(); i++)    
+            data.getData().add(new XYChart.Data(tabA.get(i),tabCount.get(i)));    
+        
+        barchart.getData().add(data);
+        
+        VBox vbox = new VBox(barchart);
+        Scene scene = new Scene(vbox,500,300);
+        
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.showAndWait();
+        
         
         
         
