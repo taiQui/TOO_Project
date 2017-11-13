@@ -368,4 +368,18 @@ public class bank_database {
        return(liste);
    }
 
+   
+   public ArrayList<String> getYearIncar() throws SQLException {
+       ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select YEAR(date_incarceration) from Incarceration");
+       
+       rs.beforeFirst();
+       
+       ArrayList<String> list = new ArrayList<String>();
+       
+       while(rs.next())
+           list.add(rs.getString(1));
+  
+       return list;
+   }
+   
 }

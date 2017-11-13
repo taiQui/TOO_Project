@@ -5,8 +5,6 @@
  */
 package com.ThoravalLucchese.prison_project.JAVAFX;
 
-import com.ThoravalLucchese.prison_project.JAVAFX.MenuController;
-import com.ThoravalLucchese.prison_project.JAVAFX.FXMLController;
 import com.ThoravalLucchese.prison_project.Program.Detenu;
 import com.ThoravalLucchese.prison_project.Program.bank_database;
 import java.io.IOException;
@@ -15,6 +13,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +26,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
@@ -37,6 +41,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -65,6 +70,8 @@ public class Prisionnier_PreventifController implements Initializable {
     public TableColumn colonnePrenom = new TableColumn("Prenom");
     @FXML
     private ChoiceBox<String> choiceBox = new ChoiceBox<String>();
+    @FXML
+    private Button btn_stat;
     /**
      * Initializes the controller class.
      * @param url
@@ -98,7 +105,30 @@ public class Prisionnier_PreventifController implements Initializable {
 
         choiceBox.setItems(FXCollections.observableArrayList("Preventif","Tous"));
         choiceBox.setValue("Tous");
+       // barchart.setDisable(false);
+       
+        System.out.println("JE PASSE ICI");
+//        CategoryAxis xAxis = new CategoryAxis();
+//        NumberAxis yAxis = new NumberAxis();
+//        barchart = new BarChart(xAxis,yAxis);
+//        barchart.setTitle("Statistique d'ajouts");
+//        xAxis.setLabel("Année");       
+//        yAxis.setLabel("Nombre de prisonnier");
+//        XYChart.Series series1 = new XYChart.Series();
+//        series1.setName("Annee");
+//        series1.getData().add(new XYChart.Data("1998", 50.0));
+//        series1.getData().add(new XYChart.Data("1999", 100));
+//        series1.getData().add(new XYChart.Data("2000", 58));
+//        
+//        barchart.getData().add(series1);
+//
+//        VBox vbox = new VBox(barchart);
+//        Scene scene = new Scene(vbox,400,200);
+//        Stage stage = new Stage();
+//        stage.setScene(scene);
+//        stage.showAndWait();
         
+        //actualiseChart();
         try {
             _database = new bank_database();
         }catch (Exception e1){
@@ -107,7 +137,9 @@ public class Prisionnier_PreventifController implements Initializable {
     }
 
     
-    
+    private void actualiseChart() {
+
+    }
     
     @FXML
     private void onClickBtnMenu(MouseEvent event) throws IOException {
@@ -123,6 +155,9 @@ public class Prisionnier_PreventifController implements Initializable {
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.show();
     }
+    
+    
+ 
 
     private void show() throws SQLException, ParseException {
         ArrayList<Detenu> liste;
@@ -138,8 +173,11 @@ public class Prisionnier_PreventifController implements Initializable {
         
             
         tableview.setItems(ajoutable);
+        
  
     }
+    
+    
     
     @FXML
     private void clickbtnvoir(MouseEvent event) throws SQLException, ParseException {
@@ -268,6 +306,32 @@ public class Prisionnier_PreventifController implements Initializable {
                 }
             }
         });
+    }
+
+    @FXML
+    private void onclickBtnstats(MouseEvent event) throws SQLException {
+
+        CategoryAxis xAxis    = new CategoryAxis();
+        xAxis.setLabel("année");
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Nombre de prisonnier");
+        
+        BarChart barchart = new BarChart(xAxis,yAxis);
+       
+        XYChart.Series data = new XYChart.Series();
+        
+        ArrayList<String> list = _database.getYearIncar();
+
+        ArrayList<String> tabA = new ArrayList<String>();
+        ArrayList<Integer> tabCount = new ArrayList<Integer>();
+        
+        for(int i = 0; i < list.size() ; i++ ) {
+
+            
+        }
+        
+        
+        
     }
 
 }
