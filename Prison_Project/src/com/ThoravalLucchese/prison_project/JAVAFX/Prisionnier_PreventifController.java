@@ -335,11 +335,13 @@ public class Prisionnier_PreventifController implements Initializable {
                 tabCount.set(tabA.indexOf(list.get(i)),tabCount.get(tabA.indexOf(list.get(i)))+1);
             }
         }
+        
         System.out.println("TAILLE TABA : "+tabA.size());
         for(int i = 0; i < tabA.size(); i++)    
             data.getData().add(new XYChart.Data(tabA.get(i),tabCount.get(i)));    
         
         barchart.getData().add(data);
+        barchart.setStyle("-fx-bar-color: #ffffff;");
         
         VBox vbox = new VBox(barchart);
         Scene scene = new Scene(vbox,500,300);

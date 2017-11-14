@@ -74,7 +74,9 @@ public class MenuController  implements Initializable {
             scene.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
             stage.setFullScreen(true);
             stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+            System.out.println("TEST1");
             stage.show();
+            System.out.println("TEST");
         } catch (IOException ex){
           ex.getCause();
         }
@@ -90,12 +92,18 @@ public class MenuController  implements Initializable {
     @FXML
     private void onclickBtnreducpeine(MouseEvent event) {
         String name = "reduction_peine.fxml";
+        Stage stage = new Stage();
+        Stage oldstage = new Stage();
+        
         switchScene(name);
     }
 
     @FXML
     private void onclickBtnpreventif(MouseEvent event) {
         String name = "Prisonnier_Preventif.fxml";
+        Runnable to_do = () -> {
+            
+        };
         switchScene(name);
     }
 
