@@ -145,3 +145,11 @@ and open the template in the editor.
   -fx-border-radius: 25 0 25 0;
   -fx-background-radius: 25 0 25 0;
 }
+
+#barchart {
+    -fx-bar-fill: black;
+}
+
+.default-color0.chart-bar{
+    -fx-bar-fill:blue;
+}
