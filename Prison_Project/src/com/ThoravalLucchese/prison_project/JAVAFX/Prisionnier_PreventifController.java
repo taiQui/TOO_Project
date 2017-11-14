@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -336,6 +337,14 @@ public class Prisionnier_PreventifController implements Initializable {
             }
         }
         System.out.println("TAILLE TABA : "+tabA.size());
+        
+        tabA.sort(new Comparator<String>(){
+            @Override
+            public int compare(String s1,String s2){
+                return(s1.compareTo(s2));
+            }
+        });
+        
         for(int i = 0; i < tabA.size(); i++)    
             data.getData().add(new XYChart.Data(tabA.get(i),tabCount.get(i)));    
         
