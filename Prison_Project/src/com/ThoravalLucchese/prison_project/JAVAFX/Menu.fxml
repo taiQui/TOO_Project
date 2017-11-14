@@ -7,8 +7,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+       
+
 <AnchorPane id="AnchorPane" cache="false" cacheHint="DEFAULT" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="708.0" prefWidth="1306.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.ThoravalLucchese.prison_project.JAVAFX.MenuController">
   <children>
+     <!-- <VBox fillWidth="true" layoutX="653.0" layoutY="354.0" prefHeight="708.0" prefWidth="1306.0" maxHeight="-1.0" maxWidth="-1.0">
+      <children> -->
     <Label alignment="CENTER" layoutX="341.0" layoutY="77.0" prefHeight="127.0" prefWidth="625.0" text="" textAlignment="CENTER" />
     <Text fx:id="text_prison" layoutX="628.0" layoutY="116.0" scaleX="8.01699900005882" scaleY="5.304617392723119" strokeType="OUTSIDE" strokeWidth="0.0" text="Prison" />
     <Text fx:id="text_de" layoutX="643.0" layoutY="222.0" scaleX="7.296003513394818" scaleY="3.5896557350301843" strokeType="OUTSIDE" strokeWidth="0.0" text="de" />
@@ -20,5 +24,7 @@
     </Button>
     <Button id="btndecision" fx:id="btn_reductionpeine" font="$x1" layoutX="966.0" layoutY="454.0" mnemonicParsing="false" onMouseClicked="#onclickBtnreducpeine" prefHeight="185.0" prefWidth="303.0" text="Décisions" />
     <Button id="btnpreventif" fx:id="btn_preventif" font="$x1" layoutX="504.0" layoutY="454.0" mnemonicParsing="false" onMouseClicked="#onclickBtnpreventif" prefHeight="185.0" prefWidth="303.0" text="Prisonniers" />
-  </children>
+    </children>
+    <!--</VBox>
+      </children> -->
 </AnchorPane>

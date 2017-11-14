@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -101,9 +102,7 @@ public class MenuController  implements Initializable {
     @FXML
     private void onclickBtnpreventif(MouseEvent event) {
         String name = "Prisonnier_Preventif.fxml";
-        Runnable to_do = () -> {
-            
-        };
+
         switchScene(name);
     }
 

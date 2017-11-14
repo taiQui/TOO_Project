@@ -328,7 +328,7 @@ public class Prisionnier_PreventifController implements Initializable {
         ArrayList<Integer> tabCount = new ArrayList<Integer>();
         
         for(int i = 0; i < list.size() ; i++ ) {
-            System.out.println("liste : "+list.get(i));
+            //System.out.println("liste : "+list.get(i));
             if(!tabA.contains(list.get(i))){
                 tabA.add(list.get(i));
                 tabCount.add(1);
@@ -337,7 +337,7 @@ public class Prisionnier_PreventifController implements Initializable {
             }
         }
         
-        System.out.println("TAILLE TABA : "+tabA.size());
+        //System.out.println("TAILLE TABA : "+tabA.size());
         
         tabA.sort(new Comparator<String>(){
             @Override
@@ -350,8 +350,10 @@ public class Prisionnier_PreventifController implements Initializable {
             data.getData().add(new XYChart.Data(tabA.get(i),tabCount.get(i)));    
         
         barchart.getData().add(data);
-        barchart.setStyle("-fx-bar-color: #ffffff;");
         
+        barchart.setId("barchart");
+        barchart.setStyle("-fx-bar-fill: navy;");
+       // barchart.getStylesheets().add(MenuController.class.getResource("stylecss.css").toExternalForm());
         VBox vbox = new VBox(barchart);
         Scene scene = new Scene(vbox,500,300);
         
