@@ -436,7 +436,8 @@ public class FXMLController implements Initializable {
     
     public void read(String ecrou) throws java.sql.SQLException, ParseException  {
         System.out.println("read ("+ ecrou + ")");
-        ArrayList<Detenu> liste = _database.searchOnDatabase(ecrou, 3);     // met le detenu avec le numero d'ecrou dans l'ArrayList " list "
+        ArrayList<Detenu> liste = new ArrayList<Detenu>();
+        liste = _database.searchOnDatabase(ecrou, 3);     // met le detenu avec le numero d'ecrou dans l'ArrayList " list "
       if(!liste.get(0).getNom().isEmpty()) {
           
           ArrayList<String> prisonnier = new ArrayList<String>();
@@ -478,9 +479,17 @@ public class FXMLController implements Initializable {
     @FXML
     private void onClickBtnUpdate(MouseEvent event) throws ParseException, SQLException {
         //More natural usage
-        if(text_LastName.getText().isEmpty()){
-            onClickBtnRead(event);
-        }else{
+        Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText(),text_area.getText());
+
+        if(data.TestVoidWithOutEcrou()){
+            System.out.println("JE PASSE ICI MDR");
+            TestEcrou();
+            if(!NumeroEcrouValide){
+                read(text_area.getText());
+            }
+            
+        }else if (!data.TestVoidWithOutEcrou() && !NumeroEcrouValide){
+            System.out.println("JE PASSE ICI AUSSI LOL");
             java.util.Calendar calendar = Calendar.getInstance();
             calendar = Convertisseur.stringToCalendar(text_Birthday.getText(), "yyyy-MM-dd");
             Detenu detenu = new Detenu(text_area.getText(),text_FirstName.getText(),text_LastName.getText(),calendar,text_Birthplace.getText());

@@ -135,6 +135,10 @@ public class Data {
         return(this._LastName.isEmpty() && this._FirstName.isEmpty() && this._Birthday.isEmpty() && this._Birthplace.isEmpty() && this._CaseNumber.isEmpty() && this._NameOfOriginCourt.isEmpty() && this._DayOfImprisonment.isEmpty() && this._DayOfFact.isEmpty() && this._Necrou.isEmpty());
     }
     
+    public boolean TestVoidWithOutEcrou(){
+        return(this._LastName.isEmpty() && this._FirstName.isEmpty() && this._Birthday.isEmpty() && this._Birthplace.isEmpty() && this._CaseNumber.isEmpty() && this._NameOfOriginCourt.isEmpty() && this._DayOfImprisonment.isEmpty() && this._DayOfFact.isEmpty());
+    }
+    
     public double TestError(){
         double count = 0;
         if(!this._LastName.isEmpty())
