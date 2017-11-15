@@ -35,8 +35,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
+import javafx.scene.paint.Color;
 
 /**
  * FXML Controller class
@@ -119,6 +122,10 @@ public class FXMLController implements Initializable {
     private TextArea text_aide;
     @FXML
     private Button btn_aide;
+    @FXML
+    private Circle circleValid;
+    
+    private boolean NumeroEcrouValide = false;
     /**
      * Initializes the controller class.
      */
@@ -138,7 +145,7 @@ public class FXMLController implements Initializable {
                 choiceBox.setValue("viol");
                 text_aide.setVisible(false);
                 text_aide.setDisable(true);
-
+                circleValid.setFill(Color.WHITE);
                 createDatabase(); 
                 lancement();// Creation base de donnée
             } catch (Exception s1){
@@ -221,59 +228,68 @@ public class FXMLController implements Initializable {
     
     //onClick events for numbers
     @FXML
-    private void onClickBtnPoint(MouseEvent event) {
+    private void onClickBtnPoint(MouseEvent event) throws SQLException {
         text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + '.';
         text_area.setText(aux);
+        TestEcrou();
     }
 
     @FXML
-    private void onClickBtn3(MouseEvent event) {
+    private void onClickBtn3(MouseEvent event) throws SQLException {
         text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "3";
         text_area.setText(aux);
+        TestEcrou();
     }
 
     @FXML
-    private void onClickBtn0(MouseEvent event) {
+    private void onClickBtn0(MouseEvent event) throws SQLException {
         text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "0";
         text_area.setText(aux);
+        TestEcrou();
     }
 
     @FXML
-    private void onClickBtn5(MouseEvent event) {
+    private void onClickBtn5(MouseEvent event) throws SQLException {
         text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "5";
         text_area.setText(aux);
+        TestEcrou();
     }
 
     @FXML
-    private void onClickBtn2(MouseEvent event) {
+    private void onClickBtn2(MouseEvent event) throws SQLException {
         text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "2";
         text_area.setText(aux);
+        TestEcrou();
     }
 
     @FXML
-    private void onClickBtn1(MouseEvent event) {
+    private void onClickBtn1(MouseEvent event) throws SQLException {
         text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "1";
         text_area.setText(aux);
+        TestEcrou();
     }
 
     @FXML
-    private void onClickBtn4(MouseEvent event) {
+    private void onClickBtn4(MouseEvent event) throws SQLException {
         text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "4";
         text_area.setText(aux);
+        TestEcrou();
     }
 
     @FXML
-    private void onClickBtn6(MouseEvent event) {
+    private void onClickBtn6(MouseEvent event) throws SQLException {
         text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "6";
         text_area.setText(aux);
+        TestEcrou();
+        
     }
 
     @FXML
@@ -287,30 +303,29 @@ public class FXMLController implements Initializable {
     }
 
     @FXML
-    private void onClickBtn9(MouseEvent event) {
+    private void onClickBtn9(MouseEvent event) throws SQLException {
         text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "9";
         text_area.setText(aux);
+        TestEcrou();
     }
 
     @FXML
-    private void onClickBtn8(MouseEvent event) {
+    private void onClickBtn8(MouseEvent event) throws SQLException {
         text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "8";
         text_area.setText(aux);
+        TestEcrou();
     }
 
     @FXML
-    private void onClickBtn7(MouseEvent event) {
+    private void onClickBtn7(MouseEvent event) throws SQLException {
         text_area.setStyle("-fx-text-fill: black");
         String aux = text_area.getText() + "7";
         text_area.setText(aux);
+        TestEcrou();
     }
 
-    
-    
-    
-    
     
     @FXML
     private void onClickBtnCreate(MouseEvent event)throws java.sql.SQLException, ParseException  {
@@ -326,7 +341,7 @@ public class FXMLController implements Initializable {
 
         CompleteText();
 
-        if(!data.TestVoid()){
+        if(!data.TestVoid() && NumeroEcrouValide){
         //Detenu
         java.util.Calendar calendar = Convertisseur.stringToCalendar(text_Birthday.getText(),"yyyy-MM-dd");
             
@@ -347,13 +362,24 @@ public class FXMLController implements Initializable {
        
         Motif motif = new Motif(Data.choiceMotif(choiceBox.getValue()));
 
-
-        _database.addPrisionnierToDatabase(detenu,affaire,juridiction,incarceration,motif);
+        
+        
+       
+            _database.addPrisionnierToDatabase(detenu,affaire,juridiction,incarceration,motif);
         LoadingBar.setProgress(1.0d);
+        
+        
         
         LoadingBar.setStyle("-fx-accent: green;");
         newW();
         LoadingBar.setStyle("-fx-accent: white;");
+        } else {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Ajout Prisonnier");
+            alert.setHeaderText("Erreur");
+            alert.setContentText("Le numéro d'ecrou est deja associé ou les champs ne sont pas remplis");
+            alert.initOwner(LoadingBar.getScene().getWindow());
+            alert.showAndWait();
         }
     }
 
@@ -366,7 +392,7 @@ public class FXMLController implements Initializable {
     }
 
     public void newW(){
-        Alert alert = new Alert(AlertType.INFORMATION);
+            Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Ajout Prisonnier");
             alert.setHeaderText("Succes");
             alert.setContentText("La modification est validé");
@@ -513,7 +539,7 @@ public class FXMLController implements Initializable {
     }
 
     @FXML
-    private void onkeyRelease(KeyEvent event) {   // permet de n'avoir que des chiffres dans le numero d'ecrou
+    private void onkeyRelease(KeyEvent event) throws SQLException, ParseException {   // permet de n'avoir que des chiffres dans le numero d'ecrou
         
        String test = text_area.getText();
        //if(!test.matches("//d{0,7}([\\.]\\d{0,4})?")) {   
@@ -531,6 +557,20 @@ public class FXMLController implements Initializable {
             }
 
 
+         }
+         TestEcrou();
+       
+        }
+    
+        public void TestEcrou() throws SQLException{
+         ArrayList<String> liste = new ArrayList<String>();
+         liste = _database.getPrisonnier(text_area.getText());
+         if(liste.isEmpty()){
+             NumeroEcrouValide = true;
+             circleValid.setFill(Color.GREEN);
+         } else {
+             NumeroEcrouValide = false;
+             circleValid.setFill(Color.RED);
          }
         }
 
