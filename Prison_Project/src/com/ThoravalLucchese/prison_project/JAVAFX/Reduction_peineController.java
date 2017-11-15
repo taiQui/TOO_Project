@@ -142,6 +142,17 @@ public class Reduction_peineController implements Initializable {
         }
     }    
 
+    
+    public void ErrorWindows(){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Vous n'avez pas rentré un chiffre");
+            alert.setContentText("La modification est refusé");
+            alert.initOwner(indicator.getScene().getWindow());
+            alert.showAndWait();
+    }
+    
+    
     @FXML
     private void onClickBtnMenu(MouseEvent event) throws IOException {
             Stage oldstage = new Stage();
@@ -164,15 +175,19 @@ public class Reduction_peineController implements Initializable {
         if(!text_fieldtemps.getText().isEmpty()){
             switch(choice.getValue()){
                 case "Reduction de peine":
-                    _database.reducPeine(Integer.parseInt(text_fieldtemps.getText()), numero_ecrou, indicator,text_oldDate, text_newDate);
-                    indicator.setProgress(indicator.getProgress()+0.2f);
-
+                    if(text_fieldtemps.getText().matches("[-+]?\\d*\\.?\\d+")){
+                        _database.reducPeine(Integer.parseInt(text_fieldtemps.getText()), numero_ecrou, indicator,text_oldDate, text_newDate);
+                         indicator.setProgress(indicator.getProgress()+0.2f);
+                         
+                    } else {
+                        ErrorWindows();
+                    }
                     break;
                 case "Condamnation":
-                    if(text_fieldtemps.getText().equals(text_fieldtemps.getText() != null && text_fieldtemps.getText().matches("[-+]?\\d*\\.?\\d+")))
+                    if(text_fieldtemps.getText().matches("[-+]?\\d*\\.?\\d+"))
                         _database.condamnation(Integer.parseInt(text_fieldtemps.getText()), numero_ecrou, indicator);
                     else
-                        System.out.println("lol1"); // RAJOUTER FENETRE ERREUR
+                        ErrorWindows();
                     
                     break;
             }
