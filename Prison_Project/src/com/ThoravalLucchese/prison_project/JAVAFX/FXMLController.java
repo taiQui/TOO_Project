@@ -155,6 +155,33 @@ public class FXMLController implements Initializable {
 
     }
    
+    public boolean DateValide(String date){
+        String aux[] = date.split("-");
+        boolean continuer = true;
+        if(aux.length == 3){
+            
+        
+                if(aux[0].length() == 4){
+
+                }else {
+                    continuer = false;
+                }
+                if(aux[1].length() == 2){
+
+                } else {
+                    continuer = false;
+                }
+                if(aux[2].length() == 2 ){
+
+                } else {
+                    continuer = false;
+                }
+
+        } else {
+            continuer = false;
+        }
+        return continuer;
+    }
     
     public void lancement() throws SQLException, ParseException{
         //System.out.println("Ici y'a le null rouge: " + testecrou);
@@ -329,6 +356,7 @@ public class FXMLController implements Initializable {
     
     @FXML
     private void onClickBtnCreate(MouseEvent event)throws java.sql.SQLException, ParseException  {
+       
         Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText(),text_area.getText());
 
         LoadingBar.setProgress(data.TestError());
@@ -341,7 +369,7 @@ public class FXMLController implements Initializable {
 
         CompleteText();
 
-        if(!data.TestVoid() && NumeroEcrouValide){
+        if((!data.TestVoid()) && NumeroEcrouValide && DateValide(text_Birthplace.getText()) && DateValide(text_DayOfImprisonment.getText()) && DateValide(text_DayOfFact.getText())){
         //Detenu
         java.util.Calendar calendar = Convertisseur.stringToCalendar(text_Birthday.getText(),"yyyy-MM-dd");
             
@@ -487,8 +515,8 @@ public class FXMLController implements Initializable {
             if(!NumeroEcrouValide){
                 read(text_area.getText());
             }
-            
-        }else if (!data.TestVoidWithOutEcrou() && !NumeroEcrouValide){
+            //System.out.println("tst 1 : "+DateValide(text_Birthplace.getText()) + " test 2 : "+DateValide(text_DayOfImprisonment.getText())+" test 3 : "+DateValide(text_DayOfFact.getText()));
+        }else if (!data.TestVoidWithOutEcrou() && !NumeroEcrouValide && DateValide(text_Birthday.getText()) && DateValide(text_DayOfImprisonment.getText()) && DateValide(text_DayOfFact.getText())){
             System.out.println("JE PASSE ICI AUSSI LOL");
             java.util.Calendar calendar = Calendar.getInstance();
             calendar = Convertisseur.stringToCalendar(text_Birthday.getText(), "yyyy-MM-dd");
@@ -512,6 +540,13 @@ public class FXMLController implements Initializable {
             LoadingBar.setStyle("-fx-accent: green;");
             newW();
             LoadingBar.setStyle("-fx-accent: white;"); 
+        } else {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Mise a jour Prisonnier");
+            alert.setHeaderText("Erreur");
+            alert.setContentText("Numero ecrou invalide ou format date invalide");
+            alert.initOwner(LoadingBar.getScene().getWindow());
+            alert.showAndWait();
         }
     }
 
