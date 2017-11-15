@@ -8,6 +8,7 @@ package com.ThoravalLucchese.prison_project.JAVAFX;
 import com.ThoravalLucchese.prison_project.JAVAFX.MenuController;
 import com.ThoravalLucchese.prison_project.Program.Detenu;
 import com.ThoravalLucchese.prison_project.Program.bank_database;
+import com.sun.deploy.util.StringUtils;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -132,6 +133,8 @@ public class Reduction_peineController implements Initializable {
         tableviewRecherche.setVisible(false);
         tableviewRecherche.setDisable(true);
          
+        choice.setValue("Condamnation");
+        
         try {
             _database = new bank_database();
         } catch (Exception e){
@@ -166,7 +169,11 @@ public class Reduction_peineController implements Initializable {
 
                     break;
                 case "Condamnation":
-                    _database.condamnation(Integer.parseInt(text_fieldtemps.getText()), numero_ecrou, indicator);
+                    if(text_fieldtemps.getText().equals(text_fieldtemps.getText() != null && text_fieldtemps.getText().matches("[-+]?\\d*\\.?\\d+")))
+                        _database.condamnation(Integer.parseInt(text_fieldtemps.getText()), numero_ecrou, indicator);
+                    else
+                        System.out.println("lol1"); // RAJOUTER FENETRE ERREUR
+                    
                     break;
             }
         }
