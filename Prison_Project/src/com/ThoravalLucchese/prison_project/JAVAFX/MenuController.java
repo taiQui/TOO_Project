@@ -76,6 +76,7 @@ public class MenuController  implements Initializable {
             stage.setFullScreen(true);
             stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
             System.out.println("TEST1");
+            //stage.
             stage.show();
             System.out.println("TEST");
         } catch (IOException ex){

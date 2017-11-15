@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" cache="true" cacheHint="SPEED" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="708.0" prefWidth="1279.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.ThoravalLucchese.prison_project.JAVAFX.FXMLController">
+<VBox id="AnchorPane" cache="false" cacheHint="DEFAULT" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="708.0" prefWidth="1279.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.ThoravalLucchese.prison_project.JAVAFX.FXMLController">
   <children>
     <AnchorPane id="AnchorPane" disable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="646.0" prefWidth="963.0">
       <children>
@@ -62,9 +62,9 @@
             </FXCollections>
           </items>
         </ChoiceBox>
+        <Button fx:id="btn_aide" layoutX="1001.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#onclickBtnaide" prefWidth="246.0" text="Aide" />
+        <TextArea fx:id="text_aide" editable="false" layoutX="1001.0" layoutY="126.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="545.0" prefWidth="246.0" text="Créer :&#10;Pour ajouter un nouveau prisonnier, entrer le numéro d'écrou avec les chiffres et toutes les informations nécessaires puis appuyer sur le bouton Créer.&#10;&#10;&#10;Lire : &#10;Pour lire/chercher un prisonnier, entrer le numéro d'écrou puis appuyé sur le bouton Lire.&#10;&#10;Mise à jour : &#10;Pour mettre à jour un detenu, rechercher le dans un premier temps avec la fonction lire, changer les valeurs puis appuyé sur Mise à jour.&#10;&#10;Supprimer : &#10;Pour supprimer un detenu, rechercher le avec la fonction Lire puis appuyer sur le bouton Supprimer." visible="true" wrapText="true" />
       </children>
     </AnchorPane>
-    <TextArea fx:id="text_aide" editable="false" layoutX="1002.0" layoutY="111.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="545.0" prefWidth="246.0" text="Créer :&#10;Pour ajouter un nouveau prisonnier, entrer le numéro d'écrou avec les chiffres et toutes les informations nécessaires puis appuyer sur le bouton Créer.&#10;&#10;&#10;Lire : &#10;Pour lire/chercher un prisonnier, entrer le numéro d'écrou puis appuyé sur le bouton Lire.&#10;&#10;Mise à jour : &#10;Pour mettre à jour un detenu, rechercher le dans un premier temps avec la fonction lire, changer les valeurs puis appuyé sur Mise à jour.&#10;&#10;Supprimer : &#10;Pour supprimer un detenu, rechercher le avec la fonction Lire puis appuyer sur le bouton Supprimer." visible="true" wrapText="true" />
-    <Button fx:id="btn_aide" layoutX="1002.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#onclickBtnaide" prefWidth="246.0" text="Aide" />
   </children>
-</AnchorPane>
+</VBox>

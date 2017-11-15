@@ -2,29 +2,57 @@
 
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-       
-
-<AnchorPane id="AnchorPane" cache="false" cacheHint="DEFAULT" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="708.0" prefWidth="1306.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.ThoravalLucchese.prison_project.JAVAFX.MenuController">
+<VBox id="AnchorPane" alignment="CENTER" cache="false" cacheHint="DEFAULT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="708.0" prefWidth="1306.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.ThoravalLucchese.prison_project.JAVAFX.MenuController">
   <children>
-     <!-- <VBox fillWidth="true" layoutX="653.0" layoutY="354.0" prefHeight="708.0" prefWidth="1306.0" maxHeight="-1.0" maxWidth="-1.0">
-      <children> -->
-    <Label alignment="CENTER" layoutX="341.0" layoutY="77.0" prefHeight="127.0" prefWidth="625.0" text="" textAlignment="CENTER" />
-    <Text fx:id="text_prison" layoutX="628.0" layoutY="116.0" scaleX="8.01699900005882" scaleY="5.304617392723119" strokeType="OUTSIDE" strokeWidth="0.0" text="Prison" />
-    <Text fx:id="text_de" layoutX="643.0" layoutY="222.0" scaleX="7.296003513394818" scaleY="3.5896557350301843" strokeType="OUTSIDE" strokeWidth="0.0" text="de" />
-    <Text fx:id="text_nantes" layoutX="628.0" layoutY="336.0" scaleX="7.923596264317625" scaleY="5.384129603457868" strokeType="OUTSIDE" strokeWidth="0.0" text="Nantes" />
-    <Button id="btnincar" fx:id="btn_newIncar" contentDisplay="LEFT" layoutX="38.0" layoutY="454.0" mnemonicParsing="false" onMouseClicked="#onclickBtnnewIncar" prefHeight="185.0" prefWidth="303.0" text="Nouvelle Incarceration " textFill="BLACK">
-      <font>
-        <Font size="23.0" fx:id="x1" />
-      </font>
-    </Button>
-    <Button id="btndecision" fx:id="btn_reductionpeine" font="$x1" layoutX="966.0" layoutY="454.0" mnemonicParsing="false" onMouseClicked="#onclickBtnreducpeine" prefHeight="185.0" prefWidth="303.0" text="Décisions" />
-    <Button id="btnpreventif" fx:id="btn_preventif" font="$x1" layoutX="504.0" layoutY="454.0" mnemonicParsing="false" onMouseClicked="#onclickBtnpreventif" prefHeight="185.0" prefWidth="303.0" text="Prisonniers" />
-    </children>
-    <!--</VBox>
+    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0">
+      <children>
+        <Text fx:id="text_prison" scaleX="8.01699900005882" scaleY="5.304617392723119" strokeType="OUTSIDE" strokeWidth="0.0" text="Prison" textAlignment="LEFT" />
+      </children>
+      <padding>
+        <Insets top="-20.0" />
+      </padding>
+    </VBox>
+    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0">
+      <children>
+        <Text fx:id="text_de" scaleX="7.296003513394818" scaleY="3.5896557350301843" strokeType="OUTSIDE" strokeWidth="0.0" text="de" />
+      </children>
+      <padding>
+        <Insets top="-230.0" />
+      </padding>
+    </VBox>
+    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0">
+      <children>
+        <Text fx:id="text_nantes" scaleX="7.923596264317625" scaleY="5.384129603457868" strokeType="OUTSIDE" strokeWidth="0.0" text="Nantes" />
+      </children>
+      <padding>
+        <Insets top="-400.0" />
+      </padding>
+    </VBox>
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="90.0">
+      <children>
+        <Button id="btnincar" fx:id="btn_newIncar" contentDisplay="LEFT" mnemonicParsing="false" onMouseClicked="#onclickBtnnewIncar" prefHeight="185.0" prefWidth="303.0" text="Nouvelle Incarceration " textFill="BLACK">
+          <font>
+            <Font size="23.0" fx:id="x1" />
+          </font>
+        </Button>
+        <Button id="btnpreventif" fx:id="btn_preventif" alignment="CENTER" font="$x1" mnemonicParsing="false" onMouseClicked="#onclickBtnpreventif" prefHeight="185.0" prefWidth="303.0" text="Prisonniers">
+          <HBox.margin>
+            <Insets />
+          </HBox.margin>
+        </Button>
+        <Button id="btndecision" fx:id="btn_reductionpeine" font="$x1" mnemonicParsing="false" onMouseClicked="#onclickBtnreducpeine" prefHeight="185.0" prefWidth="303.0" text="Décisions" />
+      </children>
+      <padding>
+        <Insets top="-220.0" />
+      </padding>
+    </HBox>
+  </children>
+  <!--</VBox>
       </children> -->
-</AnchorPane>
+</VBox>
