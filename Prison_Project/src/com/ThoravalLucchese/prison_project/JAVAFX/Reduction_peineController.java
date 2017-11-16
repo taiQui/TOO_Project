@@ -143,15 +143,18 @@ public class Reduction_peineController implements Initializable {
     }    
 
     
-    public void ErrorWindows(){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Vous n'avez pas rentré un chiffre");
-            alert.setContentText("La modification est refusé");
-            alert.initOwner(indicator.getScene().getWindow());
-            alert.showAndWait();
+        public void newW(String titre, String header, String content){
+        
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titre);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.initOwner(tableview.getScene().getWindow());
+        alert.showAndWait();
     }
     
+   
     
     @FXML
     private void onClickBtnMenu(MouseEvent event) throws IOException {
@@ -180,14 +183,14 @@ public class Reduction_peineController implements Initializable {
                          indicator.setProgress(indicator.getProgress()+0.2f);
                          
                     } else {
-                        ErrorWindows();
+                        newW("Erreur","Vous n'avez pas rentré un chiffre","La modification est refusé");
                     }
                     break;
                 case "Condamnation":
                     if(text_fieldtemps.getText().matches("[-+]?\\d*\\.?\\d+"))
                         _database.condamnation(Integer.parseInt(text_fieldtemps.getText()), numero_ecrou, indicator);
                     else
-                        ErrorWindows();
+                        newW("Erreur","Vous n'avez pas rentré un chiffre","La modification est refusé");
                     
                     break;
             }
@@ -244,10 +247,6 @@ public class Reduction_peineController implements Initializable {
                 
             } else {
                 System.out.println("je connais pas !");
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("ERREUR");
-                alert.setHeaderText("Aucun prisionnier trouvé avec ce numero d'écrou");
-                alert.setContentText("ERROR 404 NOT FOUND");
                 text_duree_reduc.setDisable(true);
                 text_duree_reduc.setVisible(false);
                 btn_ok_reduc.setVisible(false);
@@ -256,8 +255,7 @@ public class Reduction_peineController implements Initializable {
                 text_fieldtemps.setDisable(true);
                 indicator.setProgress(0.0f);
                 indicator.setVisible(false);
-                alert.initOwner(indicator.getScene().getWindow());
-                alert.showAndWait();
+                newW("ERREUR","Aucun prisionnier trouvé avec ce numero d'écrou","ERROR 404 NOT FOUND");
             }
         }
     }
