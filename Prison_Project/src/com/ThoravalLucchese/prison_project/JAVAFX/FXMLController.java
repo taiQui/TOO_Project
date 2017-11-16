@@ -159,7 +159,7 @@ public class FXMLController implements Initializable {
     public boolean DateValide(String date){
         String aux[] = date.split("-");
         boolean continuer = true;
-        System.out.println("test 1 : "+!(aux[0].length() == 4) +" test 2 : "+!(aux[1].length() == 2) + " test 3 : "+!(aux[2].length() == 2));
+        //System.out.println("test 1 : "+!(aux[0].length() == 4) +" test 2 : "+!(aux[1].length() == 2) + " test 3 : "+!(aux[2].length() == 2));
         if(aux.length == 3){
                 if(!(aux[0].length() == 4)){
                     continuer = false;
@@ -203,48 +203,60 @@ public class FXMLController implements Initializable {
     private void CompleteText() {                    // Regarde si les champs sont remplis ou pas et les colores en consequence
         if(text_LastName.getText().isEmpty())
             text_LastName.setStyle("-fx-border-color: red");
-        else
-            text_LastName.setStyle("-fx-background: Background.Empty");
+        else {
+            text_LastName.setStyle("-fx-background: transparent");
+            text_LastName.setStyle("-fx-border-color: transparent");
+        }
 
         if(text_FirstName.getText().isEmpty())
             text_FirstName.setStyle("-fx-border-color: red");
-        else
-            text_FirstName.setStyle("-fx-background-color: Background.Empty");
-
-        if(text_Birthday.getText().isEmpty())
+        else {
+            text_FirstName.setStyle("-fx-background: transparent");
+            text_FirstName.setStyle("-fx-border-color: transparent");
+        }
+        
+        //System.out.println("test : "+!DateValide(text_Birthday.getText()));
+        if(text_Birthday.getText().isEmpty() || !DateValide(text_Birthday.getText()))
             text_Birthday.setStyle("-fx-border-color: red");
-        else
-            text_Birthday.setStyle("-fx-background-color: Background.Empty");
+        else {
+            text_Birthday.setStyle("-fx-background: transparent");
+            text_Birthday.setStyle("-fx-border-color: transparent");
+        }
 
         if(text_Birthplace.getText().isEmpty())
             text_Birthplace.setStyle("-fx-border-color: red");
-        else
-            text_Birthplace.setStyle("-fx-background-color: Background.Empty");
+        else {
+            text_Birthplace.setStyle("-fx-background: transparent");
+            text_Birthplace.setStyle("-fx-border-color: transparent");
+        }
 
         if(text_CaseNumber.getText().isEmpty())
             text_CaseNumber.setStyle("-fx-border-color: red");
-        else
-            text_CaseNumber.setStyle("-fx-background-color: Background.Empty");
+        else {
+            text_CaseNumber.setStyle("-fx-background: transparent");
+            text_CaseNumber.setStyle("-fx-border-color: transparent");
+        }
 
         if(text_NameOrigin.getText().isEmpty())
             text_NameOrigin.setStyle("-fx-border-color: red");
-        else
-            text_NameOrigin.setStyle("-fx-background-color: Background.Empty");
+        else {
+            text_NameOrigin.setStyle("-fx-background: transparent");
+            text_NameOrigin.setStyle("-fx-border-color: transparent");
+        }
 
-        if(text_DayOfImprisonment.getText().isEmpty())
+        if(text_DayOfImprisonment.getText().isEmpty() || !DateValide(text_DayOfImprisonment.getText()))
             text_DayOfImprisonment.setStyle("-fx-border-color: red");
-        else
-            text_DayOfImprisonment.setStyle("-fx-background-color: Background.Empty");
-
-        //if(text_Reason.getText().isEmpty())
-         //   text_Reason.setStyle("-fx-border-color: red");
-        //else
-       //     text_Reason.setStyle("-fx-background-color: Background.Empty");
-
-        if(text_DayOfFact.getText().isEmpty())
+        else {
+            text_DayOfImprisonment.setStyle("-fx-background: transparent");
+            text_DayOfImprisonment.setStyle("-fx-border-color: transparent");
+        }
+        
+        if(text_DayOfFact.getText().isEmpty() || !DateValide(text_DayOfFact.getText()))
             text_DayOfFact.setStyle("-fx-border-color: red");
-        else
-            text_DayOfFact.setStyle("-fx-background-color: Background.Empty");
+        else {
+            text_DayOfFact.setStyle("-fx-background: transparent");
+            text_DayOfFact.setStyle("-fx-border-color: transparent");
+        }
     }
     
     //onClick events for numbers
@@ -360,6 +372,15 @@ public class FXMLController implements Initializable {
         //Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText(),text_area.getText());
 
         LoadingBar.setProgress(Data.TestError(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()));
+        if(!DateValide(text_Birthday.getText())) {
+            LoadingBar.setProgress(LoadingBar.getProgress() - 0.1f);
+        }
+        if(!DateValide(text_DayOfImprisonment.getText())) {
+            LoadingBar.setProgress(LoadingBar.getProgress() - 0.1f);
+        }
+        if(!DateValide(text_DayOfFact.getText())) {
+            LoadingBar.setProgress(LoadingBar.getProgress() - 0.1f);
+        }
        // System.out.println(Data.TestError(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()));
         if(text_area.getText().isEmpty()) {
             text_area.setStyle("-fx-text-fill: red;");
@@ -497,16 +518,16 @@ public class FXMLController implements Initializable {
     @FXML
     private void onClickBtnUpdate(MouseEvent event) throws ParseException, SQLException {
         //More natural usage
-        Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText(),text_area.getText());
+        //Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText(),text_area.getText());
 
-        if(data.TestVoidWithOutEcrou(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText())){
+        if(Data.TestVoidWithOutEcrou(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText())){
             System.out.println("JE PASSE ICI MDR");
             TestEcrou();
             if(!NumeroEcrouValide){
                 read(text_area.getText());
             }
             //System.out.println("tst 1 : "+DateValide(text_Birthplace.getText()) + " test 2 : "+DateValide(text_DayOfImprisonment.getText())+" test 3 : "+DateValide(text_DayOfFact.getText()));
-        }else if (!data.TestVoidWithOutEcrou(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()) && !NumeroEcrouValide && DateValide(text_Birthday.getText()) && DateValide(text_DayOfImprisonment.getText()) && DateValide(text_DayOfFact.getText()) && TestLongueur()){
+        }else if (!Data.TestVoidWithOutEcrou(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()) && !NumeroEcrouValide && DateValide(text_Birthday.getText()) && DateValide(text_DayOfImprisonment.getText()) && DateValide(text_DayOfFact.getText()) && TestLongueur()){
             
             //Si les champs sauf le numero d'ecrou sont remplie ET que le numero d'ecrou existe ET que les dates sont au bon format ET que les champs ne depasse pas leurs longueur maximal
             
