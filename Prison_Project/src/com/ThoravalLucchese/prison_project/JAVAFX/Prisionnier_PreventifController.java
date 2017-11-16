@@ -31,6 +31,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
@@ -137,10 +138,6 @@ public class Prisionnier_PreventifController implements Initializable {
         }
     }
 
-    
-    private void actualiseChart() {
-
-    }
     
     @FXML
     private void onClickBtnMenu(MouseEvent event) throws IOException {

@@ -125,6 +125,7 @@ public class FXMLController implements Initializable {
     @FXML
     private Circle circleValid;
     
+    
     private boolean NumeroEcrouValide = false;
     /**
      * Initializes the controller class.
@@ -354,13 +355,19 @@ public class FXMLController implements Initializable {
     }
 
     
+    public boolean TestLongueur(){
+        return(text_LastName.getText().length() <= 30 && text_FirstName.getText().length() <= 30  && text_Birthplace.getText().length() <= 30 && text_CaseNumber.getText().length() <= 10 && text_NameOrigin.getText().length() <= 30 );
+            
+    }
+    
+    
     @FXML
     private void onClickBtnCreate(MouseEvent event)throws java.sql.SQLException, ParseException  {
        
-        Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText(),text_area.getText());
+        //Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText(),text_area.getText());
 
-        LoadingBar.setProgress(data.TestError());
-        System.out.println(data.TestError());
+        LoadingBar.setProgress(Data.TestError(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()));
+       // System.out.println(Data.TestError(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()));
         if(text_area.getText().isEmpty()) {
             text_area.setStyle("-fx-text-fill: red;");
             text_area.setText(text_area.getText()+'\n'+"Error Erase All and try again");
@@ -368,8 +375,13 @@ public class FXMLController implements Initializable {
 
 
         CompleteText();
-
-        if((!data.TestVoid()) && NumeroEcrouValide && DateValide(text_Birthplace.getText()) && DateValide(text_DayOfImprisonment.getText()) && DateValide(text_DayOfFact.getText())){
+        //System.out.println("TEST: "+(!Data.TestVoid(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText(),text_area.getText())) + NumeroEcrouValide + DateValide(text_Birthday.getText()) + DateValide(text_DayOfImprisonment.getText()) + DateValide(text_DayOfFact.getText()) + TestLongueur());
+        if((!Data.TestVoid(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText(),text_area.getText())) && NumeroEcrouValide && DateValide(text_Birthday.getText()) && DateValide(text_DayOfImprisonment.getText()) && DateValide(text_DayOfFact.getText()) && TestLongueur() ){
+            
+            //Si tous les champs sont non vide ET si l'ecrou n'est pas deja dans la base ET si les 3 date a remplir sont dans le bon format ET si les longueurs de saisies ne depasse pas les longueurs maximal 
+            
+            
+            
         //Detenu
         java.util.Calendar calendar = Convertisseur.stringToCalendar(text_Birthday.getText(),"yyyy-MM-dd");
             
@@ -399,15 +411,10 @@ public class FXMLController implements Initializable {
         
         
         LoadingBar.setStyle("-fx-accent: green;");
-        newW();
+        newW("Ajout Prisonnier","Succes","La modification est validé");
         LoadingBar.setStyle("-fx-accent: white;");
         } else {
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Ajout Prisonnier");
-            alert.setHeaderText("Erreur");
-            alert.setContentText("Le numéro d'ecrou est deja associé ou les champs ne sont pas remplis");
-            alert.initOwner(LoadingBar.getScene().getWindow());
-            alert.showAndWait();
+            newW("Ajout Prisonnier","Erreur","Le numéro d'ecrou est deja associé ou/et les champs ne sont pas remplis correctement ");
         }
     }
 
@@ -415,18 +422,18 @@ public class FXMLController implements Initializable {
     private void onClickBtnDelete(MouseEvent event) throws SQLException {
         _database.DeletePrisonnier(text_area.getText());
         LoadingBar.setStyle("-fx-accent: green;");
-        newW();
+        newW("Suppression Prisonnier","Succes","La modification est validé");
         LoadingBar.setStyle("-fx-accent: white;");
     }
 
-    public void newW(){
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Ajout Prisonnier");
-            alert.setHeaderText("Succes");
-            alert.setContentText("La modification est validé");
-            alert.initOwner(LoadingBar.getScene().getWindow());
-            alert.showAndWait();
+    public void newW(String titre, String header, String content){
 
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Ajout Prisonnier");
+                alert.setHeaderText("Succes");
+                alert.setContentText("La modification est validé");
+                alert.initOwner(LoadingBar.getScene().getWindow());
+                alert.showAndWait();
     }
     
     public void read() throws java.sql.SQLException, ParseException  {
@@ -449,12 +456,7 @@ public class FXMLController implements Initializable {
           choiceBox.setValue(Data.getNmotif(prisonnier.get(4)));
           
       } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("ERREUR");
-                alert.setHeaderText("Aucun prisionnier trouvé avec ce numero d'écrou");
-                alert.setContentText("ERROR 404 NOT FOUND");
-                alert.initOwner(text_area.getScene().getWindow());
-                alert.show();
+                newW("ERREUR","Aucun prisionnier trouvé avec ce numero d'écrou","ERROR 404 NOT FOUND");
       }
        
       
@@ -486,12 +488,7 @@ public class FXMLController implements Initializable {
           choiceBox.setValue(Data.getNmotif(prisonnier.get(4)));
           
       } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("ERREUR");
-                alert.setHeaderText("Aucun prisionnier trouvé avec ce numero d'écrou");
-                alert.setContentText("ERROR 404 NOT FOUND");
-                alert.initOwner(choiceBox.getScene().getWindow());
-                alert.showAndWait();
+                newW("ERREUR","Aucun prisionnier trouvé avec ce numero d'écrou","ERROR 404 NOT FOUND");
       }
        
       
@@ -509,14 +506,18 @@ public class FXMLController implements Initializable {
         //More natural usage
         Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText(),text_area.getText());
 
-        if(data.TestVoidWithOutEcrou()){
+        if(data.TestVoidWithOutEcrou(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText())){
             System.out.println("JE PASSE ICI MDR");
             TestEcrou();
             if(!NumeroEcrouValide){
                 read(text_area.getText());
             }
             //System.out.println("tst 1 : "+DateValide(text_Birthplace.getText()) + " test 2 : "+DateValide(text_DayOfImprisonment.getText())+" test 3 : "+DateValide(text_DayOfFact.getText()));
-        }else if (!data.TestVoidWithOutEcrou() && !NumeroEcrouValide && DateValide(text_Birthday.getText()) && DateValide(text_DayOfImprisonment.getText()) && DateValide(text_DayOfFact.getText())){
+        }else if (!data.TestVoidWithOutEcrou(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()) && !NumeroEcrouValide && DateValide(text_Birthday.getText()) && DateValide(text_DayOfImprisonment.getText()) && DateValide(text_DayOfFact.getText()) && TestLongueur()){
+            
+            //Si les champs sauf le numero d'ecrou sont remplie ET que le numero d'ecrou existe ET que les dates sont au bon format ET que les champs ne depasse pas leurs longueur maximal
+            
+            
             System.out.println("JE PASSE ICI AUSSI LOL");
             java.util.Calendar calendar = Calendar.getInstance();
             calendar = Convertisseur.stringToCalendar(text_Birthday.getText(), "yyyy-MM-dd");
@@ -538,15 +539,10 @@ public class FXMLController implements Initializable {
 
             _database.UpdatePrisonnier(detenu, affaire, juridiction, incarceration, motif);
             LoadingBar.setStyle("-fx-accent: green;");
-            newW();
+            newW("Modification Prisonnier","Succes","La modification est validé");
             LoadingBar.setStyle("-fx-accent: white;"); 
         } else {
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Mise a jour Prisonnier");
-            alert.setHeaderText("Erreur");
-            alert.setContentText("Numero ecrou invalide ou format date invalide");
-            alert.initOwner(LoadingBar.getScene().getWindow());
-            alert.showAndWait();
+            newW("Mise a jour Prisonnier","Erreur","Numero ecrou invalide ou format date invalide");
         }
     }
 

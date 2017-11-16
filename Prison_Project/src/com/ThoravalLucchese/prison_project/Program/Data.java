@@ -131,31 +131,31 @@ public class Data {
              return(this._Necrou);
          }
          
-    public boolean TestVoid(){
-        return(this._LastName.isEmpty() && this._FirstName.isEmpty() && this._Birthday.isEmpty() && this._Birthplace.isEmpty() && this._CaseNumber.isEmpty() && this._NameOfOriginCourt.isEmpty() && this._DayOfImprisonment.isEmpty() && this._DayOfFact.isEmpty() && this._Necrou.isEmpty());
+   static public boolean TestVoid(String _LastName, String _FirstName, String _Birthday,String _Birthplace, String _CaseNumber, String _NameOfOriginCourt,String _DayOfImprisonment,String _DayOfFact , String _Necrou){
+        return(_LastName.isEmpty() && _FirstName.isEmpty() && _Birthday.isEmpty() && _Birthplace.isEmpty() && _CaseNumber.isEmpty() && _NameOfOriginCourt.isEmpty() && _DayOfImprisonment.isEmpty() && _DayOfFact.isEmpty() && _Necrou.isEmpty());
     }
     
-    public boolean TestVoidWithOutEcrou(){
-        return(this._LastName.isEmpty() && this._FirstName.isEmpty() && this._Birthday.isEmpty() && this._Birthplace.isEmpty() && this._CaseNumber.isEmpty() && this._NameOfOriginCourt.isEmpty() && this._DayOfImprisonment.isEmpty() && this._DayOfFact.isEmpty());
+    static public boolean TestVoidWithOutEcrou(String _LastName, String _FirstName, String _Birthday,String _Birthplace, String _CaseNumber, String _NameOfOriginCourt,String _DayOfImprisonment,String _DayOfFact){
+        return(_LastName.isEmpty() && _FirstName.isEmpty() && _Birthday.isEmpty() && _Birthplace.isEmpty() && _CaseNumber.isEmpty() && _NameOfOriginCourt.isEmpty() && _DayOfImprisonment.isEmpty() && _DayOfFact.isEmpty());
     }
     
-    public double TestError(){
+    static public double TestError(String _LastName, String _FirstName, String _Birthday,String _Birthplace, String _CaseNumber, String _NameOfOriginCourt,String _DayOfImprisonment,String _DayOfFact){
         double count = 0;
-        if(!this._LastName.isEmpty())
+        if(!_LastName.isEmpty())
             count++;
-        if(!this._FirstName.isEmpty())
+        if(!_FirstName.isEmpty())
             count++;
-        if(!this._Birthday.isEmpty())
+        if(!_Birthday.isEmpty())
             count++;
-        if(!this._Birthplace.isEmpty())
+        if(!_Birthplace.isEmpty())
             count++;
-        if(!this._CaseNumber.isEmpty())
+        if(!_CaseNumber.isEmpty())
             count++;
-        if(!this._NameOfOriginCourt.isEmpty())
+        if(!_NameOfOriginCourt.isEmpty())
             count++;
-        if(!this._DayOfImprisonment.isEmpty())
+        if(!_DayOfImprisonment.isEmpty())
             count++;
-        if(!this._DayOfFact.isEmpty())
+        if(!_DayOfFact.isEmpty())
             count++;
                     
         count++;
@@ -192,6 +192,9 @@ public class Data {
                return("0");
        }
    }
+   
+   
+   
    
    public static String getNmotif(String motif) {
        switch (motif){
