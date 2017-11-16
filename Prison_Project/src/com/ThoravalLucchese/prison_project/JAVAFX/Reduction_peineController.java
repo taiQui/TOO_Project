@@ -5,10 +5,8 @@
  */
 package com.ThoravalLucchese.prison_project.JAVAFX;
 
-import com.ThoravalLucchese.prison_project.JAVAFX.MenuController;
 import com.ThoravalLucchese.prison_project.Program.Detenu;
 import com.ThoravalLucchese.prison_project.Program.bank_database;
-import com.sun.deploy.util.StringUtils;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -37,7 +35,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -49,6 +46,7 @@ import javafx.stage.Stage;
  * FXML Controller class
  *
  * @author greg1
+ * 
  */
 
 public class Reduction_peineController implements Initializable {
@@ -77,17 +75,17 @@ public class Reduction_peineController implements Initializable {
     private String numero_ecrou;
 
     
-        private TableColumn cnom = new TableColumn("Nom");
-        private TableColumn cprenom = new TableColumn("Prenom");
-        private TableColumn cecrou = new TableColumn("Ecrou");
-        private TableColumn cdnaiss = new TableColumn("Date de naissance");
-        private TableColumn clnaiss = new TableColumn("Lieu de naissance");
+    private TableColumn cnom = new TableColumn("Nom");
+    private TableColumn cprenom = new TableColumn("Prenom");
+    private TableColumn cecrou = new TableColumn("Ecrou");
+    private TableColumn cdnaiss = new TableColumn("Date de naissance");
+    private TableColumn clnaiss = new TableColumn("Lieu de naissance");
         
-        private TableColumn cnomR = new TableColumn("Nom");
-        private TableColumn cprenomR = new TableColumn("Prenom");
-        private TableColumn cecrouR = new TableColumn("Ecrou");
-        private TableColumn cdnaissR = new TableColumn("Date de naissance");
-        private TableColumn clnaissR = new TableColumn("Lieu de naissance");
+    private TableColumn cnomR = new TableColumn("Nom");
+    private TableColumn cprenomR = new TableColumn("Prenom");
+    private TableColumn cecrouR = new TableColumn("Ecrou");
+    private TableColumn cdnaissR = new TableColumn("Date de naissance");
+    private TableColumn clnaissR = new TableColumn("Lieu de naissance");
         
     @FXML
     private ChoiceBox<String> choice =new ChoiceBox<String>();
@@ -144,7 +142,6 @@ public class Reduction_peineController implements Initializable {
 
     
         public void newW(String titre, String header, String content){
-        
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titre);

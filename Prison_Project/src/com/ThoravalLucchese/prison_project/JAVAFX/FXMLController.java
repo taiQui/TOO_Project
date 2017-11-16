@@ -45,6 +45,7 @@ import javafx.scene.paint.Color;
  * FXML Controller class
  *
  * @author greg1
+ * 
  */
 public class FXMLController implements Initializable {
 
@@ -147,10 +148,9 @@ public class FXMLController implements Initializable {
                 text_aide.setVisible(false);
                 text_aide.setDisable(true);
                 circleValid.setFill(Color.WHITE);
-                createDatabase(); 
-                lancement();// Creation base de donnée
-            } catch (Exception s1){
-                
+                createDatabase(); // Creation base de donnée 
+                lancement();
+            } catch (Exception s1) {
                 System.err.println(s1.getMessage());
             }
 
@@ -159,28 +159,21 @@ public class FXMLController implements Initializable {
     public boolean DateValide(String date){
         String aux[] = date.split("-");
         boolean continuer = true;
+        System.out.println("test 1 : "+!(aux[0].length() == 4) +" test 2 : "+!(aux[1].length() == 2) + " test 3 : "+!(aux[2].length() == 2));
         if(aux.length == 3){
-            
-        
-                if(aux[0].length() == 4){
-
-                }else {
+                if(!(aux[0].length() == 4)){
                     continuer = false;
                 }
-                if(aux[1].length() == 2){
-
-                } else {
+                if(!(aux[1].length() == 2)){
                     continuer = false;
                 }
-                if(aux[2].length() == 2 ){
-
-                } else {
+                if(!(aux[2].length() == 2) ){
                     continuer = false;
                 }
-
         } else {
             continuer = false;
         }
+        System.out.println("continuer = "+continuer);
         return continuer;
     }
     
@@ -404,8 +397,8 @@ public class FXMLController implements Initializable {
 
         
         
-       
-            _database.addPrisionnierToDatabase(detenu,affaire,juridiction,incarceration,motif);
+        System.out.println("ajjouuuuue");
+        _database.addPrisionnierToDatabase(detenu,affaire,juridiction,incarceration,motif);
         LoadingBar.setProgress(1.0d);
         
         
@@ -429,9 +422,9 @@ public class FXMLController implements Initializable {
     public void newW(String titre, String header, String content){
 
                 Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Ajout Prisonnier");
-                alert.setHeaderText("Succes");
-                alert.setContentText("La modification est validé");
+                alert.setTitle(titre);
+                alert.setHeaderText(header);
+                alert.setContentText(content);
                 alert.initOwner(LoadingBar.getScene().getWindow());
                 alert.showAndWait();
     }
