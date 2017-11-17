@@ -162,7 +162,7 @@ public class bank_database {
    public void addPrisionnierToDatabase(Detenu detenu,Affaire affaire,Juridiction juridiction,Incarceration incarceration,Motif motif) throws java.sql.SQLException{
 
         ResultSet rs;
-        
+        System.out.println("time : "+Convertisseur.calendarToString(detenu.getDNaiss(),"yyyy-MM-dd"));
        _connection.createStatement().execute("insert into Detenu values('"+detenu.getEcrou()+"','"+detenu.getPrenom()+"','"+detenu.getNom()+"',DATE('"+Convertisseur.calendarToString(detenu.getDNaiss(),"yyyy-MM-dd")+"'),'"+detenu.getLieuNaiss()+"')");
        System.out.println("Ajout Detenu");
 
@@ -281,6 +281,21 @@ public class bank_database {
        _connection.commit();
    }
 
+   
+   public void AjoutCondamnation(String ecrou, String affaire, String juridiction,String date) throws SQLException{
+                   ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire where n_affaire ='"+affaire+"' ");
+                   System.out.println("time 2 : "+date);
+                   rs.beforeFirst();
+                   if(rs.next())
+                       _connection.createStatement().execute("insert into Detenu_Affaire values('"+ecrou+"','"+affaire+"','"+juridiction+"')");
+                   else {
+                       _connection.createStatement().execute("insert into Affaire values('"+affaire+"','"+juridiction+"',DATE('"+date+"'))");
+                       _connection.createStatement().execute("insert into Detenu_Affaire values('"+ecrou+"','"+affaire+"','"+juridiction+"')");
+                   }    
+                   _connection.commit();
+
+
+   }
 
    public ArrayList<Detenu> getArray(int sql) throws SQLException, ParseException{
 
@@ -381,5 +396,28 @@ public class bank_database {
   
        return list;
    }
+   
+   public boolean ReducToday(String ecrou,String date) throws SQLException{
+              ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Reduction_peine where date_decision = '"+date+"' and n_ecrou = '"+ecrou+"'");
+              boolean continuer = false;
+              rs.beforeFirst();
+              if(rs.next())
+                  continuer = true;
+              
+              return continuer;
+              
+              
+   }
+   
+   public boolean getAffaire(String affaire) throws SQLException{
+                     ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire where n_affaire = '"+affaire+"'");
+                     boolean continuer = false;
+                     rs.beforeFirst();
+                     if(rs.next())
+                         continuer = true;
+                     
+                     return continuer;
+   }
+  
    
 }

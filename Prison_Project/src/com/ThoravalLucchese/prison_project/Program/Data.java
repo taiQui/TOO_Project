@@ -224,5 +224,26 @@ public class Data {
        }
    }
    
+   
+      static public boolean DateValide(String date){
+        String aux[] = date.split("-");
+        boolean continuer = true;
+        //System.out.println("test 1 : "+!(aux[0].length() == 4) +" test 2 : "+!(aux[1].length() == 2) + " test 3 : "+!(aux[2].length() == 2));
+        if(aux.length == 3){
+                if(!(aux[0].length() == 4)){
+                    continuer = false;
+                }
+                if(!(aux[1].length() == 2)){
+                    continuer = false;
+                }
+                if(!(aux[2].length() == 2) ){
+                    continuer = false;
+                }
+        } else {
+            continuer = false;
+        }
+        System.out.println("continuer = "+continuer);
+        return continuer;
+    }
 
 }

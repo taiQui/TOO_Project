@@ -5,6 +5,8 @@
  */
 package com.ThoravalLucchese.prison_project.JAVAFX;
 
+import com.ThoravalLucchese.prison_project.Program.Convertisseur;
+import com.ThoravalLucchese.prison_project.Program.Data;
 import com.ThoravalLucchese.prison_project.Program.Detenu;
 import com.ThoravalLucchese.prison_project.Program.bank_database;
 import java.io.IOException;
@@ -12,6 +14,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -99,6 +102,11 @@ public class Reduction_peineController implements Initializable {
     private Text text_fleche;
     @FXML
     private TableView<Detenu> tableviewRecherche;
+
+    @FXML
+    private TextField texte_jurridiction_addC;
+    @FXML
+    private TextField text_dateFaits_addC;
     /**
      * Initializes the controller class.
      */
@@ -122,7 +130,7 @@ public class Reduction_peineController implements Initializable {
         tableviewRecherche.getColumns().addAll(cecrouR,cprenomR,cnomR,cdnaissR,clnaissR);
         
        
-        choice.setItems(FXCollections.observableArrayList("Reduction de peine","Condamnation"));
+        choice.setItems(FXCollections.observableArrayList("Reduction de peine","Nouvelle condamnation","Ajouter une condamnation"));
         
         text_oldDate.setVisible(false);
         text_newDate.setVisible(false);
@@ -130,8 +138,12 @@ public class Reduction_peineController implements Initializable {
         indicator.setVisible(false);
         tableviewRecherche.setVisible(false);
         tableviewRecherche.setDisable(true);
+        text_fieldtemps.setVisible(false);
+        texte_jurridiction_addC.setVisible(false);
+        text_dateFaits_addC.setVisible(false);
+        
          
-        choice.setValue("Condamnation");
+        choice.setValue("Nouvelle condamnation");
         
         try {
             _database = new bank_database();
@@ -183,29 +195,57 @@ public class Reduction_peineController implements Initializable {
                         newW("Erreur","Vous n'avez pas rentré un chiffre","La modification est refusé");
                     }
                     break;
-                case "Condamnation":
+                case "Nouvelle condamnation":
                     if(text_fieldtemps.getText().matches("[-+]?\\d*\\.?\\d+"))
                         _database.condamnation(Integer.parseInt(text_fieldtemps.getText()), numero_ecrou, indicator);
                     else
                         newW("Erreur","Vous n'avez pas rentré un chiffre","La modification est refusé");
                     
                     break;
+                case "Ajouter une condamnation":
+                    if(text_fieldtemps.getText().length() <= 10 && texte_jurridiction_addC.getText().length() <= 30 && !text_fieldtemps.getText().isEmpty() && !texte_jurridiction_addC.getText().isEmpty()){
+                        System.out.println("JE PASSE LA");
+                        if(!_database.getAffaire(text_fieldtemps.getText()) && !text_dateFaits_addC.getText().isEmpty()){
+                            if(Data.DateValide(text_dateFaits_addC.getText())){
+                                  _database.AjoutCondamnation(text_necrou.getText(),text_fieldtemps.getText() , texte_jurridiction_addC.getText(),Convertisseur.calendarToString(Convertisseur.stringToCalendar(text_dateFaits_addC.getText(),"yyyy-MM-dd"),"yyyy-MM-dd"));
+                                  indicator.setProgress(100.0f);
+                            } else {
+                                newW("Erreur","Mauvais format de date","Rappel le format de la date dois etre : AAAA-MM-JJ");
+                            }
+                            
+                        } else if(_database.getAffaire(text_fieldtemps.getText())) {
+                            _database.AjoutCondamnation(text_necrou.getText(),text_fieldtemps.getText() , texte_jurridiction_addC.getText(), text_dateFaits_addC.getText());
+                            indicator.setProgress(100.0f);
+                            
+                        } else {
+                            newW("Erreur","Pas d'affaires pour ce numéro d'affaire","Veuillez rentrer une date des faits");
+                        }
+                    } else {
+                        newW("Erreur","La taille des champs saisies n'est pas correct ou les champs sont vides"," Rappel : 10 caractères pour le numéro d'affaires\n30 caractères pour la juridiction.");
+                    }
+                    break;
             }
-        }
+        } 
 
     }
 
     @FXML
     private void onclickBtn_ok(MouseEvent event) throws SQLException, ParseException {
+            indicator.setProgress(0.0f);
            if(!text_necrou.getText().isEmpty()){
             ArrayList<Detenu> liste = new ArrayList<>();
-            if(choice.getValue().equals("Condamnation"))
+            if(choice.getValue().equals("Nouvelle condamnation"))
                 liste = _database.searchOnDatabase(text_necrou.getText(),1);
             else if(choice.getValue().equals("Reduction de peine"))
                 liste = _database.searchOnDatabase(text_necrou.getText(),2);
+            else if(choice.getValue().equals("Ajouter une condamnation"))
+                liste = _database.searchOnDatabase(text_necrou.getText(),3);
             else
                 liste.clear();
             if(!liste.isEmpty()){
+                text_dateFaits_addC.setVisible(false);
+                texte_jurridiction_addC.setVisible(false);
+                texte_jurridiction_addC.setDisable(true);
                 ObservableList<Detenu> ajoutable = FXCollections.observableArrayList();
                 tableview.setVisible(true);
                 ajoutable.add(liste.get(0));
@@ -220,26 +260,47 @@ public class Reduction_peineController implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
                 numero_ecrou = text_necrou.getText();
                 if(result.get() == buttonOK && choice.getValue()=="Reduction de peine") {
-                    text_duree_reduc.setVisible(true);
-                    btn_ok_reduc.setVisible(true);
-                    text_duree_reduc.setText("Reduction de peine ( en mois )");
-                    text_fieldtemps.setVisible(true);
-                    text_duree_reduc.setDisable(false);
-                    btn_ok_reduc.setDisable(false);
-                    text_fieldtemps.setDisable(false);
-                    indicator.setVisible(true);
-                    text_oldDate.setVisible(true);
-                    text_newDate.setVisible(true);
-                    text_fleche.setVisible(true);
-                } else if ( result.get() == buttonOK && choice.getValue() == "Condamnation"){
+                    
+                    if(!_database.ReducToday(text_necrou.getText(), Convertisseur.calendarToString(Calendar.getInstance(),"yyyy-MM-dd"))){
+                        text_duree_reduc.setVisible(true);
+                        btn_ok_reduc.setVisible(true);
+                        text_duree_reduc.setText("Reduction de peine ( en mois )");
+                        text_fieldtemps.setVisible(true);
+                        text_fieldtemps.setPromptText("durée");
+                        text_duree_reduc.setDisable(false);
+                        btn_ok_reduc.setDisable(false);
+                        text_fieldtemps.setDisable(false);
+                        indicator.setVisible(true);
+                        text_oldDate.setVisible(true);
+                        text_newDate.setVisible(true);
+                        text_fleche.setVisible(true);
+                    } else {
+                        newW("Erreur","Problème pour la reduction de peine","Il y'a déjà une reduction de peine pour ce numéro d'ecrou aujourd'hui");
+                    }
+                } else if ( result.get() == buttonOK && choice.getValue() == "Nouvelle condamnation"){
                     text_duree_reduc.setDisable(false);
                     text_duree_reduc.setText("Condamnation ( en mois )");
                     text_duree_reduc.setVisible(true);
                     btn_ok_reduc.setVisible(true);
                     btn_ok_reduc.setDisable(false);
+                    text_fieldtemps.setPromptText("durée");
                     text_fieldtemps.setVisible(true);
                     text_fieldtemps.setDisable(false);
                     indicator.setVisible(true);
+                } else if ( result.get() == buttonOK && choice.getValue() == "Ajouter une condamnation"){
+                    indicator.setVisible(false);
+                    text_fieldtemps.setVisible(true);
+                    text_fieldtemps.setDisable(false);
+                    indicator.setVisible(true);
+                    text_duree_reduc.setDisable(false);
+                    text_fieldtemps.setPromptText("numéro d'affaire");
+                    btn_ok_reduc.setVisible(true);
+                    btn_ok_reduc.setDisable(false);
+                    text_duree_reduc.setText("Ajout de condamnation");
+                    text_duree_reduc.setVisible(true);
+                    texte_jurridiction_addC.setVisible(true);
+                    texte_jurridiction_addC.setDisable(false);
+                    text_dateFaits_addC.setVisible(true);
                 }
                 
             } else {

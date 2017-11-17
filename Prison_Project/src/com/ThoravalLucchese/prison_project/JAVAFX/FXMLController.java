@@ -156,26 +156,6 @@ public class FXMLController implements Initializable {
 
     }
    
-    public boolean DateValide(String date){
-        String aux[] = date.split("-");
-        boolean continuer = true;
-        //System.out.println("test 1 : "+!(aux[0].length() == 4) +" test 2 : "+!(aux[1].length() == 2) + " test 3 : "+!(aux[2].length() == 2));
-        if(aux.length == 3){
-                if(!(aux[0].length() == 4)){
-                    continuer = false;
-                }
-                if(!(aux[1].length() == 2)){
-                    continuer = false;
-                }
-                if(!(aux[2].length() == 2) ){
-                    continuer = false;
-                }
-        } else {
-            continuer = false;
-        }
-        System.out.println("continuer = "+continuer);
-        return continuer;
-    }
     
     public void lancement() throws SQLException, ParseException{
         //System.out.println("Ici y'a le null rouge: " + testecrou);
@@ -216,7 +196,7 @@ public class FXMLController implements Initializable {
         }
         
         //System.out.println("test : "+!DateValide(text_Birthday.getText()));
-        if(text_Birthday.getText().isEmpty() || !DateValide(text_Birthday.getText()))
+        if(text_Birthday.getText().isEmpty() || !Data.DateValide(text_Birthday.getText()))
             text_Birthday.setStyle("-fx-border-color: red");
         else {
             text_Birthday.setStyle("-fx-background: transparent");
@@ -244,14 +224,14 @@ public class FXMLController implements Initializable {
             text_NameOrigin.setStyle("-fx-border-color: transparent");
         }
 
-        if(text_DayOfImprisonment.getText().isEmpty() || !DateValide(text_DayOfImprisonment.getText()))
+        if(text_DayOfImprisonment.getText().isEmpty() || !Data.DateValide(text_DayOfImprisonment.getText()))
             text_DayOfImprisonment.setStyle("-fx-border-color: red");
         else {
             text_DayOfImprisonment.setStyle("-fx-background: transparent");
             text_DayOfImprisonment.setStyle("-fx-border-color: transparent");
         }
         
-        if(text_DayOfFact.getText().isEmpty() || !DateValide(text_DayOfFact.getText()))
+        if(text_DayOfFact.getText().isEmpty() || !Data.DateValide(text_DayOfFact.getText()))
             text_DayOfFact.setStyle("-fx-border-color: red");
         else {
             text_DayOfFact.setStyle("-fx-background: transparent");
@@ -361,7 +341,7 @@ public class FXMLController implements Initializable {
 
     
     public boolean TestLongueur(){
-        return(text_LastName.getText().length() <= 30 && text_FirstName.getText().length() <= 30  && text_Birthplace.getText().length() <= 30 && text_CaseNumber.getText().length() <= 10 && text_NameOrigin.getText().length() <= 30 );
+        return(text_LastName.getText().length() <= 30 && text_FirstName.getText().length() <= 30  && text_Birthplace.getText().length() <= 30 && text_CaseNumber.getText().length() <= 10 && text_NameOrigin.getText().length() <= 30  && text_area.getText().length() <= 10);
             
     }
     
@@ -372,13 +352,13 @@ public class FXMLController implements Initializable {
         //Data data = new Data(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText(),text_area.getText());
 
         LoadingBar.setProgress(Data.TestError(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()));
-        if(!DateValide(text_Birthday.getText())) {
+        if(!Data.DateValide(text_Birthday.getText())) {
             LoadingBar.setProgress(LoadingBar.getProgress() - 0.1f);
         }
-        if(!DateValide(text_DayOfImprisonment.getText())) {
+        if(!Data.DateValide(text_DayOfImprisonment.getText())) {
             LoadingBar.setProgress(LoadingBar.getProgress() - 0.1f);
         }
-        if(!DateValide(text_DayOfFact.getText())) {
+        if(!Data.DateValide(text_DayOfFact.getText())) {
             LoadingBar.setProgress(LoadingBar.getProgress() - 0.1f);
         }
        // System.out.println(Data.TestError(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()));
@@ -390,7 +370,7 @@ public class FXMLController implements Initializable {
 
         CompleteText();
         //System.out.println("TEST: "+(!Data.TestVoid(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText(),text_area.getText())) + NumeroEcrouValide + DateValide(text_Birthday.getText()) + DateValide(text_DayOfImprisonment.getText()) + DateValide(text_DayOfFact.getText()) + TestLongueur());
-        if((!Data.TestVoid(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText(),text_area.getText())) && NumeroEcrouValide && DateValide(text_Birthday.getText()) && DateValide(text_DayOfImprisonment.getText()) && DateValide(text_DayOfFact.getText()) && TestLongueur() ){
+        if((!Data.TestVoid(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText(),text_area.getText())) && NumeroEcrouValide && Data.DateValide(text_Birthday.getText()) && Data.DateValide(text_DayOfImprisonment.getText()) && Data.DateValide(text_DayOfFact.getText()) && TestLongueur() ){
             
             //Si tous les champs sont non vide ET si l'ecrou n'est pas deja dans la base ET si les 3 date a remplir sont dans le bon format ET si les longueurs de saisies ne depasse pas les longueurs maximal 
             
@@ -527,7 +507,7 @@ public class FXMLController implements Initializable {
                 read(text_area.getText());
             }
             //System.out.println("tst 1 : "+DateValide(text_Birthplace.getText()) + " test 2 : "+DateValide(text_DayOfImprisonment.getText())+" test 3 : "+DateValide(text_DayOfFact.getText()));
-        }else if (!Data.TestVoidWithOutEcrou(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()) && !NumeroEcrouValide && DateValide(text_Birthday.getText()) && DateValide(text_DayOfImprisonment.getText()) && DateValide(text_DayOfFact.getText()) && TestLongueur()){
+        }else if (!Data.TestVoidWithOutEcrou(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()) && !NumeroEcrouValide && Data.DateValide(text_Birthday.getText()) && Data.DateValide(text_DayOfImprisonment.getText()) && Data.DateValide(text_DayOfFact.getText()) && TestLongueur()){
             
             //Si les champs sauf le numero d'ecrou sont remplie ET que le numero d'ecrou existe ET que les dates sont au bon format ET que les champs ne depasse pas leurs longueur maximal
             
