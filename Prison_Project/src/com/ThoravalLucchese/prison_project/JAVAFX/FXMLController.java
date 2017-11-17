@@ -328,7 +328,7 @@ public class FXMLController implements Initializable {
     @FXML
     private void onClickBtnDel(MouseEvent event) {
         String aux;
-        if(text_area.getText().toLowerCase().contains("error"))
+        if(text_area.getText().toLowerCase().contains("erreur"))
             aux = "";
         else
             aux = text_area.getText().substring(0,text_area.getText().length() -1);
@@ -384,7 +384,7 @@ public class FXMLController implements Initializable {
        // System.out.println(Data.TestError(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()));
         if(text_area.getText().isEmpty()) {
             text_area.setStyle("-fx-text-fill: red;");
-            text_area.setText(text_area.getText()+'\n'+"Error Erase All and try again");
+            text_area.setText(text_area.getText()+'\n'+"Erreur. Supprimer tous et recommencer");
         }
 
 
