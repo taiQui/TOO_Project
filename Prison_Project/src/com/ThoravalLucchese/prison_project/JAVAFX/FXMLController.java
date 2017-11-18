@@ -181,14 +181,14 @@ public class FXMLController implements Initializable {
     
     
     private void CompleteText() {                    // Regarde si les champs sont remplis ou pas et les colores en consequence
-        if(text_LastName.getText().isEmpty())
+        if(text_LastName.getText().isEmpty() || text_LastName.getText().length() > 30)
             text_LastName.setStyle("-fx-border-color: red");
         else {
             text_LastName.setStyle("-fx-background: transparent");
             text_LastName.setStyle("-fx-border-color: transparent");
         }
 
-        if(text_FirstName.getText().isEmpty())
+        if(text_FirstName.getText().isEmpty() || text_FirstName.getText().length() > 30 )
             text_FirstName.setStyle("-fx-border-color: red");
         else {
             text_FirstName.setStyle("-fx-background: transparent");
@@ -203,21 +203,21 @@ public class FXMLController implements Initializable {
             text_Birthday.setStyle("-fx-border-color: transparent");
         }
 
-        if(text_Birthplace.getText().isEmpty())
+        if(text_Birthplace.getText().isEmpty() || text_Birthplace.getText().length() > 30)
             text_Birthplace.setStyle("-fx-border-color: red");
         else {
             text_Birthplace.setStyle("-fx-background: transparent");
             text_Birthplace.setStyle("-fx-border-color: transparent");
         }
 
-        if(text_CaseNumber.getText().isEmpty())
+        if(text_CaseNumber.getText().isEmpty() || text_CaseNumber.getText().length() > 10)
             text_CaseNumber.setStyle("-fx-border-color: red");
         else {
             text_CaseNumber.setStyle("-fx-background: transparent");
             text_CaseNumber.setStyle("-fx-border-color: transparent");
         }
 
-        if(text_NameOrigin.getText().isEmpty())
+        if(text_NameOrigin.getText().isEmpty() || text_NameOrigin.getText().length() > 30)
             text_NameOrigin.setStyle("-fx-border-color: red");
         else {
             text_NameOrigin.setStyle("-fx-background: transparent");
