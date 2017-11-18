@@ -203,14 +203,14 @@ public class Reduction_peineController implements Initializable {
                     
                     break;
                 case "Ajouter une condamnation":
-                    if(text_fieldtemps.getText().length() <= 10 && texte_jurridiction_addC.getText().length() <= 30 && !text_fieldtemps.getText().isEmpty() && !texte_jurridiction_addC.getText().isEmpty()){
+                    if(text_fieldtemps.getText().length() <= 10 && texte_jurridiction_addC.getText().length() <= 30 && !text_fieldtemps.getText().isEmpty()){
                         System.out.println("JE PASSE LA");
                         if(!_database.getAffaire(text_fieldtemps.getText()) && !text_dateFaits_addC.getText().isEmpty()){
-                            if(Data.DateValide(text_dateFaits_addC.getText())){
+                            if(Data.DateValide(text_dateFaits_addC.getText()) && !texte_jurridiction_addC.getText().isEmpty()){
                                   _database.AjoutCondamnation(text_necrou.getText(),text_fieldtemps.getText() , texte_jurridiction_addC.getText(),Convertisseur.calendarToString(Convertisseur.stringToCalendar(text_dateFaits_addC.getText(),"yyyy-MM-dd"),"yyyy-MM-dd"));
                                   indicator.setProgress(100.0f);
                             } else {
-                                newW("Erreur","Mauvais format de date","Rappel le format de la date dois etre : AAAA-MM-JJ");
+                                newW("Erreur","Mauvais format de date ou Champs juridiction vide.","Rappel le format de la date dois etre : AAAA-MM-JJ");
                             }
                             
                         } else if(_database.getAffaire(text_fieldtemps.getText())) {

@@ -286,8 +286,11 @@ public class bank_database {
                    ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire where n_affaire ='"+affaire+"' ");
                    System.out.println("time 2 : "+date);
                    rs.beforeFirst();
-                   if(rs.next())
-                       _connection.createStatement().execute("insert into Detenu_Affaire values('"+ecrou+"','"+affaire+"','"+juridiction+"')");
+                   if(rs.next()){
+                     _connection.createStatement().execute("insert into Detenu_Affaire values('"+ecrou+"','"+affaire+"','"+rs.getString("nom_juridiction")+"')");
+                     
+                   }
+                      
                    else {
                        _connection.createStatement().execute("insert into Affaire values('"+affaire+"','"+juridiction+"',DATE('"+date+"'))");
                        _connection.createStatement().execute("insert into Detenu_Affaire values('"+ecrou+"','"+affaire+"','"+juridiction+"')");
