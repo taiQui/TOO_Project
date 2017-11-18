@@ -306,13 +306,14 @@ public class FXMLController implements Initializable {
     }
 
     @FXML
-    private void onClickBtnDel(MouseEvent event) {
+    private void onClickBtnDel(MouseEvent event) throws SQLException {
         String aux;
         if(text_area.getText().toLowerCase().contains("erreur"))
             aux = "";
         else
             aux = text_area.getText().substring(0,text_area.getText().length() -1);
         text_area.setText(aux);
+        TestEcrou();
     }
 
     @FXML
@@ -462,7 +463,7 @@ public class FXMLController implements Initializable {
         System.out.println("read ("+ ecrou + ")");
         ArrayList<Detenu> liste = new ArrayList<Detenu>();
         liste = _database.searchOnDatabase(ecrou, 3);     // met le detenu avec le numero d'ecrou dans l'ArrayList " list "
-      if(!liste.get(0).getNom().isEmpty()) {
+      if(!liste.isEmpty()) {
           
           ArrayList<String> prisonnier = new ArrayList<String>();
           prisonnier = _database.getPrisonnier(ecrou);
@@ -507,7 +508,7 @@ public class FXMLController implements Initializable {
                 read(text_area.getText());
             }
             //System.out.println("tst 1 : "+DateValide(text_Birthplace.getText()) + " test 2 : "+DateValide(text_DayOfImprisonment.getText())+" test 3 : "+DateValide(text_DayOfFact.getText()));
-        }else if (!Data.TestVoidWithOutEcrou(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()) && !NumeroEcrouValide && Data.DateValide(text_Birthday.getText()) && Data.DateValide(text_DayOfImprisonment.getText()) && Data.DateValide(text_DayOfFact.getText()) && TestLongueur()){
+        }else if (!Data.TestVoidWithOutEcrou(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()) && !NumeroEcrouValide && Data.DateValide(text_Birthday.getText()) && Data.DateValide(text_DayOfImprisonment.getText()) && Data.DateValide(text_DayOfFact.getText()) && TestLongueur() && _database.FindPrisonnier(text_area.getText())){
             
             //Si les champs sauf le numero d'ecrou sont remplie ET que le numero d'ecrou existe ET que les dates sont au bon format ET que les champs ne depasse pas leurs longueur maximal
             
@@ -531,10 +532,25 @@ public class FXMLController implements Initializable {
             //Motif
             Motif motif = new Motif(Data.choiceMotif(choiceBox.getValue()));
 
-            _database.UpdatePrisonnier(detenu, affaire, juridiction, incarceration, motif);
+            int reponse = _database.UpdatePrisonnier(detenu, affaire, juridiction, incarceration, motif);
+            switch(reponse){
+                case 0:
+                    newW("Modification prisonnier","Succès","la modification est validé, la nouvelle affaire est changé.");
+                    break;
+                case 1:
+                    newW("Modification prisonnier","Succès","la modification est validé, la juridiction n'étant pas la meme que le numéro d'affaire donné en paramètre\nLa juridiction ecrite a été remplacé par la juridiction de l'affaire donnée.");
+                    break;
+                case 2:
+                    newW("Modification prisonnier","Succès","la modification est validé, l'affaire passe en paramètre n'existe pas, elle a ete crée.");
+                    break;
+                case 3:
+                    newW("Modification prisonnier","Succès","La modification est validé");
+                    break;
+            }
             LoadingBar.setStyle("-fx-accent: green;");
-            newW("Modification Prisonnier","Succes","La modification est validé");
+            //newW("Modification Prisonnier","Succes","La modification est validé");
             LoadingBar.setStyle("-fx-accent: white;"); 
+            read(text_area.getText());
         } else {
             newW("Mise a jour Prisonnier","Erreur","Numero ecrou invalide ou format date invalide");
         }

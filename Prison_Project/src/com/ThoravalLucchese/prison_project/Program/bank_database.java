@@ -183,13 +183,66 @@ public class bank_database {
    }
 
 
-   public void UpdatePrisonnier(Detenu detenu,Affaire affaire,Juridiction juridiction,Incarceration incarceration,Motif motif) throws SQLException {
+   public int UpdatePrisonnier(Detenu detenu,Affaire affaire,Juridiction juridiction,Incarceration incarceration,Motif motif) throws SQLException {
 
        _connection.createStatement().executeUpdate("update Detenu set prenom = '"+detenu.getPrenom()+"', nom = '"+detenu.getNom()+"',date_naissance = '"+Convertisseur.calendarToString(detenu.getDNaiss(),"yyyy-MM-dd")+"',lieu_naissance = '"+detenu.getLieuNaiss()+"' where n_ecrou = '"+detenu.getEcrou()+"' ");
-       //A VOIR _connection.createStatement().executeUpdate("update Affaire set n_affaire = '"+affaire.getAffaire()+"', nom_juridiction = '"+juridiction.getNom()+"',date_faits = '"+Convertisseur.calendarToString(affaire.getDate(),"yyyy-MM-dd")+"' where Affaire.n_affaire = (select d.n_affaire from Detenu_Affaire d where d.n_ecrou = '"+detenu.getEcrou()+"')");
-       _connection.createStatement().executeUpdate("update Detenu_Affaire set n_affaire = '"+affaire.getAffaire()+"', nom_juridiction = '"+juridiction.getNom()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
-       _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.getAffaire()+"',nom_juridiction='"+juridiction.getNom()+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
+       int response;
+       String tmpAff = null;
+       String tmpEcrou = null;
+       String tmpJuri = null;
+       ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Incarceration where n_ecrou = '"+detenu.getEcrou()+"'");
+       rs.beforeFirst();
+       boolean present = false;
+       if(rs.next()){
+           tmpAff = rs.getString("n_affaire");
+           tmpEcrou = rs.getString("n_ecrou");
+           tmpJuri = rs.getString("nom_juridiction");
+           if(affaire.getAffaire().equals(rs.getString("n_affaire"))){
+               present = true;
+           }
+       }
+       
+       
+       if(!present){
+            if(getAffaire(affaire.getAffaire())){
+                if(JuridictionInAffaire(affaire.getAffaire(),juridiction.getNom())){
+                    if(SameDetenuAffaire(detenu.getEcrou(),affaire.getAffaire(),getNameJuridictionOfAffaire(affaire.getAffaire()))){
+                        _connection.createStatement().executeUpdate("delete from Detenu_Affaire where n_ecrou = '"+tmpEcrou+"' and n_affaire = '"+tmpAff+"'"); 
+                        _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.getAffaire()+"',nom_juridiction='"+juridiction.getNom()+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
+                    } else {
+                        _connection.createStatement().executeUpdate("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"')");
+                        _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.getAffaire()+"',nom_juridiction='"+juridiction.getNom()+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
+                        _connection.createStatement().executeUpdate("delete from Detenu_Affaire where n_ecrou = '"+tmpEcrou+"' and n_affaire = '"+tmpAff+"'"); 
+                    }
+                    response = 0;
+                } else {
+                    if(SameDetenuAffaire(detenu.getEcrou(),affaire.getAffaire(),getNameJuridictionOfAffaire(affaire.getAffaire()))){
+                        _connection.createStatement().executeUpdate("delete from Detenu_Affaire where n_ecrou = '"+tmpEcrou+"' and n_affaire = '"+tmpAff+"' and nom_juridiction = '"+tmpJuri+"'"); 
+                        _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.getAffaire()+"',nom_juridiction='"+getNameJuridictionOfAffaire(affaire.getAffaire())+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
+                    } else {
+                        _connection.createStatement().executeUpdate("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+getNameJuridictionOfAffaire(affaire.getAffaire())+"')");
+                        _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.getAffaire()+"',nom_juridiction='"+getNameJuridictionOfAffaire(affaire.getAffaire())+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
+                        _connection.createStatement().executeUpdate("delete from Detenu_Affaire where n_ecrou = '"+tmpEcrou+"' and n_affaire = '"+tmpAff+"' and nom_juridiction = '"+tmpJuri+"'"); 
+                    }
+                     response = 1;
+                }
+            } else {
+                _connection.createStatement().executeUpdate("insert into Affaire values('"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+Convertisseur.calendarToString(affaire.getDate(),"yyyy-MM-dd")+"'))");
+                _connection.createStatement().executeUpdate("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"')");
+                _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.getAffaire()+"',nom_juridiction='"+juridiction.getNom()+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
+                _connection.createStatement().executeUpdate("delete from Detenu_Affaire where n_ecrou = '"+tmpEcrou+"' and n_affaire = '"+tmpAff+"' and nom_juridiction = '"+tmpJuri+"'");
+
+                response = 2;
+            }    
+       } else {
+           response = 3;
+       }
+       
+
+        //A VOIR _connection.createStatement().executeUpdate("update Affaire set n_affaire = '"+affaire.getAffaire()+"', nom_juridiction = '"+juridiction.getNom()+"',date_faits = '"+Convertisseur.calendarToString(affaire.getDate(),"yyyy-MM-dd")+"' where Affaire.n_affaire = (select d.n_affaire from Detenu_Affaire d where d.n_ecrou = '"+detenu.getEcrou()+"')");
+      // _connection.createStatement().executeUpdate("update Detenu_Affaire set n_affaire = '"+affaire.getAffaire()+"', nom_juridiction = '"+juridiction.getNom()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
        _connection.commit();
+       return(response);
    }
 
 
@@ -324,19 +377,20 @@ public class bank_database {
    public ArrayList<String> getPrisonnier (String ecrou) throws SQLException{
        ResultSet rs;
        ArrayList<String> liste = new ArrayList<String>();
-        rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire where Affaire.n_affaire = (select d.n_affaire from Detenu_Affaire d where d.n_ecrou = '"+ecrou+"')");
+        rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire where Affaire.n_affaire = (select d.n_affaire from Incarceration d where d.n_ecrou = '"+ecrou+"')");
        rs.beforeFirst();
        if(rs.next()){
            liste.add(rs.getString("n_affaire"));
            liste.add(rs.getString("nom_juridiction"));
            liste.add(rs.getString("date_faits"));
+           rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Incarceration where Incarceration.n_ecrou = '"+ecrou+"'");
+           rs.beforeFirst();
+           if(rs.next()){
+            liste.add(rs.getString("date_incarceration"));
+               liste.add(rs.getString("n_motif"));
+           }
        }
-       rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Incarceration where Incarceration.n_ecrou = '"+ecrou+"'");
-       rs.beforeFirst();
-       if(rs.next()){
-           liste.add(rs.getString("date_incarceration"));
-           liste.add(rs.getString("n_motif"));
-       }
+
        return liste;
    }
 
@@ -421,6 +475,40 @@ public class bank_database {
                      
                      return continuer;
    }
-  
    
+   private boolean JuridictionInAffaire(String affaire, String juridiction) throws SQLException {
+        ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire where n_affaire = '"+affaire+"'");
+        boolean continuer = false;
+        rs.beforeFirst();
+        if(rs.next()){
+            return(juridiction.equals(rs.getString("nom_juridiction")));
+        }
+        return false;
+   }
+   
+   private String getNameJuridictionOfAffaire(String affaire) throws SQLException{
+       ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire where n_affaire = '"+affaire+"'");
+        boolean continuer = false;
+        rs.beforeFirst();
+        if(rs.next()){
+            return(rs.getString("nom_juridiction"));
+        }
+        return "";
+   }
+  
+   public boolean FindPrisonnier(String ecrou) throws SQLException{
+        ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu where n_ecrou = '"+ecrou+"'");
+        rs.beforeFirst();
+        if(rs.next())
+            return true;
+        return false;
+   }
+   
+    private boolean SameDetenuAffaire(String ecrou, String affaire, String juri) throws SQLException{
+        ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu_Affaire where n_affaire = '"+affaire+"' and n_ecrou = '"+ecrou+"' and nom_juridiction = '"+juri+"'");
+        rs.beforeFirst();
+        if(rs.next())
+            return true;
+        return false;
+    }
 }
