@@ -186,7 +186,7 @@ public class bank_database {
    public void UpdatePrisonnier(Detenu detenu,Affaire affaire,Juridiction juridiction,Incarceration incarceration,Motif motif) throws SQLException {
 
        _connection.createStatement().executeUpdate("update Detenu set prenom = '"+detenu.getPrenom()+"', nom = '"+detenu.getNom()+"',date_naissance = '"+Convertisseur.calendarToString(detenu.getDNaiss(),"yyyy-MM-dd")+"',lieu_naissance = '"+detenu.getLieuNaiss()+"' where n_ecrou = '"+detenu.getEcrou()+"' ");
-       _connection.createStatement().executeUpdate("update Affaire set n_affaire = '"+affaire.getAffaire()+"', nom_juridiction = '"+juridiction.getNom()+"',date_faits = '"+Convertisseur.calendarToString(affaire.getDate(),"yyyy-MM-dd")+"' where Affaire.n_affaire = (select d.n_affaire from Detenu_Affaire d where d.n_ecrou = '"+detenu.getEcrou()+"')");
+       //A VOIR _connection.createStatement().executeUpdate("update Affaire set n_affaire = '"+affaire.getAffaire()+"', nom_juridiction = '"+juridiction.getNom()+"',date_faits = '"+Convertisseur.calendarToString(affaire.getDate(),"yyyy-MM-dd")+"' where Affaire.n_affaire = (select d.n_affaire from Detenu_Affaire d where d.n_ecrou = '"+detenu.getEcrou()+"')");
        _connection.createStatement().executeUpdate("update Detenu_Affaire set n_affaire = '"+affaire.getAffaire()+"', nom_juridiction = '"+juridiction.getNom()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
        _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.getAffaire()+"',nom_juridiction='"+juridiction.getNom()+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
        _connection.commit();
