@@ -35,6 +35,6 @@
     <Text fx:id="text_fleche" layoutX="758.0" layoutY="384.0" scaleX="1.7309064696130125" scaleY="2.329703395138682" strokeType="OUTSIDE" strokeWidth="0.0" text="=&gt;" />
     <TableView fx:id="tableviewRecherche" layoutX="14.0" layoutY="314.0" onContextMenuRequested="#onContextMenuClicked" prefHeight="129.0" prefWidth="417.0" />
     <TextField id="texte_affaire_addC" fx:id="texte_jurridiction_addC" layoutX="582.0" layoutY="215.0" prefHeight="45.0" prefWidth="336.0" promptText="Nom de juridiction" />
-    <TextField fx:id="text_dateFaits_addC" layoutX="582.0" layoutY="280.0" prefHeight="45.0" prefWidth="335.0" promptText="date des faits" />
+    <TextField fx:id="text_dateFaits_addC" layoutX="582.0" layoutY="280.0" onKeyReleased="#onkeyReleaseTextDateFait" prefHeight="45.0" prefWidth="335.0" promptText="date des faits" />
   </children>
 </AnchorPane>

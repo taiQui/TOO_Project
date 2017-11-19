@@ -358,5 +358,35 @@ public class Reduction_peineController implements Initializable {
         });
     }
 
+            private String OnlyDigitInDate(String date){
+            String test = date;
+            int i = 0;
+            while(i < test.length()){
+             if(!Character.isDigit(test.charAt(i)) && (!('-' == test.charAt(i)))){
+                 //System.out.println("charAt : "+ test.charAt(i) + "\ntest : "+ (test.charAt(i) == '-'));
+                 //System.out.println("chatAt : "+test.charAt(i)+"\nTest : "+test+"\nsub1 : "+test.substring(0,i)+"\nsub2 : "+test.substring(i+1,test.length()));
+                 test = test.substring(0,i) + test.substring(i+1,test.length());
+             } else {
+                 i++;
+             }
+            }
+         return(test);
+        }
+    
+    @FXML
+    private void onkeyReleaseTextDateFait(KeyEvent event) {
+        text_dateFaits_addC.setText(OnlyDigitInDate(text_dateFaits_addC.getText()));
+        text_dateFaits_addC.positionCaret(text_dateFaits_addC.getText().length());
+        String test[] = text_dateFaits_addC.getText().split("-");
+        if(Data.DateValide(text_dateFaits_addC.getText())){
+            if(Integer.parseInt(test[0]) > 3000 ){
+                Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                text_dateFaits_addC.setText(Integer.toString(year)+"-"+test[1]+"-"+test[2]);
+            }
+        }
+       
+    }
+
     
 }
