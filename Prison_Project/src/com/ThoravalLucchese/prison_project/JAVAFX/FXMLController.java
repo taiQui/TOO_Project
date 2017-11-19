@@ -24,6 +24,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -354,13 +355,16 @@ public class FXMLController implements Initializable {
 
         LoadingBar.setProgress(Data.TestError(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()));
         if(!Data.DateValide(text_Birthday.getText())) {
-            LoadingBar.setProgress(LoadingBar.getProgress() - 0.1f);
+            if(LoadingBar.getProgress() > 0.0f)
+                LoadingBar.setProgress(LoadingBar.getProgress() - 0.1f);
         }
         if(!Data.DateValide(text_DayOfImprisonment.getText())) {
-            LoadingBar.setProgress(LoadingBar.getProgress() - 0.1f);
+            if(LoadingBar.getProgress() > 0.0f)
+                LoadingBar.setProgress(LoadingBar.getProgress() - 0.1f);
         }
         if(!Data.DateValide(text_DayOfFact.getText())) {
-            LoadingBar.setProgress(LoadingBar.getProgress() - 0.1f);
+            if(LoadingBar.getProgress() > 0.0f)
+                LoadingBar.setProgress(LoadingBar.getProgress() - 0.1f);
         }
        // System.out.println(Data.TestError(text_LastName.getText(),text_FirstName.getText(),text_Birthday.getText(),text_Birthplace.getText(),text_CaseNumber.getText(),text_NameOrigin.getText(),text_DayOfImprisonment.getText(),text_DayOfFact.getText()));
         if(text_area.getText().isEmpty()) {
@@ -608,6 +612,18 @@ public class FXMLController implements Initializable {
 
 
          }
+         int i = 0;
+         System.out.println("---------------------------------\n-------------------");  
+         while(i < test.length()){
+             if(!Character.isDigit(test.charAt(i))){
+                 System.out.println("chatAt : "+test.charAt(i)+"\nTest : "+test+"\nsub1 : "+test.substring(0,i)+"\nsub2 : "+test.substring(i+1,test.length()));
+                 test = test.substring(0,i) + test.substring(i+1,test.length());
+             } else {
+                 i++;
+             }
+         }
+         text_area.setText(test);
+         text_area.positionCaret(text_area.getText().length());
          TestEcrou();
        
         }
@@ -624,6 +640,37 @@ public class FXMLController implements Initializable {
          }
         }
 
+        private String OnlyDigitInDate(String date){
+            String test = date;
+            int i = 0;
+            while(i < test.length()){
+             if(!Character.isDigit(test.charAt(i))){
+                 //System.out.println("chatAt : "+test.charAt(i)+"\nTest : "+test+"\nsub1 : "+test.substring(0,i)+"\nsub2 : "+test.substring(i+1,test.length()));
+                 test = test.substring(0,i) + test.substring(i+1,test.length());
+             } else {
+                 i++;
+             }
+         }
+         return(test);
+        }
 
+    @FXML
+    private void OnkeyReleasedTextDayOfImprisonment(KeyEvent event) {
+        text_DayOfImprisonment.setText(OnlyDigitInDate(text_DayOfImprisonment.getText()));
+        text_DayOfImprisonment.positionCaret(text_DayOfImprisonment.getText().length());
+    }
+
+    @FXML
+    private void OnkeyReleasedTextBirhtday(KeyEvent event) {
+        text_Birthday.setText(OnlyDigitInDate(text_Birthday.getText()));
+        text_Birthday.positionCaret(text_Birthday.getText().length());
+    }
+
+    @FXML
+    private void OnkeyReleasedTextDayOfFact(KeyEvent event) {
+        text_DayOfFact.setText(OnlyDigitInDate(text_DayOfFact.getText()));
+        text_DayOfFact.positionCaret(text_DayOfFact.getText().length());
+        
+    }
 
 }

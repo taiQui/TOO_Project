@@ -239,6 +239,10 @@ public class Data {
                 if(!(aux[2].length() == 2) ){
                     continuer = false;
                 }
+                if(Integer.parseInt(aux[0]) > 5000){
+                    continuer = false;
+                }
+                
         } else {
             continuer = false;
         }

@@ -30,12 +30,12 @@
         <Button fx:id="btn_8" font="$x2" layoutX="150.0" layoutY="486.0" mnemonicParsing="false" onMouseClicked="#onClickBtn8" prefHeight="73.0" prefWidth="116.0" text="8" />
         <Button fx:id="btn_7" font="$x2" layoutX="14.0" layoutY="486.0" mnemonicParsing="false" onMouseClicked="#onClickBtn7" prefHeight="73.0" prefWidth="116.0" text="7" />
         <TextArea fx:id="text_area" disable="false" editable="true" layoutX="14.0" layoutY="52.0" onKeyReleased="#onkeyRelease" prefHeight="235.0" prefWidth="387.0" promptText="Entrée le numéro d'écrou" wrapText="true" />
-        <TextField id="text_8" fx:id="text_DayOfImprisonment" layoutX="433.0" layoutY="405.0" prefHeight="52.0" prefWidth="200.0" promptText="Date d'emprisonnement aaaa-MM-jj" text="" />
+        <TextField id="text_8" fx:id="text_DayOfImprisonment" layoutX="433.0" layoutY="405.0" onKeyReleased="#OnkeyReleasedTextDayOfImprisonment" prefHeight="52.0" prefWidth="200.0" promptText="Date d'emprisonnement aaaa-MM-jj" text="" />
         <TextField id="text_NOC" fx:id="text_NameOrigin" layoutX="433.0" layoutY="346.0" prefHeight="59.0" prefWidth="200.0" promptText="Nom de juridiction" text="" />
         <TextField id="text_CN" fx:id="text_CaseNumber" layoutX="433.0" layoutY="287.0" prefHeight="59.0" prefWidth="200.0" promptText="Numéro d'affaire" />
         <TextField id="text_LN" fx:id="text_LastName" layoutX="433.0" layoutY="52.0" prefHeight="59.0" prefWidth="200.0" promptText="Nom" text="" />
         <TextField id="text_FN" fx:id="text_FirstName" layoutX="433.0" layoutY="111.0" prefHeight="59.0" prefWidth="200.0" promptText="Prénom" text="" />
-        <TextField id="text_Birth" fx:id="text_Birthday" layoutX="433.0" layoutY="170.0" prefHeight="59.0" prefWidth="200.0" promptText="Anniversaire aaaa-MM-jj" />
+        <TextField id="text_Birth" fx:id="text_Birthday" layoutX="433.0" layoutY="170.0" onKeyReleased="#OnkeyReleasedTextBirhtday" prefHeight="59.0" prefWidth="200.0" promptText="Anniversaire aaaa-MM-jj" />
         <TextField id="text_BP" fx:id="text_Birthplace" layoutX="433.0" layoutY="228.0" prefHeight="59.0" prefWidth="200.0" promptText="Lieu de naissance" />
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="433.0" layoutY="0.0" prefHeight="52.0" prefWidth="200.0" text="Donnée" textAlignment="JUSTIFY" underline="true">
           <font>
@@ -50,7 +50,7 @@
         <Button fx:id="btnDelete" font="$x3" layoutX="663.0" layoutY="451.0" mnemonicParsing="false" onMouseClicked="#onClickBtnDelete" prefHeight="126.0" prefWidth="246.0" text="Supprimer" />
         <Button fx:id="btnRead" font="$x3" layoutX="663.0" layoutY="184.0" maxHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#onClickBtnRead" prefHeight="126.0" prefWidth="246.0" text="Lire" />
         <Button fx:id="btn_create" font="$x3" layoutX="663.0" layoutY="52.0" maxHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#onClickBtnCreate" prefHeight="126.0" prefWidth="246.0" text="Créer" />
-        <TextField id="Text_DayOfFact" fx:id="text_DayOfFact" layoutX="433.0" layoutY="509.0" prefHeight="59.0" prefWidth="200.0" promptText="Date des faits aaaa-MM-jj" text="" />
+        <TextField id="Text_DayOfFact" fx:id="text_DayOfFact" layoutX="433.0" layoutY="509.0" onKeyReleased="#OnkeyReleasedTextDayOfFact" prefHeight="59.0" prefWidth="200.0" promptText="Date des faits aaaa-MM-jj" text="" />
         <ProgressBar fx:id="LoadingBar" layoutX="433.0" layoutY="638.0" minHeight="14.0001220703125" prefHeight="15.0" prefWidth="200.0" progress="0.0" />
         <Label alignment="CENTER" contentDisplay="CENTER" font="$x4" layoutX="14.0" layoutY="0.0" prefHeight="52.0" prefWidth="387.0" text="Numéro d'écrou" textAlignment="JUSTIFY" underline="false" />
         <Button fx:id="btnMenu" font="$x3" layoutX="663.0" layoutY="599.0" mnemonicParsing="false" onMouseClicked="#onClickBtnMenu" prefHeight="36.0" prefWidth="246.0" style="-fx-border-color: #003366; -fx-border-width: 2;" text="&lt;- Menu" textAlignment="JUSTIFY" textFill="#b98d42" textOverrun="WORD_ELLIPSIS" />
