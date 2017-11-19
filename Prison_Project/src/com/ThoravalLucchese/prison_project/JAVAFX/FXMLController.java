@@ -644,7 +644,8 @@ public class FXMLController implements Initializable {
             String test = date;
             int i = 0;
             while(i < test.length()){
-             if(!Character.isDigit(test.charAt(i))){
+             if(!Character.isDigit(test.charAt(i)) && (!('-' == test.charAt(i)))){
+                 //System.out.println("charAt : "+ test.charAt(i) + "\ntest : "+ (test.charAt(i) == '-'));
                  //System.out.println("chatAt : "+test.charAt(i)+"\nTest : "+test+"\nsub1 : "+test.substring(0,i)+"\nsub2 : "+test.substring(i+1,test.length()));
                  test = test.substring(0,i) + test.substring(i+1,test.length());
              } else {
