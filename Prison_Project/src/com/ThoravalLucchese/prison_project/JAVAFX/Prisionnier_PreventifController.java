@@ -116,6 +116,21 @@ public class Prisionnier_PreventifController implements Initializable {
     
         tableview.getColumns().addAll(colonneEcrou,colonnePrenom,colonneNom,colonneDateNaiss,colonneLieuxNaiss);
 
+        
+        
+        tableviewAffaire.setEditable(true);
+
+        colonneNAffaire.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_date_naissanceFX"));
+        colonneNAffaire.setStyle("-fx-text-fill: black;");
+        
+        colonneNjuridiction.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_lieu_naissanceFX"));
+        colonneNjuridiction.setStyle("-fx-text-fill: black;");
+        
+        colonnedatefais.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_n_ecrouFX"));
+        colonnedatefais.setStyle("-fx-text-fill: black;");
+    
+        tableviewAffaire.getColumns().addAll(colonneNAffaire,colonneNjuridiction,colonnedatefais);
+        
         choiceBox.setItems(FXCollections.observableArrayList("Preventif","Tous","Affaire"));
         choiceBox.setValue("Tous");
        // barchart.setDisable(false);
