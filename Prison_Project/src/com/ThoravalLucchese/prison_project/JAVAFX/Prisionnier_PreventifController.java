@@ -169,29 +169,56 @@ public class Prisionnier_PreventifController implements Initializable {
         
        
         ArrayList<Detenu> liste;
+        ArrayList<Affaire> listeAffaire;
         
         ObservableList<Detenu>  ajoutable = FXCollections.observableArrayList();
+        ObservableList<Affaire>  ajoutable2 = FXCollections.observableArrayList();
        
        
         
         
         if(choiceBox.getValue().equals("Preventif")){
              liste = _database.getArray(1);
+             listeAffaire = null;
+             
+        } else if(choiceBox.getValue().equals("Tous")) {
+             liste = _database.getArray(3);
+             listeAffaire = null;
              
         } else {
-             liste = _database.getArray(3);
-             
-
+            liste = null;
+            listeAffaire = _database.getArray();
         }
-      
-            liste.forEach((d) -> {
+        
+        
+        if(choiceBox.getValue().equals("Tous") || choiceBox.getValue().equals("Preventif") ) {
+         liste.forEach((d) -> {
             ajoutable.add(d);
-        });
+        }); 
+        } else {
+            listeAffaire.forEach((d) -> {
+                ajoutable2.add(d);
+            });
+        }
+
        
 
         
-        
-            tableview.setItems(ajoutable);
+            if(liste != null){
+                tableview.setVisible(true);
+                tableview.setDisable(false);
+                tableviewAffaire.setVisible(false);
+                tableviewAffaire.setDisable(true);
+                tableview.setItems(ajoutable);
+                
+            } else {
+                tableviewAffaire.setVisible(true);
+                tableviewAffaire.setDisable(false);
+                tableview.setVisible(false);
+                tableview.setDisable(true);
+            }
+            
+            
         
         
         
