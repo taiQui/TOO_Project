@@ -166,7 +166,7 @@ public class bank_database {
        _connection.createStatement().execute("insert into Detenu values('"+detenu.getEcrou()+"','"+detenu.getPrenom()+"','"+detenu.getNom()+"',DATE('"+Convertisseur.calendarToString(detenu.getDNaiss(),"yyyy-MM-dd")+"'),'"+detenu.getLieuNaiss()+"')");
        System.out.println("Ajout Detenu");
 
-       rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire where n_affaire = '"+affaire.get_n_affaire()+"'");
+       rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire where n_affaire = '"+affaire.get_n_affaire()+"' and nom_juridiction = '"+juridiction.getNom()+"'");
        rs.beforeFirst();
        if(!rs.next()) {
             _connection.createStatement().execute("insert into Affaire values('"+affaire.get_n_affaire()+"','"+juridiction.getNom()+"',DATE('"+Convertisseur.calendarToString(affaire.get_date_faits(),"yyyy-MM-dd")+"'))");
@@ -353,7 +353,8 @@ public class bank_database {
 
    }
 
-   public ArrayList<Affaire> getArray() throws SQLException{
+   public ArrayList<Affaire> getArrays() throws SQLException{
+                System.out.println("Je rentre ici");
                  ResultSet   rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire");
                  ArrayList<Affaire> liste = new ArrayList<>();
                  rs.beforeFirst();
@@ -361,6 +362,7 @@ public class bank_database {
                      Affaire affaire = new Affaire(rs.getString("n_affaire"),rs.getString("nom_juridiction"),Convertisseur.stringToCalendar(rs.getString("date_faits"),"yyyy-MM-dd"));
                      liste.add(affaire);
                  }
+                 //System.out.println("Taille affaire : "+liste.size());
                  return(liste);
    }
    
@@ -521,6 +523,18 @@ public class bank_database {
         if(rs.next())
             return true;
         return false;
+    }
+    
+    public ArrayList<Detenu> getAllPrisonnerInCase(String affaire, String juridiction) throws SQLException {
+        ArrayList<Detenu> liste = new ArrayList<Detenu>();
+        ResultSet rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu where n_ecrou = (select n_ecrou from Detenu_Affaire where n_affaire = '"+affaire+"' and nom_juridiction = '"+juridiction+"')");
+        rs.beforeFirst();
+        while(rs.next()){
+            Detenu det = new Detenu(rs.getString("n_ecrou"),rs.getString("prenom"),rs.getString("nom"),Convertisseur.stringToCalendar(rs.getString("date_naissance"),"yyyy-MM-dd"),rs.getString("lieu_naissance"));
+            liste.add(det);
+        }
+        
+        return liste;
     }
     
 }

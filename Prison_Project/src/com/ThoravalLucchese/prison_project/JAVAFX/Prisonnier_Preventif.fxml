@@ -25,6 +25,7 @@
       </items>
     </ChoiceBox>
     <Button fx:id="btn_stat" layoutX="1107.0" layoutY="194.0" mnemonicParsing="false" onMouseClicked="#onclickBtnstats" prefHeight="75.0" prefWidth="170.0" text="Statistique" />
-    <TableView fx:id="tableviewAffaire" layoutX="14.0" layoutY="89.0" prefHeight="533.0" prefWidth="774.0" visible="true" />
+    <TableView fx:id="tableviewAffaire" layoutX="14.0" layoutY="89.0" onContextMenuRequested="#onContextMenuRequested" prefHeight="533.0" prefWidth="774.0" visible="true" />
+    <TableView fx:id="tableviewDetAff" layoutX="788.0" layoutY="330.0" prefHeight="292.0" prefWidth="489.0" />
   </children>
 </AnchorPane>

@@ -20,15 +20,22 @@ public class Affaire {
             String _n_affaire;
             String _juridiction;
             java.util.Calendar _date_faits;
+            String _date_faitsString;
             
     public Affaire(String affaire,String juridiction, java.util.Calendar date){
         this._n_affaire = affaire;
         this._date_faits = date;
         this._juridiction = juridiction;
+        this._date_faitsString = Convertisseur.calendarToString(this._date_faits,"yyyy-MM-dd");
+        
     }
     
     public String get_juridiction(){
         return _juridiction;
+    }
+    
+    public String get_date_faitsString(){
+        return(_date_faitsString);
     }
             
     public String get_n_affaire(){
