@@ -166,15 +166,15 @@ public class bank_database {
        _connection.createStatement().execute("insert into Detenu values('"+detenu.getEcrou()+"','"+detenu.getPrenom()+"','"+detenu.getNom()+"',DATE('"+Convertisseur.calendarToString(detenu.getDNaiss(),"yyyy-MM-dd")+"'),'"+detenu.getLieuNaiss()+"')");
        System.out.println("Ajout Detenu");
 
-       rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire where n_affaire = '"+affaire.getAffaire()+"'");
+       rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire where n_affaire = '"+affaire.get_n_affaire()+"'");
        rs.beforeFirst();
        if(!rs.next()) {
-            _connection.createStatement().execute("insert into Affaire values('"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+Convertisseur.calendarToString(affaire.getDate(),"yyyy-MM-dd")+"'))");
+            _connection.createStatement().execute("insert into Affaire values('"+affaire.get_n_affaire()+"','"+juridiction.getNom()+"',DATE('"+Convertisseur.calendarToString(affaire.get_date_faits(),"yyyy-MM-dd")+"'))");
        System.out.println("Ajout Affaire");
        }
-      _connection.createStatement().execute("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"')");
+      _connection.createStatement().execute("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.get_n_affaire()+"','"+juridiction.getNom()+"')");
        System.out.println("Ajout Detenu Affaire");
-      _connection.createStatement().execute("insert into Incarceration values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"'),'"+motif.getMotif()+"')");
+      _connection.createStatement().execute("insert into Incarceration values('"+detenu.getEcrou()+"','"+affaire.get_n_affaire()+"','"+juridiction.getNom()+"',DATE('"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"'),'"+motif.getMotif()+"')");
        System.out.println("Ajout Incarceration");
 
       _connection.commit();
@@ -197,39 +197,39 @@ public class bank_database {
            tmpAff = rs.getString("n_affaire");
            tmpEcrou = rs.getString("n_ecrou");
            tmpJuri = rs.getString("nom_juridiction");
-           if(affaire.getAffaire().equals(rs.getString("n_affaire"))){
+           if(affaire.get_n_affaire().equals(rs.getString("n_affaire"))){
                present = true;
            }
        }
        
        
        if(!present){
-            if(getAffaire(affaire.getAffaire())){
-                if(JuridictionInAffaire(affaire.getAffaire(),juridiction.getNom())){
-                    if(SameDetenuAffaire(detenu.getEcrou(),affaire.getAffaire(),getNameJuridictionOfAffaire(affaire.getAffaire()))){
+            if(getAffaire(affaire.get_n_affaire())){
+                if(JuridictionInAffaire(affaire.get_n_affaire(),juridiction.getNom())){
+                    if(SameDetenuAffaire(detenu.getEcrou(),affaire.get_n_affaire(),getNameJuridictionOfAffaire(affaire.get_n_affaire()))){
                         _connection.createStatement().executeUpdate("delete from Detenu_Affaire where n_ecrou = '"+tmpEcrou+"' and n_affaire = '"+tmpAff+"'"); 
-                        _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.getAffaire()+"',nom_juridiction='"+juridiction.getNom()+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
+                        _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.get_n_affaire()+"',nom_juridiction='"+juridiction.getNom()+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
                     } else {
-                        _connection.createStatement().executeUpdate("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"')");
-                        _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.getAffaire()+"',nom_juridiction='"+juridiction.getNom()+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
+                        _connection.createStatement().executeUpdate("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.get_n_affaire()+"','"+juridiction.getNom()+"')");
+                        _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.get_n_affaire()+"',nom_juridiction='"+juridiction.getNom()+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
                         _connection.createStatement().executeUpdate("delete from Detenu_Affaire where n_ecrou = '"+tmpEcrou+"' and n_affaire = '"+tmpAff+"'"); 
                     }
                     response = 0;
                 } else {
-                    if(SameDetenuAffaire(detenu.getEcrou(),affaire.getAffaire(),getNameJuridictionOfAffaire(affaire.getAffaire()))){
+                    if(SameDetenuAffaire(detenu.getEcrou(),affaire.get_n_affaire(),getNameJuridictionOfAffaire(affaire.get_n_affaire()))){
                         _connection.createStatement().executeUpdate("delete from Detenu_Affaire where n_ecrou = '"+tmpEcrou+"' and n_affaire = '"+tmpAff+"' and nom_juridiction = '"+tmpJuri+"'"); 
-                        _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.getAffaire()+"',nom_juridiction='"+getNameJuridictionOfAffaire(affaire.getAffaire())+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
+                        _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.get_n_affaire()+"',nom_juridiction='"+getNameJuridictionOfAffaire(affaire.get_n_affaire())+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
                     } else {
-                        _connection.createStatement().executeUpdate("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+getNameJuridictionOfAffaire(affaire.getAffaire())+"')");
-                        _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.getAffaire()+"',nom_juridiction='"+getNameJuridictionOfAffaire(affaire.getAffaire())+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
+                        _connection.createStatement().executeUpdate("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.get_n_affaire()+"','"+getNameJuridictionOfAffaire(affaire.get_n_affaire())+"')");
+                        _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.get_n_affaire()+"',nom_juridiction='"+getNameJuridictionOfAffaire(affaire.get_n_affaire())+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
                         _connection.createStatement().executeUpdate("delete from Detenu_Affaire where n_ecrou = '"+tmpEcrou+"' and n_affaire = '"+tmpAff+"' and nom_juridiction = '"+tmpJuri+"'"); 
                     }
                      response = 1;
                 }
             } else {
-                _connection.createStatement().executeUpdate("insert into Affaire values('"+affaire.getAffaire()+"','"+juridiction.getNom()+"',DATE('"+Convertisseur.calendarToString(affaire.getDate(),"yyyy-MM-dd")+"'))");
-                _connection.createStatement().executeUpdate("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.getAffaire()+"','"+juridiction.getNom()+"')");
-                _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.getAffaire()+"',nom_juridiction='"+juridiction.getNom()+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
+                _connection.createStatement().executeUpdate("insert into Affaire values('"+affaire.get_n_affaire()+"','"+juridiction.getNom()+"',DATE('"+Convertisseur.calendarToString(affaire.get_date_faits(),"yyyy-MM-dd")+"'))");
+                _connection.createStatement().executeUpdate("insert into Detenu_Affaire values('"+detenu.getEcrou()+"','"+affaire.get_n_affaire()+"','"+juridiction.getNom()+"')");
+                _connection.createStatement().executeUpdate("update Incarceration set n_affaire = '"+affaire.get_n_affaire()+"',nom_juridiction='"+juridiction.getNom()+"',date_incarceration = '"+Convertisseur.calendarToString(incarceration.getDate(),"yyyy-MM-dd")+"',n_motif = '"+motif.getMotif()+"' where n_ecrou = '"+detenu.getEcrou()+"'");
                 _connection.createStatement().executeUpdate("delete from Detenu_Affaire where n_ecrou = '"+tmpEcrou+"' and n_affaire = '"+tmpAff+"' and nom_juridiction = '"+tmpJuri+"'");
 
                 response = 2;
@@ -353,6 +353,17 @@ public class bank_database {
 
    }
 
+   public ArrayList<Affaire> getArray() throws SQLException{
+                 ResultSet   rs = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Affaire");
+                 ArrayList<Affaire> liste = new ArrayList<>();
+                 rs.beforeFirst();
+                 while(rs.next()){
+                     Affaire affaire = new Affaire(rs.getString("n_affaire"),rs.getString("nom_juridiction"),Convertisseur.stringToCalendar(rs.getString("date_faits"),"yyyy-MM-dd"));
+                     liste.add(affaire);
+                 }
+                 return(liste);
+   }
+   
    public ArrayList<Detenu> getArray(int sql) throws SQLException, ParseException{
 
        ResultSet rs;
@@ -511,4 +522,5 @@ public class bank_database {
             return true;
         return false;
     }
+    
 }

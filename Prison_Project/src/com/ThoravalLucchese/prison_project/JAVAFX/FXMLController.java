@@ -244,8 +244,7 @@ public class FXMLController implements Initializable {
     @FXML
     private void onClickBtnPoint(MouseEvent event) throws SQLException {
         text_area.setStyle("-fx-text-fill: black");
-        String aux = text_area.getText() + '.';
-        text_area.setText(aux);
+        text_area.setText("");
         TestEcrou();
     }
 
@@ -388,7 +387,7 @@ public class FXMLController implements Initializable {
 
         //Affaire
         calendar = Convertisseur.stringToCalendar(text_DayOfFact.getText(),"yyyy-MM-dd");
-        Affaire affaire = new Affaire(text_CaseNumber.getText(),calendar);
+        Affaire affaire = new Affaire(text_CaseNumber.getText(),"",calendar);
 
         //Juridiction
         Juridiction juridiction = new Juridiction(text_NameOrigin.getText());
@@ -524,7 +523,7 @@ public class FXMLController implements Initializable {
 
             //Affaire
             calendar = Convertisseur.stringToCalendar(text_DayOfFact.getText(), "yyyy-MM-dd");
-            Affaire affaire = new Affaire(text_CaseNumber.getText(),calendar);
+            Affaire affaire = new Affaire(text_CaseNumber.getText(),"",calendar);
 
             //Juridiction
             Juridiction juridiction = new Juridiction(text_NameOrigin.getText());

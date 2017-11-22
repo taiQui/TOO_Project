@@ -7,6 +7,7 @@ package com.ThoravalLucchese.prison_project.JAVAFX;
 
 import com.ThoravalLucchese.prison_project.Program.Detenu;
 import com.ThoravalLucchese.prison_project.Program.bank_database;
+import com.ThoravalLucchese.prison_project.Program.Affaire;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -57,7 +58,7 @@ public class Prisionnier_PreventifController implements Initializable {
     @FXML
     private Button btnMenu;
     @FXML
-    private TableView<Detenu> tableview = new TableView<Detenu>();
+    private TableView<Detenu> tableview ;
     @FXML
     private Button btn_voir;
 
@@ -70,10 +71,19 @@ public class Prisionnier_PreventifController implements Initializable {
     public TableColumn colonneEcrou = new TableColumn("Ecrou");
     public TableColumn colonneNom = new TableColumn("Nom");
     public TableColumn colonnePrenom = new TableColumn("Prenom");
+    
+    
+    public TableColumn colonneNAffaire = new TableColumn("Numero d'affaire");
+    public  TableColumn colonneNjuridiction = new TableColumn("Nom de juridiction");
+    public TableColumn colonnedatefais = new TableColumn("Date des faits");
+
+    
     @FXML
     private ChoiceBox<String> choiceBox = new ChoiceBox<String>();
     @FXML
     private Button btn_stat;
+    @FXML
+    private TableView<Affaire> tableviewAffaire;
     /**
      * Initializes the controller class.
      * @param url
@@ -82,7 +92,8 @@ public class Prisionnier_PreventifController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("inPrisonPreventif");
-        //tableview.setEditable(true);
+        
+        tableview.setEditable(true);
 
         colonneDateNaiss.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_date_naissanceFX"));
         colonneDateNaiss.setStyle("-fx-text-fill: black;");
@@ -105,32 +116,14 @@ public class Prisionnier_PreventifController implements Initializable {
     
         tableview.getColumns().addAll(colonneEcrou,colonnePrenom,colonneNom,colonneDateNaiss,colonneLieuxNaiss);
 
-        choiceBox.setItems(FXCollections.observableArrayList("Preventif","Tous"));
+        choiceBox.setItems(FXCollections.observableArrayList("Preventif","Tous","Affaire"));
         choiceBox.setValue("Tous");
        // barchart.setDisable(false);
        
         System.out.println("JE PASSE ICI");
-//        CategoryAxis xAxis = new CategoryAxis();
-//        NumberAxis yAxis = new NumberAxis();
-//        barchart = new BarChart(xAxis,yAxis);
-//        barchart.setTitle("Statistique d'ajouts");
-//        xAxis.setLabel("Année");       
-//        yAxis.setLabel("Nombre de prisonnier");
-//        XYChart.Series series1 = new XYChart.Series();
-//        series1.setName("Annee");
-//        series1.getData().add(new XYChart.Data("1998", 50.0));
-//        series1.getData().add(new XYChart.Data("1999", 100));
-//        series1.getData().add(new XYChart.Data("2000", 58));
-//        
-//        barchart.getData().add(series1);
-//
-//        VBox vbox = new VBox(barchart);
-//        Scene scene = new Scene(vbox,400,200);
-//        Stage stage = new Stage();
-//        stage.setScene(scene);
-//        stage.showAndWait();
-        
-        //actualiseChart();
+        tableviewAffaire.setVisible(false);
+        tableview.setVisible(true);
+        tableview.setDisable(false);
         try {
             _database = new bank_database();
         }catch (Exception e1){
@@ -154,23 +147,38 @@ public class Prisionnier_PreventifController implements Initializable {
         stage.show();
     }
     
-    
+
  
 
     private void show() throws SQLException, ParseException {
+        
+       
         ArrayList<Detenu> liste;
+        
         ObservableList<Detenu>  ajoutable = FXCollections.observableArrayList();
-        if(choiceBox.getValue().equals("Preventif"))
+       
+       
+        
+        
+        if(choiceBox.getValue().equals("Preventif")){
              liste = _database.getArray(1);
-        else 
+             
+        } else {
              liste = _database.getArray(3);
-            
-        liste.forEach((d) -> {
+             
+
+        }
+      
+            liste.forEach((d) -> {
             ajoutable.add(d);
         });
+       
+
         
-            
-        tableview.setItems(ajoutable);
+        
+            tableview.setItems(ajoutable);
+        
+        
         
  
     }
@@ -262,7 +270,7 @@ public class Prisionnier_PreventifController implements Initializable {
                 //System.out.println(tableview.getSelectionModel().getSelectedItems());
                 TablePosition pos = tableview.getSelectionModel().getSelectedCells().get(0);
                 int row = pos.getRow();
-                Detenu item = tableview.getItems().get(row);
+                Detenu item = (Detenu) tableview.getItems().get(row);
                 System.out.println("item :"+item.getEcrou());
                 
                
@@ -292,7 +300,7 @@ public class Prisionnier_PreventifController implements Initializable {
                 System.out.println("On supprime directement le detenu");
                 TablePosition pos = tableview.getSelectionModel().getSelectedCells().get(0);
                 int row = pos.getRow();
-                Detenu item = tableview.getItems().get(row);
+                Detenu item = (Detenu) tableview.getItems().get(row);
                 System.out.println(item.getEcrou());
                 try{
                     _database.DeletePrisonnier(item.getEcrou());

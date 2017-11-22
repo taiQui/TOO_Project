@@ -13,7 +13,7 @@
   <children>
     <AnchorPane id="AnchorPane" disable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="646.0" prefWidth="963.0">
       <children>
-        <Button fx:id="btn_point" layoutX="14.0" layoutY="579.0" mnemonicParsing="false" onMouseClicked="#onClickBtnPoint" prefHeight="73.0" prefWidth="116.0" text=".">
+        <Button fx:id="btn_point" layoutX="14.0" layoutY="579.0" mnemonicParsing="false" onMouseClicked="#onClickBtnPoint" prefHeight="73.0" prefWidth="116.0" text="EFFACER">
           <font>
             <Font size="18.0" fx:id="x2" />
           </font>

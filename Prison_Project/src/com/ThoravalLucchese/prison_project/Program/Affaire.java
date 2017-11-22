@@ -18,19 +18,24 @@ public class Affaire {
     
     private
             String _n_affaire;
-            StringProperty _n_affaireSP;
+            String _juridiction;
             java.util.Calendar _date_faits;
             
-    public Affaire(String affaire, java.util.Calendar date){
+    public Affaire(String affaire,String juridiction, java.util.Calendar date){
         this._n_affaire = affaire;
         this._date_faits = date;
+        this._juridiction = juridiction;
+    }
+    
+    public String get_juridiction(){
+        return _juridiction;
     }
             
-    public String getAffaire(){
+    public String get_n_affaire(){
         return(this._n_affaire);
     }
     
-    public java.util.Calendar getDate(){
+    public java.util.Calendar get_date_faits(){
         return(this._date_faits);
     }
     
