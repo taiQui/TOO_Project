@@ -14,7 +14,7 @@
     <Button fx:id="btnMenu" layoutX="1107.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#onClickBtnMenu" prefHeight="75.0" prefWidth="170.0" text="Retour au menu" />
     <Text id="text_tlp" layoutX="349.0" layoutY="44.0" scaleX="7.414681489324157" scaleY="3.1302006852667645" strokeType="OUTSIDE" strokeWidth="0.0" text="Tous les prisonniers" underline="true" />
     <TableView fx:id="tableview" disable="false" editable="false" layoutX="14.0" layoutY="89.0" onContextMenuRequested="#onContextMenuClicked" prefHeight="533.0" prefWidth="774.0" tableMenuButtonVisible="true" visible="false" />
-    <Button fx:id="btn_voir" layoutX="788.0" layoutY="89.0" mnemonicParsing="false" onMouseClicked="#clickbtnvoir" prefHeight="26.0" prefWidth="170.0" text="Voir les prisonniers" />
+    <Button fx:id="btn_voir" layoutX="788.0" layoutY="89.0" mnemonicParsing="false" onMouseClicked="#clickbtnvoir" prefHeight="26.0" prefWidth="170.0" text="Actualiser" />
     <ChoiceBox fx:id="choiceBox" layoutX="788.0" layoutY="194.0" prefWidth="170.0">
       <items>
         <FXCollections fx:factory="observableArrayList">

@@ -285,7 +285,7 @@ public class bank_database {
 
       /*********************************************************************************************************/
 
-                                                //ajout reduction peine ( reducpeinecontroller )
+  //ajout reduction peine ( reducpeinecontroller )
    /**********************************************************************************************************/
 
    public void reducPeine(int duree,String ecrou,ProgressIndicator indicator,TextField t1, TextField t2) throws SQLException, ParseException{
@@ -537,4 +537,21 @@ public class bank_database {
         return liste;
     }
     
+       public boolean CanDelete(String affaire,String juridiction) throws SQLException{
+       resultset = _connection.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE, java.sql.ResultSet.CONCUR_READ_ONLY).executeQuery("select * from Detenu_Affaire where n_affaire = (select d.n_affaire from Affaire d where d.n_affaire = '"+affaire+"' and d.nom_juridiction = '"+juridiction+"') and nom_juridiction = ( select f.nom_juridiction from Affaire f where f.n_affaire = '"+affaire+"' and f.nom_juridiction = '"+juridiction+"')  ");
+       resultset.beforeFirst();
+       if(resultset.next()){
+           return(false);
+       }
+       return(true);
+       
+   }
+    
+           public void deleteAffaire ( String affaire, String juridiction) throws SQLException{
+        _connection.createStatement().executeUpdate("delete from Affaire where n_affaire = '"+affaire+"' and nom_juridiction = '"+juridiction+"'  ");
+        _connection.commit();
+        
+          }
+       
+
 }

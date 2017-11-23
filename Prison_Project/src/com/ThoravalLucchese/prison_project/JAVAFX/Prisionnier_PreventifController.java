@@ -442,12 +442,24 @@ public class Prisionnier_PreventifController implements Initializable {
         
         
     }
+    
+        public void newW(String titre, String header, String content){
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle(titre);
+                alert.setHeaderText(header);
+                alert.setContentText(content);
+                alert.initOwner(tableview.getScene().getWindow());
+                alert.showAndWait();
+    }
+    
 
     @FXML
     private void onContextMenuRequested(ContextMenuEvent event) {
         final ContextMenu tableContextMenu = new ContextMenu();
         final MenuItem find = new MenuItem("Afficher les detenus de cette affaires");
-        tableContextMenu.getItems().add(find);
+        final MenuItem delete = new MenuItem("Suppimer l'affaire");
+        tableContextMenu.getItems().addAll(find,delete);
         tableviewAffaire.setVisible(true);
         tableviewAffaire.setDisable(false);
         tableviewAffaire.setContextMenu(tableContextMenu);
@@ -477,6 +489,30 @@ public class Prisionnier_PreventifController implements Initializable {
                 tableviewDetAff.setDisable(false);
                 tableviewDetAff.setItems(ajoutable);
                 
+                
+            }
+        });
+        
+        delete.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event){
+                TablePosition pos = tableviewAffaire.getSelectionModel().getSelectedCells().get(0);
+                int row = pos.getRow();
+                Affaire item = (Affaire) tableviewAffaire.getItems().get(row);
+                
+                try {
+                    if(_database.CanDelete(item.get_n_affaire(),item.get_juridiction())){
+                        _database.deleteAffaire(item.get_n_affaire(),item.get_juridiction());
+                        newW("Succès","L'affaire à ete supprimer","");
+                        show();
+                    } else {
+                        newW("Erreur","Affaire non supprimé","L'affaire est encore liée a des detenus");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Prisionnier_PreventifController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Prisionnier_PreventifController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
             }
         });
