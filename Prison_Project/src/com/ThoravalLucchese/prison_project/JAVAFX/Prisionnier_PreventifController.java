@@ -166,7 +166,7 @@ public class Prisionnier_PreventifController implements Initializable {
         tableviewDetAff.setDisable(true);
         
         choiceBox.setItems(FXCollections.observableArrayList("Preventif","Tous","Affaire"));
-        choiceBox.setValue("Affaire");
+        choiceBox.setValue("Tous");
        // barchart.setDisable(false);
        
         System.out.println("JE PASSE ICI");
