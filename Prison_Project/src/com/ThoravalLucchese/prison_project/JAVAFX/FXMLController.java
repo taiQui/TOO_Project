@@ -307,11 +307,14 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void onClickBtnDel(MouseEvent event) throws SQLException {
-        String aux;
+        String aux = text_area.getText();
         if(text_area.getText().toLowerCase().contains("erreur"))
             aux = "";
-        else
-            aux = text_area.getText().substring(0,text_area.getText().length() -1);
+        else {
+            if(!text_area.getText().isEmpty())
+                aux = text_area.getText().substring(0,text_area.getText().length() -1);
+        }
+            
         text_area.setText(aux);
         TestEcrou();
     }
