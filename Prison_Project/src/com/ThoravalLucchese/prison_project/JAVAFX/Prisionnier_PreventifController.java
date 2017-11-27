@@ -73,6 +73,13 @@ public class Prisionnier_PreventifController implements Initializable {
     public TableColumn colonnePrenom = new TableColumn("Prenom");
     
     
+    public TableColumn colonneDateNaiss2 = new TableColumn("Date de naissance");
+    public  TableColumn colonneLieuxNaiss2 = new TableColumn("Lieu de naissance");
+    public TableColumn colonneEcrou2 = new TableColumn("Ecrou");
+    public TableColumn colonneNom2 = new TableColumn("Nom");
+    public TableColumn colonnePrenom2 = new TableColumn("Prenom");
+    
+    
     public TableColumn colonneNAffaire = new TableColumn("Numero d'affaire");
     public  TableColumn colonneNjuridiction = new TableColumn("Nom de juridiction");
     public TableColumn colonnedatefais = new TableColumn("Date des faits");
@@ -84,6 +91,8 @@ public class Prisionnier_PreventifController implements Initializable {
     private Button btn_stat;
     @FXML
     private TableView<Affaire> tableviewAffaire;
+    @FXML
+    private TableView<Detenu> tableviewDetAff;
     /**
      * Initializes the controller class.
      * @param url
@@ -120,16 +129,41 @@ public class Prisionnier_PreventifController implements Initializable {
         
         tableviewAffaire.setEditable(true);
 
-        colonneNAffaire.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_date_naissanceFX"));
+        colonneNAffaire.setCellValueFactory(new PropertyValueFactory<Affaire,String>("_n_affaire"));
         colonneNAffaire.setStyle("-fx-text-fill: black;");
         
-        colonneNjuridiction.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_lieu_naissanceFX"));
+        colonneNjuridiction.setCellValueFactory(new PropertyValueFactory<Affaire,String>("_juridiction"));
         colonneNjuridiction.setStyle("-fx-text-fill: black;");
         
-        colonnedatefais.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_n_ecrouFX"));
+        colonnedatefais.setCellValueFactory(new PropertyValueFactory<Affaire,String>("_date_faitsString"));
         colonnedatefais.setStyle("-fx-text-fill: black;");
     
         tableviewAffaire.getColumns().addAll(colonneNAffaire,colonneNjuridiction,colonnedatefais);
+        
+        
+        
+        
+        colonneDateNaiss2.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_date_naissanceFX"));
+        colonneDateNaiss2.setStyle("-fx-text-fill: black;");
+        
+        colonneLieuxNaiss2.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_lieu_naissanceFX"));
+        colonneLieuxNaiss2.setStyle("-fx-text-fill: black;");
+        
+        colonneEcrou2.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_n_ecrouFX"));
+        colonneEcrou2.setStyle("-fx-text-fill: black;");
+        
+        colonneNom2.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_nomFX"));
+        colonneNom2.setStyle("-fx-text-fill: black;");
+
+        colonnePrenom2.setCellValueFactory(new PropertyValueFactory<Detenu,String>("_prenomFX"));
+        colonnePrenom2.setStyle("-fx-text-fill: red;");
+        
+        tableviewDetAff.getStyleClass().add("Times New Roman");
+        tableviewDetAff.setStyle("-fx-text-fill: black;");
+       
+        tableviewDetAff.getColumns().addAll(colonneEcrou2,colonnePrenom2,colonneNom2,colonneDateNaiss2,colonneLieuxNaiss2);
+        tableviewDetAff.setVisible(false);
+        tableviewDetAff.setDisable(true);
         
         choiceBox.setItems(FXCollections.observableArrayList("Preventif","Tous","Affaire"));
         choiceBox.setValue("Tous");
@@ -175,40 +209,43 @@ public class Prisionnier_PreventifController implements Initializable {
         ObservableList<Affaire>  ajoutable2 = FXCollections.observableArrayList();
        
        
-        
+        System.out.println("TEST 1 : " +choiceBox.getValue().equals("Preventif") + " TEST 2 : "+ choiceBox.getValue().equals("Tous") + " TEST 3 : "+choiceBox.getValue().equals("Affaire") + " TEST 4 : "+(choiceBox.getValue().equals("Tous") || choiceBox.getValue().equals("Preventif")));
         
         if(choiceBox.getValue().equals("Preventif")){
              liste = _database.getArray(1);
              listeAffaire = null;
-             
         } else if(choiceBox.getValue().equals("Tous")) {
              liste = _database.getArray(3);
              listeAffaire = null;
-             
+        } else if(choiceBox.getValue().equals("Affaire")){
+            listeAffaire = _database.getArrays();
+            liste = null;
         } else {
             liste = null;
-            listeAffaire = _database.getArray();
+            listeAffaire= null;
         }
-        
+       
         
         if(choiceBox.getValue().equals("Tous") || choiceBox.getValue().equals("Preventif") ) {
          liste.forEach((d) -> {
             ajoutable.add(d);
         }); 
         } else {
+            
             listeAffaire.forEach((d) -> {
                 ajoutable2.add(d);
             });
+
         }
 
-       
-
-        
-            if(liste != null){
+      
+            if(liste != null && listeAffaire == null){
                 tableview.setVisible(true);
                 tableview.setDisable(false);
                 tableviewAffaire.setVisible(false);
                 tableviewAffaire.setDisable(true);
+                tableviewDetAff.setVisible(false);
+                tableviewDetAff.setDisable(true);
                 tableview.setItems(ajoutable);
                 
             } else {
@@ -216,13 +253,9 @@ public class Prisionnier_PreventifController implements Initializable {
                 tableviewAffaire.setDisable(false);
                 tableview.setVisible(false);
                 tableview.setDisable(true);
+                tableviewAffaire.setItems(ajoutable2);
             }
-            
-            
-        
-        
-        
- 
+
     }
     
     
@@ -326,12 +359,7 @@ public class Prisionnier_PreventifController implements Initializable {
                 }
                 
                     //Trouver un moyen pour ecrire dans une nouvelle scène
-                    
-                    
-                    
-            
-                   
-                
+     
             }
         });
         
@@ -414,5 +442,80 @@ public class Prisionnier_PreventifController implements Initializable {
         
         
     }
+    
+        public void newW(String titre, String header, String content){
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle(titre);
+                alert.setHeaderText(header);
+                alert.setContentText(content);
+                alert.initOwner(tableview.getScene().getWindow());
+                alert.showAndWait();
+    }
+    
+
+    @FXML
+    private void onContextMenuRequested(ContextMenuEvent event) {
+        final ContextMenu tableContextMenu = new ContextMenu();
+        final MenuItem find = new MenuItem("Afficher les detenus de cette affaires");
+        final MenuItem delete = new MenuItem("Suppimer l'affaire");
+        tableContextMenu.getItems().addAll(find,delete);
+        tableviewAffaire.setVisible(true);
+        tableviewAffaire.setDisable(false);
+        tableviewAffaire.setContextMenu(tableContextMenu);
+        
+        find.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                
+                TablePosition pos = tableviewAffaire.getSelectionModel().getSelectedCells().get(0);
+                int row = pos.getRow();
+                Affaire item = (Affaire) tableviewAffaire.getItems().get(row);
+                
+                //System.out.println("item :"+item.get_n_affaire());
+                ObservableList<Detenu>  ajoutable = FXCollections.observableArrayList();
+                ArrayList<Detenu> liste = new ArrayList<Detenu>();
+                try {
+                     liste = _database.getAllPrisonnerInCase(item.get_n_affaire(),item.get_juridiction());
+                } catch (SQLException ex) {
+                    Logger.getLogger(Prisionnier_PreventifController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                liste.forEach((d) -> {
+                    ajoutable.add(d);
+                }); 
+                
+                tableviewDetAff.setVisible(true);
+                tableviewDetAff.setDisable(false);
+                tableviewDetAff.setItems(ajoutable);
+                
+                
+            }
+        });
+        
+        delete.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event){
+                TablePosition pos = tableviewAffaire.getSelectionModel().getSelectedCells().get(0);
+                int row = pos.getRow();
+                Affaire item = (Affaire) tableviewAffaire.getItems().get(row);
+                
+                try {
+                    if(_database.CanDelete(item.get_n_affaire(),item.get_juridiction())){
+                        _database.deleteAffaire(item.get_n_affaire(),item.get_juridiction());
+                        newW("Succès","L'affaire à ete supprimer","");
+                        show();
+                    } else {
+                        newW("Erreur","Affaire non supprimé","L'affaire est encore liée a des detenus");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Prisionnier_PreventifController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Prisionnier_PreventifController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+        });
+   }
 
 }
